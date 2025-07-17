@@ -1,0 +1,10 @@
+services:
+  app:
+    container_name: morph-app
+    image: php:8.3
+    volumes:
+      - ./:/opt/www
+    environment:
+      - SONAR_TOKEN=${SONAR_TOKEN:-undefined}
+    entrypoint: [ 'tail', '-f', '/dev/null' ]
+    restart: on-failure
