@@ -11,6 +11,7 @@
       "Morph\\": "src/"
     },
     "files": [
+      "functions/cast.php",
       "functions/notation.php"
     ]
   },
