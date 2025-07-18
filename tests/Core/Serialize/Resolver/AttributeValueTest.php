@@ -8,11 +8,11 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use Morph\Core\Serialize\Resolver\AttributeValue;
 use Morph\Exception\Adapter\NotResolved;
+use Morph\Support\Managed;
 use Morph\Support\Reflective\Factory\Target;
 use Morph\Support\Set;
 use Morph\Test\Stub\AttributesVariety;
 use PHPUnit\Framework\TestCase;
-use Serendipity\Infrastructure\Database\Managed;
 
 use function Morph\Crypt\encrypt;
 

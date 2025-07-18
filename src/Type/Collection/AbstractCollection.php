@@ -45,16 +45,6 @@ abstract class AbstractCollection implements Iterator, Countable
         return count($this->data);
     }
 
-    final public function all(): array
-    {
-        return $this->data;
-    }
-
-    final public function map(Closure $callback): array
-    {
-        return array_map($callback, $this->data());
-    }
-
     final protected function data(): array
     {
         return $this->data;
@@ -63,5 +53,15 @@ abstract class AbstractCollection implements Iterator, Countable
     final protected function datum(): mixed
     {
         return $this->data[$this->cursor] ?? null;
+    }
+
+    public function all(): array
+    {
+        return $this->data;
+    }
+
+    public function map(Closure $callback): array
+    {
+        return array_map($callback, $this->data());
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Morph\Support\Reflective;
 
+use Morph\Type\Collection;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionIntersectionType;

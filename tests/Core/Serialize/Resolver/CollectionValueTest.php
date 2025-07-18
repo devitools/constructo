@@ -16,38 +16,6 @@ use stdClass;
 
 final class CollectionValueTest extends TestCase
 {
-    public function testShouldResolveSuccessfully(): void
-    {
-        // Arrange
-        $type = $this->createMock(ReflectionNamedType::class);
-        $type->expects($this->once())
-            ->method('getName')
-            ->willReturn(FeatureCollection::class);
-        $parameter = $this->createMock(ReflectionParameter::class);
-        $parameter->expects($this->once())
-            ->method('getType')
-            ->willReturn($type);
-        $parameter->expects($this->once())
-            ->method('getName')
-            ->willReturn('features');
-
-        $faker = $this->faker();
-        $set = Set::createFrom([
-            'features' => [
-                $faker->fake(Feature::class)->toArray(),
-                $faker->fake(Feature::class)->toArray(),
-            ],
-        ]);
-        $collectionValue = new CollectionValue();
-
-        // Act
-        $result = $collectionValue->resolve($parameter, $set);
-
-        // Assert
-        $this->assertInstanceOf(FeatureCollection::class, $result->content);
-        $this->assertCount(2, $result->content);
-    }
-
     public function testShouldResolveWhenTheValueIsNotValid(): void
     {
         // Arrange

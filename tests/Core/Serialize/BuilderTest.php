@@ -99,9 +99,9 @@ final class BuilderTest extends TestCase
             $messages = [
                 "The value for 'id' must be of type 'int' and 'string' was given.",
                 "The value for 'price' is required and was not given.",
-                "The value for 'more' must be of type 'Serendipity\\Test\\Testing\\Stub\\NoConstructor' and 'DateTime' was given.",
-                "The value for 'no' must be of type 'Serendipity\\Test\\Testing\\Stub\\NoParameters' and 'string' was given.",
-                "The value for 'enum' must be of type 'Serendipity\\Test\\Testing\\Stub\\Type\\SingleBacked' and 'bool' was given.",
+                "The value for 'more' must be of type 'Morph\\Test\\Stub\\NoConstructor' and 'DateTime' was given.",
+                "The value for 'no' must be of type 'Morph\\Test\\Stub\\NoParameters' and 'string' was given.",
+                "The value for 'enum' must be of type 'Morph\\Test\\Stub\\Type\\SingleBacked' and 'bool' was given.",
             ];
             foreach ($messages as $message) {
                 if ($this->hasErrorMessage($errors, $message)) {
