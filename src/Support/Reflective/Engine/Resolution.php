@@ -12,8 +12,8 @@ use Morph\Support\Value;
 use ReflectionParameter;
 
 use function is_array;
-use function Serendipity\Notation\format;
-use function Serendipity\Type\Cast\stringify;
+use function Morph\Notation\format;
+use function Morph\Cast\stringify;
 use function sprintf;
 
 abstract class Resolution

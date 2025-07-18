@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Serendipity\Type\Cast;
+namespace Morph\Cast;
 
 use Stringable;
 

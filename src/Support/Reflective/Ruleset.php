@@ -6,7 +6,7 @@ namespace Morph\Support\Reflective;
 
 use Stringable;
 
-use function Serendipity\Type\Cast\stringify;
+use function Morph\Cast\stringify;
 
 final class Ruleset
 {

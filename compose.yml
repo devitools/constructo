@@ -1,10 +1,13 @@
 services:
-  app:
+  morph:
+    platform: linux/amd64
     container_name: morph-app
-    image: php:8.3
+    image: webdevops/php-dev:8.3
+    working_dir: /opt/www
     volumes:
       - ./:/opt/www
     environment:
+      - XDEBUG_MODE=coverage
       - SONAR_TOKEN=${SONAR_TOKEN:-undefined}
     entrypoint: [ 'tail', '-f', '/dev/null' ]
     restart: on-failure

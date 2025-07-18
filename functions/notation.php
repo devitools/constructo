@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Serendipity\Notation;
+namespace Morph\Notation;
 
 use Jawira\CaseConverter\Convert;
 use Morph\Support\Reflective\Notation;
 
-use function Serendipity\Type\Cast\stringify;
+use function Morph\Cast\stringify;
 
 if (! function_exists(__NAMESPACE__ . '\format')) {
     function format(string $string, Notation $notation): string

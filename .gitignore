@@ -13,7 +13,7 @@ vendor/
 .phpunit*
 *.cache
 .vscode/
-*core
+*.core
 *.override.*
 composer.lock
 *.log

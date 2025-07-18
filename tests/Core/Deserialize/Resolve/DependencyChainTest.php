@@ -1,0 +1,31 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Morph\Test\Core\Deserialize\Resolve;
+
+use Morph\Core\Deserialize\Resolve\DependencyChain;
+use PHPUnit\Framework\TestCase;
+use ReflectionParameter;
+use stdClass;
+
+final class DependencyChainTest extends TestCase
+{
+    public function testResolveObject(): void
+    {
+        $chain = new DependencyChain();
+        $object = new stdClass();
+        $result = $chain->resolve($this->createMock(ReflectionParameter::class), $object);
+
+        $this->assertIsArray($result->content);
+    }
+
+    public function testResolveNonObject(): void
+    {
+        $chain = new DependencyChain();
+        $value = 'test';
+        $result = $chain->resolve($this->createMock(ReflectionParameter::class), $value);
+
+        $this->assertEquals('test', $result->content);
+    }
+}

@@ -14,8 +14,8 @@ use ReflectionUnionType;
 use Morph\Support\Reflective\Factory\Chain;
 use Morph\Support\Reflective\Ruleset;
 
-use function Serendipity\Type\Cast\boolify;
-use function Serendipity\Type\Cast\stringify;
+use function Morph\Cast\boolify;
+use function Morph\Cast\stringify;
 
 class TypeChain extends Chain
 {

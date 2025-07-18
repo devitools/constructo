@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         colors="true"
+         testdox="true"
+         cacheDirectory="tests/.phpunit/cache"
+         cacheResultFile="tests/.phpunit/result.cache"
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         displayDetailsOnTestsThatTriggerErrors="true"
+         failOnDeprecation="true"
+         failOnRisky="true"
+         failOnWarning="true"
+>
+    <coverage disableCodeCoverageIgnore="true">
+        <report>
+            <clover outputFile="tests/.phpunit/clover.xml"/>
+            <text outputFile="tests/.phpunit/text.txt"/>
+        </report>
+    </coverage>
+
+    <logging>
+        <junit outputFile="tests/.phpunit/logging.xml"/>
+    </logging>
+
+    <testsuites>
+        <testsuite name="default">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <source>
+        <include>
+            <directory suffix=".php">./src</directory>
+        </include>
+    </source>
+
+    <extensions>
+        <bootstrap class="RobinIngelbrecht\PHPUnitPrettyPrint\PhpUnitExtension">
+            <parameter name="displayProfiling" value="true"/>
+            <parameter name="displayMemory" value="true"/>
+        </bootstrap>
+    </extensions>
+</phpunit>

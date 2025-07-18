@@ -16,8 +16,8 @@ use Morph\Support\Reflective\Definition\TypeExtended;
 use Morph\Support\Reflective\Factory\Chain;
 use Morph\Support\Reflective\Ruleset;
 
-use function Serendipity\Notation\snakify;
-use function Serendipity\Type\Cast\boolify;
+use function Morph\Notation\snakify;
+use function Morph\Cast\boolify;
 
 class AttributeChain extends Chain
 {
