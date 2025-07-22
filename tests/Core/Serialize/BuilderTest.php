@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Core\Serialize;
+namespace Constructo\Test\Core\Serialize;
 
 use DateTime;
 use Faker\Factory;
-use Morph\Core\Serialize\Builder;
-use Morph\Exception\Adapter\NotResolved;
-use Morph\Exception\AdapterException;
-use Morph\Support\Reflective\Notation;
-use Morph\Support\Set;
-use Morph\Test\Stub\Deep;
-use Morph\Test\Stub\EntityStub;
-use Morph\Test\Stub\Formatter\ArrayFormatter;
-use Morph\Test\Stub\NoConstructor;
-use Morph\Test\Stub\Type\Intersected;
-use Morph\Test\Stub\Type\SingleBacked;
-use Morph\Test\Stub\Variety;
+use Constructo\Core\Serialize\Builder;
+use Constructo\Exception\Adapter\NotResolved;
+use Constructo\Exception\AdapterException;
+use Constructo\Support\Reflective\Notation;
+use Constructo\Support\Set;
+use Constructo\Test\Stub\Deep;
+use Constructo\Test\Stub\EntityStub;
+use Constructo\Test\Stub\Formatter\ArrayFormatter;
+use Constructo\Test\Stub\NoConstructor;
+use Constructo\Test\Stub\Type\Intersected;
+use Constructo\Test\Stub\Type\SingleBacked;
+use Constructo\Test\Stub\Variety;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-use function Morph\Json\encode;
+use function Constructo\Json\encode;
 
 final class BuilderTest extends TestCase
 {
@@ -99,9 +99,9 @@ final class BuilderTest extends TestCase
             $messages = [
                 "The value for 'id' must be of type 'int' and 'string' was given.",
                 "The value for 'price' is required and was not given.",
-                "The value for 'more' must be of type 'Morph\\Test\\Stub\\NoConstructor' and 'DateTime' was given.",
-                "The value for 'no' must be of type 'Morph\\Test\\Stub\\NoParameters' and 'string' was given.",
-                "The value for 'enum' must be of type 'Morph\\Test\\Stub\\Type\\SingleBacked' and 'bool' was given.",
+                "The value for 'more' must be of type 'Constructo\\Test\\Stub\\NoConstructor' and 'DateTime' was given.",
+                "The value for 'no' must be of type 'Constructo\\Test\\Stub\\NoParameters' and 'string' was given.",
+                "The value for 'enum' must be of type 'Constructo\\Test\\Stub\\Type\\SingleBacked' and 'bool' was given.",
             ];
             foreach ($messages as $message) {
                 if ($this->hasErrorMessage($errors, $message)) {

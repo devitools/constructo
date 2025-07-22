@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Morph\Contract\Testing;
+namespace Constructo\Contract\Testing;
 
-use Morph\Support\Set;
+use Constructo\Support\Set;
 
 interface Helper
 {

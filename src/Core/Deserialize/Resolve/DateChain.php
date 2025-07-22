@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Morph\Core\Deserialize\Resolve;
+namespace Constructo\Core\Deserialize\Resolve;
 
 use DateTimeInterface;
-use Morph\Core\Deserialize\Chain;
-use Morph\Support\Value;
-use Morph\Type\Timestamp;
+use Constructo\Core\Deserialize\Chain;
+use Constructo\Support\Value;
+use Constructo\Type\Timestamp;
 use ReflectionParameter;
 
 class DateChain extends Chain

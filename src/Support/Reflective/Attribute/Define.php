@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Morph\Support\Reflective\Attribute;
+namespace Constructo\Support\Reflective\Attribute;
 
 use Attribute;
-use Morph\Support\Reflective\Definition\Type;
-use Morph\Support\Reflective\Definition\TypeExtended;
+use Constructo\Support\Reflective\Definition\Type;
+use Constructo\Support\Reflective\Definition\TypeExtended;
 
 #[Attribute]
 readonly class Define

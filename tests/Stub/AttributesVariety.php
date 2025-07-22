@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Stub;
+namespace Constructo\Test\Stub;
 
 use DateTimeImmutable;
 use SensitiveParameter;
-use Morph\Support\Reflective\Attribute\Define;
-use Morph\Support\Reflective\Attribute\Managed;
-use Morph\Support\Reflective\Attribute\Pattern;
-use Morph\Support\Reflective\Definition\Type;
-use Morph\Test\Stub\Type\Sensitive;
+use Constructo\Support\Reflective\Attribute\Define;
+use Constructo\Support\Reflective\Attribute\Managed;
+use Constructo\Support\Reflective\Attribute\Pattern;
+use Constructo\Support\Reflective\Definition\Type;
+use Constructo\Test\Stub\Type\Sensitive;
 
 readonly class AttributesVariety
 {

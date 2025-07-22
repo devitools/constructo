@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Morph\Type;
+namespace Constructo\Type;
 
 use DateTimeImmutable;
 use DateTimeInterface;

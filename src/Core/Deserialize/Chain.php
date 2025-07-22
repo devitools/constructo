@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Morph\Core\Deserialize;
+namespace Constructo\Core\Deserialize;
 
-use Morph\Support\Value;
+use Constructo\Support\Value;
 use ReflectionParameter;
 
 abstract class Chain extends Demolisher

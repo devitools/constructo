@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Morph\Contract;
+namespace Constructo\Contract;
 
 use Closure;
 

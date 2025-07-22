@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Morph\Json;
+namespace Constructo\Json;
 
 use JsonException;
 
-use function Morph\Cast\arrayify;
-use function Morph\Cast\stringify;
+use function Constructo\Cast\arrayify;
+use function Constructo\Cast\stringify;
 
 if (! function_exists(__NAMESPACE__ . '\decode')) {
     function decode(string $json): ?array

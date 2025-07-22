@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Core\Serialize\Resolver;
+namespace Constructo\Test\Core\Serialize\Resolver;
 
-use Morph\Core\Serialize\Resolver\CollectionValue;
-use Morph\Exception\Adapter\NotResolved;
-use Morph\Support\Set;
-use Morph\Test\Stub\Domain\Collection\Game\FeatureCollection;
-use Morph\Test\Stub\Domain\Entity\Game\Feature;
+use Constructo\Core\Serialize\Resolver\CollectionValue;
+use Constructo\Exception\Adapter\NotResolved;
+use Constructo\Support\Set;
+use Constructo\Test\Stub\Domain\Collection\Game\FeatureCollection;
+use Constructo\Test\Stub\Domain\Entity\Game\Feature;
 use PHPUnit\Framework\TestCase;
 use ReflectionNamedType;
 use ReflectionParameter;

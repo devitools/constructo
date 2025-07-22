@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Morph\Core\Serialize\Resolver;
+namespace Constructo\Core\Serialize\Resolver;
 
-use Morph\Contract\Collectable;
-use Morph\Core\Serialize\Resolver;
-use Morph\Support\Set;
-use Morph\Support\Value;
+use Constructo\Contract\Collectable;
+use Constructo\Core\Serialize\Resolver;
+use Constructo\Support\Set;
+use Constructo\Support\Value;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionParameter;
 
-use function Morph\Cast\arrayify;
+use function Constructo\Cast\arrayify;
 
 class CollectionValue extends Resolver
 {

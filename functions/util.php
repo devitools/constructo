@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Morph\Util;
+namespace Constructo\Util;
 
 if (! function_exists(__NAMESPACE__ . '\extractArray')) {
     /**

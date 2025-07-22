@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Morph\Crypt;
+namespace Constructo\Crypt;
 
 use InvalidArgumentException;
 use RuntimeException;
-use Morph\Support\Set;
+use Constructo\Support\Set;
 
 use function base64_decode;
 use function base64_encode;
@@ -15,11 +15,11 @@ use function defined;
 use function openssl_decrypt;
 use function openssl_encrypt;
 use function random_bytes;
-use function Morph\Cast\arrayify;
-use function Morph\Cast\stringify;
-use function Morph\Json\decode;
-use function Morph\Json\encode;
-use function Morph\Util\extractString;
+use function Constructo\Cast\arrayify;
+use function Constructo\Cast\stringify;
+use function Constructo\Json\decode;
+use function Constructo\Json\encode;
+use function Constructo\Util\extractString;
 use function sprintf;
 
 if (! defined('DEFAULT_CRYPT_KEY')) {

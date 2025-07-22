@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Stub\Domain\Entity\Game;
+namespace Constructo\Test\Stub\Domain\Entity\Game;
 
-use Morph\Support\Entity;
-use Morph\Support\Reflective\Attribute\Define;
-use Morph\Support\Reflective\Definition\Type;
+use Constructo\Support\Entity;
+use Constructo\Support\Reflective\Attribute\Define;
+use Constructo\Support\Reflective\Definition\Type;
 
 class Feature extends Entity
 {

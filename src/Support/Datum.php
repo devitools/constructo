@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Morph\Support;
+namespace Constructo\Support;
 
 use Error;
 use JsonSerializable;
-use Morph\Contract\Exportable;
+use Constructo\Contract\Exportable;
 use Throwable;
 
 class Datum implements Exportable, JsonSerializable

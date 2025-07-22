@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Morph\Support;
+namespace Constructo\Support;
 
 use JsonSerializable;
-use Morph\Contract\Exportable;
+use Constructo\Contract\Exportable;
 
 class Entity implements Exportable, JsonSerializable
 {

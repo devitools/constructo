@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Morph\Support;
+namespace Constructo\Support;
 
 readonly class Value
 {

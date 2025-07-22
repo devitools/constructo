@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Morph\Support\Reflective\Factory\Ruler;
+namespace Constructo\Support\Reflective\Factory\Ruler;
 
 use ReflectionParameter;
-use Morph\Support\Reflective\Factory\Chain;
-use Morph\Support\Reflective\Ruleset;
+use Constructo\Support\Reflective\Factory\Chain;
+use Constructo\Support\Reflective\Ruleset;
 
 class MandatoryChain extends Chain
 {

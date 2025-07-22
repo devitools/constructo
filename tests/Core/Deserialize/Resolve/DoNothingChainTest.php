@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Core\Deserialize\Resolve;
+namespace Constructo\Test\Core\Deserialize\Resolve;
 
-use Morph\Core\Deserialize\Resolve\DoNothingChain;
+use Constructo\Core\Deserialize\Resolve\DoNothingChain;
 use PHPUnit\Framework\TestCase;
 use ReflectionParameter;
 

@@ -8,7 +8,7 @@
   "description": "The definitive serializer and deserializer for PHP",
   "autoload": {
     "psr-4": {
-      "Morph\\": "src/"
+      "Constructo\\": "src/"
     },
     "files": [
       "functions/cast.php",
@@ -20,7 +20,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Morph\\Test\\": "tests/"
+      "Constructo\\Test\\": "tests/"
     }
   },
   "require": {

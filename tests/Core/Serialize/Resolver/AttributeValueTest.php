@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Core\Serialize\Resolver;
+namespace Constructo\Test\Core\Serialize\Resolver;
 
 use DateTimeImmutable;
 use DateTimeInterface;
-use Morph\Core\Serialize\Resolver\AttributeValue;
-use Morph\Exception\Adapter\NotResolved;
-use Morph\Support\Managed;
-use Morph\Support\Reflective\Factory\Target;
-use Morph\Support\Set;
-use Morph\Test\Stub\AttributesVariety;
+use Constructo\Core\Serialize\Resolver\AttributeValue;
+use Constructo\Exception\Adapter\NotResolved;
+use Constructo\Support\Managed;
+use Constructo\Support\Reflective\Factory\Target;
+use Constructo\Support\Set;
+use Constructo\Test\Stub\AttributesVariety;
 use PHPUnit\Framework\TestCase;
 
-use function Morph\Crypt\encrypt;
+use function Constructo\Crypt\encrypt;
 
 final class AttributeValueTest extends TestCase
 {

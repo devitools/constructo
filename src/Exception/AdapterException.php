@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Morph\Exception;
+namespace Constructo\Exception;
 
 use InvalidArgumentException;
-use Morph\Exception\Adapter\NotResolved;
-use Morph\Support\Set;
+use Constructo\Exception\Adapter\NotResolved;
+use Constructo\Support\Set;
 use Throwable;
 
 use function array_map;

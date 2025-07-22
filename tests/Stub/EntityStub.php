@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Stub;
+namespace Constructo\Test\Stub;
 
 use DateTime;
-use Morph\Support\Entity;
-use Morph\Test\Stub\Type\SingleBacked;
+use Constructo\Support\Entity;
+use Constructo\Test\Stub\Type\SingleBacked;
 
 class EntityStub extends Entity
 {

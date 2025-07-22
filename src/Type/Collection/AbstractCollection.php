@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Morph\Type\Collection;
+namespace Constructo\Type\Collection;
 
 use Closure;
 use Countable;

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Morph\Support\Reflective;
+namespace Constructo\Support\Reflective;
 
 use DateMalformedStringException;
-use Morph\Support\Reflective\Attribute\Define;
-use Morph\Support\Reflective\Attribute\Managed;
-use Morph\Support\Reflective\Attribute\Pattern;
-use Morph\Support\Reflective\Definition\Type;
-use Morph\Support\Reflective\Definition\TypeExtended;
-use Morph\Support\Value;
+use Constructo\Support\Reflective\Attribute\Define;
+use Constructo\Support\Reflective\Attribute\Managed;
+use Constructo\Support\Reflective\Attribute\Pattern;
+use Constructo\Support\Reflective\Definition\Type;
+use Constructo\Support\Reflective\Definition\TypeExtended;
+use Constructo\Support\Value;
 use ReflectionNamedType;
 use ReflectionParameter;
 use ReflectionType;

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Morph\Core\Deserialize\Resolve;
+namespace Constructo\Core\Deserialize\Resolve;
 
 use BackedEnum;
-use Morph\Core\Deserialize\Chain;
-use Morph\Support\Value;
+use Constructo\Core\Deserialize\Chain;
+use Constructo\Support\Value;
 use ReflectionException;
 use ReflectionParameter;
 

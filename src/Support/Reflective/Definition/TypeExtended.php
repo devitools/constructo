@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Morph\Support\Reflective\Definition;
+namespace Constructo\Support\Reflective\Definition;
 
 use Closure;
-use Morph\Contract\Testing\Faker;
-use Morph\Support\Value;
+use Constructo\Contract\Testing\Faker;
+use Constructo\Support\Value;
 
 interface TypeExtended
 {

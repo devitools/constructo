@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Core\Deserialize\Resolve;
+namespace Constructo\Test\Core\Deserialize\Resolve;
 
-use Morph\Contract\Formatter;
-use Morph\Core\Deserialize\Resolve\FormatterChain;
+use Constructo\Contract\Formatter;
+use Constructo\Core\Deserialize\Resolve\FormatterChain;
 use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
 use ReflectionParameter;
 use stdClass;
 
-use function Morph\Json\encode;
+use function Constructo\Json\encode;
 
 final class FormatterChainTest extends TestCase
 {

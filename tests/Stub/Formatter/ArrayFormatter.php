@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Stub\Formatter;
+namespace Constructo\Test\Stub\Formatter;
 
 
-use Morph\Contract\Formatter;
+use Constructo\Contract\Formatter;
 
 use function is_array;
 use function is_string;
-use function Morph\Json\decode;
+use function Constructo\Json\decode;
 
 class ArrayFormatter implements Formatter
 {

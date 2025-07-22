@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Stub;
+namespace Constructo\Test\Stub;
 
-use Morph\Test\Stub\Type\BackedEnumeration;
+use Constructo\Test\Stub\Type\BackedEnumeration;
 
 class Stub
 {

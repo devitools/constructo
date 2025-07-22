@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Morph\Core\Deserialize\Resolve;
+namespace Constructo\Core\Deserialize\Resolve;
 
 use DateMalformedStringException;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
-use Morph\Core\Deserialize\Chain;
-use Morph\Support\Reflective\Attribute\Managed;
-use Morph\Support\Reflective\Attribute\Pattern;
-use Morph\Support\Reflective\AttributeAdapter;
-use Morph\Support\Reflective\Definition\Type;
-use Morph\Support\Reflective\Definition\TypeExtended;
-use Morph\Support\Value;
-use Morph\Type\Timestamp;
+use Constructo\Core\Deserialize\Chain;
+use Constructo\Support\Reflective\Attribute\Managed;
+use Constructo\Support\Reflective\Attribute\Pattern;
+use Constructo\Support\Reflective\AttributeAdapter;
+use Constructo\Support\Reflective\Definition\Type;
+use Constructo\Support\Reflective\Definition\TypeExtended;
+use Constructo\Support\Value;
+use Constructo\Type\Timestamp;
 use ReflectionNamedType;
 use ReflectionParameter;
 
-use function Morph\Cast\stringify;
+use function Constructo\Cast\stringify;
 
 class AttributeChain extends Chain
 {

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Core\Deserialize;
+namespace Constructo\Test\Core\Deserialize;
 
 use DateTimeImmutable;
 use DateTimeInterface;
-use Morph\Contract\Exportable;
-use Morph\Core\Deserialize\Demolisher;
-use Morph\Type\Timestamp;
+use Constructo\Contract\Exportable;
+use Constructo\Core\Deserialize\Demolisher;
+use Constructo\Type\Timestamp;
 use PHPUnit\Framework\TestCase;
 
 final class DemolisherDateTest extends TestCase

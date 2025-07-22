@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Morph\Core\Serialize\Resolver;
+namespace Constructo\Core\Serialize\Resolver;
 
 use DateMalformedStringException;
-use Morph\Core\Serialize\ResolverTyped;
-use Morph\Support\Reflective\Attribute\Managed;
-use Morph\Support\Reflective\Attribute\Pattern;
-use Morph\Support\Reflective\AttributeAdapter;
-use Morph\Support\Reflective\Definition\Type;
-use Morph\Support\Reflective\Definition\TypeExtended;
-use Morph\Support\Set;
-use Morph\Support\Value;
-use Morph\Type\Timestamp;
+use Constructo\Core\Serialize\ResolverTyped;
+use Constructo\Support\Reflective\Attribute\Managed;
+use Constructo\Support\Reflective\Attribute\Pattern;
+use Constructo\Support\Reflective\AttributeAdapter;
+use Constructo\Support\Reflective\Definition\Type;
+use Constructo\Support\Reflective\Definition\TypeExtended;
+use Constructo\Support\Set;
+use Constructo\Support\Value;
+use Constructo\Type\Timestamp;
 use ReflectionNamedType;
 use ReflectionParameter;
 
-use function Morph\Cast\stringify;
+use function Constructo\Cast\stringify;
 
 /**
  * @SuppressWarnings(ExcessiveClassLength)

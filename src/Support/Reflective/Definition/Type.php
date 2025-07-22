@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Morph\Support\Reflective\Definition;
+namespace Constructo\Support\Reflective\Definition;
 
 enum Type: string
 {

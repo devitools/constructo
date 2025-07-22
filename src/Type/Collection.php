@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Morph\Type;
+namespace Constructo\Type;
 
 use DomainException;
-use Morph\Contract\Collectable;
-use Morph\Contract\Exportable;
-use Morph\Support\Datum;
-use Morph\Type\Collection\AbstractCollection;
+use Constructo\Contract\Collectable;
+use Constructo\Contract\Exportable;
+use Constructo\Support\Datum;
+use Constructo\Type\Collection\AbstractCollection;
 
 /**
  * @template T

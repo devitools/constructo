@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Morph\Support\Reflective\Attribute;
+namespace Constructo\Support\Reflective\Attribute;
 
 use Attribute;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Stub;
+namespace Constructo\Test\Stub;
 
 use Hyperf\Validation\Rule;
 use Serendipity\Presentation\Input;

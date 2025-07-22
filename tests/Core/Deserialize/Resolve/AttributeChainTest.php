@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Core\Deserialize\Resolve;
+namespace Constructo\Test\Core\Deserialize\Resolve;
 
 use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
-use Morph\Core\Deserialize\Resolve\AttributeChain;
-use Morph\Support\Reflective\Attribute\Define;
-use Morph\Support\Reflective\Attribute\Managed;
-use Morph\Support\Reflective\Attribute\Pattern;
-use Morph\Support\Reflective\Definition\Type;
-use Morph\Test\Stub\Type\Sensitive;
-use Morph\Type\Timestamp;
+use Constructo\Core\Deserialize\Resolve\AttributeChain;
+use Constructo\Support\Reflective\Attribute\Define;
+use Constructo\Support\Reflective\Attribute\Managed;
+use Constructo\Support\Reflective\Attribute\Pattern;
+use Constructo\Support\Reflective\Definition\Type;
+use Constructo\Test\Stub\Type\Sensitive;
+use Constructo\Type\Timestamp;
 use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
 use ReflectionAttribute;
@@ -21,7 +21,7 @@ use ReflectionNamedType;
 use ReflectionParameter;
 use ReflectionUnionType;
 
-use function Morph\Crypt\decrypt;
+use function Constructo\Crypt\decrypt;
 
 final class AttributeChainTest extends TestCase
 {

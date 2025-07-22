@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Morph\Support\Reflective\Engine;
+namespace Constructo\Support\Reflective\Engine;
 
-use Morph\Contract\Formatter;
-use Morph\Exception\Adapter\NotResolved;
-use Morph\Exception\Adapter\NotResolvedCollection;
-use Morph\Support\Reflective\Notation;
-use Morph\Support\Value;
+use Constructo\Contract\Formatter;
+use Constructo\Exception\Adapter\NotResolved;
+use Constructo\Exception\Adapter\NotResolvedCollection;
+use Constructo\Support\Reflective\Notation;
+use Constructo\Support\Value;
 use ReflectionParameter;
 
 use function is_array;
-use function Morph\Notation\format;
-use function Morph\Cast\stringify;
+use function Constructo\Notation\format;
+use function Constructo\Cast\stringify;
 use function sprintf;
 
 abstract class Resolution

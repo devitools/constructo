@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Morph\Core\Serialize\Resolver;
+namespace Constructo\Core\Serialize\Resolver;
 
-use Morph\Core\Serialize\ResolverTyped;
-use Morph\Exception\AdapterException;
-use Morph\Support\Reflective\Factory\Target;
-use Morph\Support\Set;
-use Morph\Support\Value;
+use Constructo\Core\Serialize\ResolverTyped;
+use Constructo\Exception\AdapterException;
+use Constructo\Support\Reflective\Factory\Target;
+use Constructo\Support\Set;
+use Constructo\Support\Value;
 use ReflectionException;
 use ReflectionIntersectionType;
 use ReflectionNamedType;
@@ -20,7 +20,7 @@ use function array_key_exists;
 use function class_exists;
 use function count;
 use function enum_exists;
-use function Morph\Cast\arrayify;
+use function Constructo\Cast\arrayify;
 
 final class DependencyValue extends ResolverTyped
 {

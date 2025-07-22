@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Morph\Core\Serialize;
+namespace Constructo\Core\Serialize;
 
-use Morph\Exception\Adapter\NotResolved;
-use Morph\Exception\Adapter\NotResolvedCollection;
-use Morph\Support\Value;
+use Constructo\Exception\Adapter\NotResolved;
+use Constructo\Exception\Adapter\NotResolvedCollection;
+use Constructo\Support\Value;
 
 class Resolution
 {

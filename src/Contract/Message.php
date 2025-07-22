@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Morph\Contract;
+namespace Constructo\Contract;
 
-use Morph\Support\Set;
+use Constructo\Support\Set;
 
 interface Message
 {

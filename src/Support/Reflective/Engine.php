@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Morph\Support\Reflective;
+namespace Constructo\Support\Reflective;
 
-use Morph\Type\Collection;
+use Constructo\Type\Collection;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionIntersectionType;
@@ -12,9 +12,9 @@ use ReflectionNamedType;
 use ReflectionParameter;
 use ReflectionType;
 use ReflectionUnionType;
-use Morph\Contract\Collectable;
-use Morph\Contract\Formatter;
-use Morph\Support\Reflective\Engine\Resolution;
+use Constructo\Contract\Collectable;
+use Constructo\Contract\Formatter;
+use Constructo\Support\Reflective\Engine\Resolution;
 
 use function array_map;
 use function gettype;

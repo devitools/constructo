@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Morph\Support\Reflective\Factory;
+namespace Constructo\Support\Reflective\Factory;
 
 use ReflectionParameter;
-use Morph\Support\Reflective\Ruleset;
+use Constructo\Support\Reflective\Ruleset;
 
 abstract class Chain extends Ruler
 {

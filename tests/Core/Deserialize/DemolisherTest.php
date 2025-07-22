@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Core\Deserialize;
+namespace Constructo\Test\Core\Deserialize;
 
-use Morph\Contract\Exportable;
-use Morph\Core\Deserialize\Demolisher;
-use Morph\Test\Stub\Domain\Collection\Game\FeatureCollection;
-use Morph\Test\Stub\Domain\Entity\Command\GameCommand;
-use Morph\Type\Timestamp;
+use Constructo\Contract\Exportable;
+use Constructo\Core\Deserialize\Demolisher;
+use Constructo\Test\Stub\Domain\Collection\Game\FeatureCollection;
+use Constructo\Test\Stub\Domain\Entity\Command\GameCommand;
+use Constructo\Type\Timestamp;
 use PHPUnit\Framework\TestCase;
 
 final class DemolisherTest extends TestCase

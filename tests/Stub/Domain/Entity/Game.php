@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Stub\Domain\Entity;
+namespace Constructo\Test\Stub\Domain\Entity;
 
-use Morph\Support\Reflective\Attribute\Managed;
-use Morph\Support\Reflective\Attribute\Pattern;
-use Morph\Type\Timestamp;
-use Morph\Test\Stub\Domain\Collection\Game\FeatureCollection;
-use Morph\Test\Stub\Domain\Entity\Command\GameCommand;
+use Constructo\Support\Reflective\Attribute\Managed;
+use Constructo\Support\Reflective\Attribute\Pattern;
+use Constructo\Type\Timestamp;
+use Constructo\Test\Stub\Domain\Collection\Game\FeatureCollection;
+use Constructo\Test\Stub\Domain\Entity\Command\GameCommand;
 
 class Game extends GameCommand
 {

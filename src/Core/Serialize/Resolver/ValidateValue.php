@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Morph\Core\Serialize\Resolver;
+namespace Constructo\Core\Serialize\Resolver;
 
-use Morph\Core\Serialize\ResolverTyped;
-use Morph\Support\Set;
-use Morph\Support\Value;
+use Constructo\Core\Serialize\ResolverTyped;
+use Constructo\Support\Set;
+use Constructo\Support\Value;
 use ReflectionParameter;
 
-use function Morph\Cast\stringify;
+use function Constructo\Cast\stringify;
 
 final class ValidateValue extends ResolverTyped
 {

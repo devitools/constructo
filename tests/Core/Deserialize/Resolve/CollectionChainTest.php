@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Core\Deserialize\Resolve;
+namespace Constructo\Test\Core\Deserialize\Resolve;
 
-use Morph\Core\Deserialize\Resolve\CollectionChain;
-use Morph\Test\Stub\Domain\Collection\Game\FeatureCollection;
-use Morph\Test\Stub\Domain\Collection\GameCollection;
+use Constructo\Core\Deserialize\Resolve\CollectionChain;
+use Constructo\Test\Stub\Domain\Collection\Game\FeatureCollection;
+use Constructo\Test\Stub\Domain\Collection\GameCollection;
 use PHPUnit\Framework\TestCase;
 use ReflectionNamedType;
 use ReflectionParameter;

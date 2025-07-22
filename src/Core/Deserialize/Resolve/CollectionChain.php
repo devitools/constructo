@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Morph\Core\Deserialize\Resolve;
+namespace Constructo\Core\Deserialize\Resolve;
 
-use Morph\Contract\Collectable;
-use Morph\Core\Deserialize\Chain;
-use Morph\Support\Value;
+use Constructo\Contract\Collectable;
+use Constructo\Core\Deserialize\Chain;
+use Constructo\Support\Value;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionParameter;
 
-use function Morph\Cast\stringify;
+use function Constructo\Cast\stringify;
 
 class CollectionChain extends Chain
 {

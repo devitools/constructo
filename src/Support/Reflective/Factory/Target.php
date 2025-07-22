@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Morph\Support\Reflective\Factory;
+namespace Constructo\Support\Reflective\Factory;
 
 use ReflectionClass;
 use ReflectionException;

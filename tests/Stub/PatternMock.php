@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Stub;
+namespace Constructo\Test\Stub;
 
-use Morph\Support\Entity;
-use Morph\Support\Reflective\Attribute\Pattern;
+use Constructo\Support\Entity;
+use Constructo\Support\Reflective\Attribute\Pattern;
 
 class PatternMock extends Entity
 {

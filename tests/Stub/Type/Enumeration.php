@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Stub\Type;
+namespace Constructo\Test\Stub\Type;
 
 enum Enumeration
 {

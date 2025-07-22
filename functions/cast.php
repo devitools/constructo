@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Morph\Cast;
+namespace Constructo\Cast;
 
 use Stringable;
 

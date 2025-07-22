@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Stub;
+namespace Constructo\Test\Stub;
 
 class RuleTypeStub
 {

@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Core\Serialize\Resolver;
+namespace Constructo\Test\Core\Serialize\Resolver;
 
 use DateTime;
 use DateTimeImmutable;
 use Faker\Factory;
-use Morph\Core\Serialize\Resolver\DependencyValue;
-use Morph\Exception\Adapter\NotResolved;
-use Morph\Support\Reflective\Factory\Target;
-use Morph\Support\Set;
-use Morph\Test\Stub\Builtin;
-use Morph\Test\Stub\Command;
-use Morph\Test\Stub\Complex;
-use Morph\Test\Stub\EntityStub;
-use Morph\Test\Stub\Intersection;
-use Morph\Test\Stub\Native;
-use Morph\Test\Stub\NoConstructor;
-use Morph\Test\Stub\Union;
+use Constructo\Core\Serialize\Resolver\DependencyValue;
+use Constructo\Exception\Adapter\NotResolved;
+use Constructo\Support\Reflective\Factory\Target;
+use Constructo\Support\Set;
+use Constructo\Test\Stub\Builtin;
+use Constructo\Test\Stub\Command;
+use Constructo\Test\Stub\Complex;
+use Constructo\Test\Stub\EntityStub;
+use Constructo\Test\Stub\Intersection;
+use Constructo\Test\Stub\Native;
+use Constructo\Test\Stub\NoConstructor;
+use Constructo\Test\Stub\Union;
 use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
 use stdClass;

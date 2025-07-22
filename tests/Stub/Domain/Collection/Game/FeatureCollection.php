@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Stub\Domain\Collection\Game;
+namespace Constructo\Test\Stub\Domain\Collection\Game;
 
-use Morph\Contract\Collectable;
-use Morph\Test\Stub\Domain\Entity\Game\Feature;
-use Morph\Type\Collection;
+use Constructo\Contract\Collectable;
+use Constructo\Test\Stub\Domain\Entity\Game\Feature;
+use Constructo\Type\Collection;
 
 /**
  * @extends Collectable<Feature>

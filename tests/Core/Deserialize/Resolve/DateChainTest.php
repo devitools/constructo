@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Core\Deserialize\Resolve;
+namespace Constructo\Test\Core\Deserialize\Resolve;
 
 use DateTimeImmutable;
 use DateTimeInterface;
-use Morph\Core\Deserialize\Resolve\DateChain;
-use Morph\Type\Timestamp;
+use Constructo\Core\Deserialize\Resolve\DateChain;
+use Constructo\Type\Timestamp;
 use PHPUnit\Framework\TestCase;
 use ReflectionParameter;
 

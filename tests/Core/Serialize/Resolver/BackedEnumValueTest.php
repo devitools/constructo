@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Core\Serialize\Resolver;
+namespace Constructo\Test\Core\Serialize\Resolver;
 
-use Morph\Core\Serialize\Resolver\BackedEnumValue;
-use Morph\Exception\Adapter\NotResolved;
-use Morph\Support\Reflective\Factory\Target;
-use Morph\Support\Set;
-use Morph\Test\Stub\EnumVariety;
-use Morph\Test\Stub\NotNative;
-use Morph\Test\Stub\Type\BackedEnumeration;
-use Morph\Test\Stub\Type\Enumeration;
-use Morph\Test\Stub\Type\SingleBacked;
+use Constructo\Core\Serialize\Resolver\BackedEnumValue;
+use Constructo\Exception\Adapter\NotResolved;
+use Constructo\Support\Reflective\Factory\Target;
+use Constructo\Support\Set;
+use Constructo\Test\Stub\EnumVariety;
+use Constructo\Test\Stub\NotNative;
+use Constructo\Test\Stub\Type\BackedEnumeration;
+use Constructo\Test\Stub\Type\Enumeration;
+use Constructo\Test\Stub\Type\SingleBacked;
 use PHPUnit\Framework\TestCase;
 
 final class BackedEnumValueTest extends TestCase

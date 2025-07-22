@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Morph\Core\Serialize;
+namespace Constructo\Core\Serialize;
 
-use Morph\Core\Serialize\Resolver\AttributeValue;
-use Morph\Core\Serialize\Resolver\BackedEnumValue;
-use Morph\Core\Serialize\Resolver\CollectionValue;
-use Morph\Core\Serialize\Resolver\DependencyValue;
-use Morph\Core\Serialize\Resolver\FormatValue;
-use Morph\Core\Serialize\Resolver\NoValue;
-use Morph\Core\Serialize\Resolver\TypeMatched;
-use Morph\Core\Serialize\Resolver\ValidateValue;
-use Morph\Exception\AdapterException;
-use Morph\Support\Reflective\Engine;
-use Morph\Support\Reflective\Factory\Target;
-use Morph\Support\Set;
+use Constructo\Core\Serialize\Resolver\AttributeValue;
+use Constructo\Core\Serialize\Resolver\BackedEnumValue;
+use Constructo\Core\Serialize\Resolver\CollectionValue;
+use Constructo\Core\Serialize\Resolver\DependencyValue;
+use Constructo\Core\Serialize\Resolver\FormatValue;
+use Constructo\Core\Serialize\Resolver\NoValue;
+use Constructo\Core\Serialize\Resolver\TypeMatched;
+use Constructo\Core\Serialize\Resolver\ValidateValue;
+use Constructo\Exception\AdapterException;
+use Constructo\Support\Reflective\Engine;
+use Constructo\Support\Reflective\Factory\Target;
+use Constructo\Support\Set;
 use ReflectionException;
 use ReflectionParameter;
 use Throwable;

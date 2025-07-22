@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Morph\Support;
+namespace Constructo\Support;
 
-use Morph\Exception\SchemaException;
+use Constructo\Exception\SchemaException;
 
 use function array_filter;
 use function array_key_exists;

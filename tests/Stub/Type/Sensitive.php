@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Stub\Type;
+namespace Constructo\Test\Stub\Type;
 
 use Closure;
-use Morph\Contract\Testing\Faker;
-use Morph\Support\Reflective\Definition\TypeExtended;
-use Morph\Support\Value;
+use Constructo\Contract\Testing\Faker;
+use Constructo\Support\Reflective\Definition\TypeExtended;
+use Constructo\Support\Value;
 
-use function Morph\Cast\stringify;
-use function Morph\Crypt\decrypt;
-use function Morph\Crypt\encrypt;
+use function Constructo\Cast\stringify;
+use function Constructo\Crypt\decrypt;
+use function Constructo\Crypt\encrypt;
 
 class Sensitive implements TypeExtended
 {

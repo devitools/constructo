@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Morph\Core\Deserialize;
+namespace Constructo\Core\Deserialize;
 
-use Morph\Contract\Collectable;
-use Morph\Contract\Exportable;
-use Morph\Contract\Message;
-use Morph\Core\Deserialize\Resolve\AttributeChain;
-use Morph\Core\Deserialize\Resolve\CollectionChain;
-use Morph\Core\Deserialize\Resolve\DateChain;
-use Morph\Core\Deserialize\Resolve\DependencyChain;
-use Morph\Core\Deserialize\Resolve\DoNothingChain;
-use Morph\Core\Deserialize\Resolve\FormatterChain;
-use Morph\Support\Datum;
-use Morph\Support\Reflective\Engine;
-use Morph\Support\Reflective\Factory\Target;
-use Morph\Support\Set;
+use Constructo\Contract\Collectable;
+use Constructo\Contract\Exportable;
+use Constructo\Contract\Message;
+use Constructo\Core\Deserialize\Resolve\AttributeChain;
+use Constructo\Core\Deserialize\Resolve\CollectionChain;
+use Constructo\Core\Deserialize\Resolve\DateChain;
+use Constructo\Core\Deserialize\Resolve\DependencyChain;
+use Constructo\Core\Deserialize\Resolve\DoNothingChain;
+use Constructo\Core\Deserialize\Resolve\FormatterChain;
+use Constructo\Support\Datum;
+use Constructo\Support\Reflective\Engine;
+use Constructo\Support\Reflective\Factory\Target;
+use Constructo\Support\Set;
 use ReflectionException;
 use ReflectionParameter;
 
 use function get_object_vars;
-use function Morph\Cast\arrayify;
+use function Constructo\Cast\arrayify;
 
 class Demolisher extends Engine
 {

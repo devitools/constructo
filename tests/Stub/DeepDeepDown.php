@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Stub;
+namespace Constructo\Test\Stub;
 
-use Morph\Test\Stub\Type\EmptyEnum;
+use Constructo\Test\Stub\Type\EmptyEnum;
 
 final readonly class DeepDeepDown
 {

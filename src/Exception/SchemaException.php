@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Morph\Exception;
+namespace Constructo\Exception;
 
 use DomainException;
 

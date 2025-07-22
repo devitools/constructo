@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Morph\Support\Reflective;
+namespace Constructo\Support\Reflective;
 
 use Stringable;
 
-use function Morph\Cast\stringify;
+use function Constructo\Cast\stringify;
 
 final class Ruleset
 {

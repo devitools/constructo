@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Morph\Support\Reflective\Factory\Ruler;
+namespace Constructo\Support\Reflective\Factory\Ruler;
 
 use ReflectionException;
 use ReflectionNamedType;
 use ReflectionParameter;
 use ReflectionType;
 use ReflectionUnionType;
-use Morph\Support\Reflective\Factory\Chain;
-use Morph\Support\Reflective\Ruleset;
+use Constructo\Support\Reflective\Factory\Chain;
+use Constructo\Support\Reflective\Ruleset;
 
 class RecursiveChain extends Chain
 {

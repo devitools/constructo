@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Morph\Support;
+namespace Constructo\Support;
 
-use Morph\Exception\ManagedException;
-use Morph\Type\Timestamp;
+use Constructo\Exception\ManagedException;
+use Constructo\Type\Timestamp;
 use Throwable;
 use Visus\Cuid2\Cuid2;
 

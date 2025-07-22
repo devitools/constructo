@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Core\Serialize\Resolver;
+namespace Constructo\Test\Core\Serialize\Resolver;
 
-use Morph\Core\Serialize\Resolver\ValidateValue;
-use Morph\Exception\Adapter\NotResolved;
-use Morph\Support\Reflective\Factory\Target;
-use Morph\Support\Set;
-use Morph\Test\Stub\Builtin;
+use Constructo\Core\Serialize\Resolver\ValidateValue;
+use Constructo\Exception\Adapter\NotResolved;
+use Constructo\Support\Reflective\Factory\Target;
+use Constructo\Support\Set;
+use Constructo\Test\Stub\Builtin;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use stdClass;

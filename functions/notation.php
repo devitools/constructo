@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Morph\Notation;
+namespace Constructo\Notation;
 
 use Jawira\CaseConverter\Convert;
-use Morph\Support\Reflective\Notation;
+use Constructo\Support\Reflective\Notation;
 
-use function Morph\Cast\stringify;
+use function Constructo\Cast\stringify;
 
 if (! function_exists(__NAMESPACE__ . '\format')) {
     function format(string $string, Notation $notation): string

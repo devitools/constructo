@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Stub\Domain\Entity\Command;
+namespace Constructo\Test\Stub\Domain\Entity\Command;
 
-use Morph\Support\Entity;
-use Morph\Type\Timestamp;
-use Morph\Test\Stub\Domain\Collection\Game\FeatureCollection;
+use Constructo\Support\Entity;
+use Constructo\Type\Timestamp;
+use Constructo\Test\Stub\Domain\Collection\Game\FeatureCollection;
 
 class GameCommand extends Entity
 {

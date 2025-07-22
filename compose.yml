@@ -1,7 +1,7 @@
 services:
-  morph:
+  constructo:
     platform: linux/amd64
-    container_name: morph-app
+    container_name: constructo-app
     image: devitools/hyperf:8.3-dev
     working_dir: /opt/www
     volumes:

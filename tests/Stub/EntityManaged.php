@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Stub;
+namespace Constructo\Test\Stub;
 
 use DateTimeImmutable;
-use Morph\Support\Reflective\Attribute\Managed;
+use Constructo\Support\Reflective\Attribute\Managed;
 
 class EntityManaged
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Morph\Support\Reflective\Factory\Ruler;
+namespace Constructo\Support\Reflective\Factory\Ruler;
 
 use BackedEnum;
 use ReflectionEnum;
@@ -11,11 +11,11 @@ use ReflectionNamedType;
 use ReflectionParameter;
 use ReflectionType;
 use ReflectionUnionType;
-use Morph\Support\Reflective\Factory\Chain;
-use Morph\Support\Reflective\Ruleset;
+use Constructo\Support\Reflective\Factory\Chain;
+use Constructo\Support\Reflective\Ruleset;
 
-use function Morph\Cast\boolify;
-use function Morph\Cast\stringify;
+use function Constructo\Cast\boolify;
+use function Constructo\Cast\stringify;
 
 class TypeChain extends Chain
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Morph\Core\Serialize;
+namespace Constructo\Core\Serialize;
 
-use Morph\Support\Set;
-use Morph\Support\Value;
+use Constructo\Support\Set;
+use Constructo\Support\Value;
 use ReflectionParameter;
 
 abstract class Resolver extends Builder

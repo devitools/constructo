@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Stub\Domain\Collection;
+namespace Constructo\Test\Stub\Domain\Collection;
 
-use Morph\Test\Stub\Domain\Entity\Game;
-use Morph\Type\Collection;
+use Constructo\Test\Stub\Domain\Entity\Game;
+use Constructo\Type\Collection;
 
 /**
  * @extends Collection<Game>

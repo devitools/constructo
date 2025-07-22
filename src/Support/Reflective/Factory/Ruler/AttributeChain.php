@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Morph\Support\Reflective\Factory\Ruler;
+namespace Constructo\Support\Reflective\Factory\Ruler;
 
 use ReflectionAttribute;
 use ReflectionNamedType;
 use ReflectionParameter;
 use ReflectionType;
 use ReflectionUnionType;
-use Morph\Support\Reflective\Attribute\Define;
-use Morph\Support\Reflective\Attribute\Pattern;
-use Morph\Support\Reflective\Definition\Type;
-use Morph\Support\Reflective\Definition\TypeExtended;
-use Morph\Support\Reflective\Factory\Chain;
-use Morph\Support\Reflective\Ruleset;
+use Constructo\Support\Reflective\Attribute\Define;
+use Constructo\Support\Reflective\Attribute\Pattern;
+use Constructo\Support\Reflective\Definition\Type;
+use Constructo\Support\Reflective\Definition\TypeExtended;
+use Constructo\Support\Reflective\Factory\Chain;
+use Constructo\Support\Reflective\Ruleset;
 
-use function Morph\Notation\snakify;
-use function Morph\Cast\boolify;
+use function Constructo\Notation\snakify;
+use function Constructo\Cast\boolify;
 
 class AttributeChain extends Chain
 {

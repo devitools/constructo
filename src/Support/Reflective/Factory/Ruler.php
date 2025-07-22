@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Morph\Support\Reflective\Factory;
+namespace Constructo\Support\Reflective\Factory;
 
 use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use ReflectionException;
-use Morph\Support\Reflective\Engine;
-use Morph\Support\Reflective\Factory\Ruler\AttributeChain;
-use Morph\Support\Reflective\Factory\Ruler\MandatoryChain;
-use Morph\Support\Reflective\Factory\Ruler\RecursiveChain;
-use Morph\Support\Reflective\Factory\Ruler\TypeChain;
-use Morph\Support\Reflective\Notation;
-use Morph\Support\Reflective\Ruleset;
+use Constructo\Support\Reflective\Engine;
+use Constructo\Support\Reflective\Factory\Ruler\AttributeChain;
+use Constructo\Support\Reflective\Factory\Ruler\MandatoryChain;
+use Constructo\Support\Reflective\Factory\Ruler\RecursiveChain;
+use Constructo\Support\Reflective\Factory\Ruler\TypeChain;
+use Constructo\Support\Reflective\Notation;
+use Constructo\Support\Reflective\Ruleset;
 
 class Ruler extends Engine
 {

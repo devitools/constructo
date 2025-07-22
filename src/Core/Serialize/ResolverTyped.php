@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Morph\Core\Serialize;
+namespace Constructo\Core\Serialize;
 
-use Morph\Support\Value;
+use Constructo\Support\Value;
 use ReflectionIntersectionType;
 use ReflectionNamedType;
 use ReflectionType;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Morph\Exception\Adapter;
+namespace Constructo\Exception\Adapter;
 
 final readonly class NotResolvedCollection
 {

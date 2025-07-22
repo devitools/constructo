@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Morph\Test\Core\Serialize\Resolver;
+namespace Constructo\Test\Core\Serialize\Resolver;
 
-use Morph\Core\Serialize\Resolver\NoValue;
-use Morph\Support\Reflective\Factory\Target;
-use Morph\Support\Set;
-use Morph\Test\Stub\NullableAndOptional;
+use Constructo\Core\Serialize\Resolver\NoValue;
+use Constructo\Support\Reflective\Factory\Target;
+use Constructo\Support\Set;
+use Constructo\Test\Stub\NullableAndOptional;
 use PHPUnit\Framework\TestCase;
 
 final class NoValueTest extends TestCase

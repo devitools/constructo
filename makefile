@@ -13,7 +13,7 @@ setup: ## Setup the project
 
 bash: ## Start nginx bash
 	@make up
-	@$(COMPOSE_RUNNER) exec morph bash
+	@$(COMPOSE_RUNNER) exec constructo bash
 
 up: ## Start the project
 	@$(COMPOSE_RUNNER) up -d
@@ -28,51 +28,51 @@ prune: ## Prune the project
 ##@ Composer
 
 install: ## Composer install dependencies
-	@$(COMPOSE_RUNNER) run --rm --entrypoint composer morph install
+	@$(COMPOSE_RUNNER) run --rm --entrypoint composer constructo install
 
 dump: ## Run the composer dump
-	@$(COMPOSE_RUNNER) run --rm --entrypoint composer morph dump-autoload
+	@$(COMPOSE_RUNNER) run --rm --entrypoint composer constructo dump-autoload
 
 
 ##@ Code analysis
 
 lint: ## Perform code style lint
-	@$(COMPOSE_RUNNER) run --rm --entrypoint composer morph lint
+	@$(COMPOSE_RUNNER) run --rm --entrypoint composer constructo lint
 
 lint-phpcs: ## Perform code style list using phpcs
-	@$(COMPOSE_RUNNER) run --rm --entrypoint composer morph lint:phpcs
+	@$(COMPOSE_RUNNER) run --rm --entrypoint composer constructo lint:phpcs
 
 lint-phpstan: ## Perform code style list using phpstan
-	@$(COMPOSE_RUNNER) run --rm --entrypoint composer morph lint:phpstan
+	@$(COMPOSE_RUNNER) run --rm --entrypoint composer constructo lint:phpstan
 
 lint-phpmd: ## Perform code style list using phpmd
-	@$(COMPOSE_RUNNER) run --rm --entrypoint composer morph lint:phpmd
+	@$(COMPOSE_RUNNER) run --rm --entrypoint composer constructo lint:phpmd
 
 lint-rector: ## Perform code style list using rector
-	@$(COMPOSE_RUNNER) run --rm --entrypoint composer morph lint:rector
+	@$(COMPOSE_RUNNER) run --rm --entrypoint composer constructo lint:rector
 
 lint-psalm: ## Perform code style list using psalm
-	@$(COMPOSE_RUNNER) run --rm --entrypoint composer morph lint:psalm
+	@$(COMPOSE_RUNNER) run --rm --entrypoint composer constructo lint:psalm
 
 fix: ## Perform code style fix
-	@$(COMPOSE_RUNNER) run --rm --entrypoint composer morph fix
+	@$(COMPOSE_RUNNER) run --rm --entrypoint composer constructo fix
 
 ##@ Tests
 
 test: ## Execute the tests
-	@$(COMPOSE_RUNNER) run --rm --entrypoint composer morph test -- --coverage-html tests/.phpunit/html
+	@$(COMPOSE_RUNNER) run --rm --entrypoint composer constructo test -- --coverage-html tests/.phpunit/html
 
 
 ##@ CI
 
 ci: ## Execute all analysis as CI does
-	@$(COMPOSE_RUNNER) run --rm --entrypoint composer morph ci
+	@$(COMPOSE_RUNNER) run --rm --entrypoint composer constructo ci
 
 
 ## Quality
 
 sonar: ## Run the sonar analysis
-	@$(COMPOSE_RUNNER) run --rm --entrypoint "/bin/sonar-scanner" morph -Dsonar.host.url=https://sonarcloud.io -X
+	@$(COMPOSE_RUNNER) run --rm --entrypoint "/bin/sonar-scanner" constructo -Dsonar.host.url=https://sonarcloud.io -X
 
 
 ##@ Docs
