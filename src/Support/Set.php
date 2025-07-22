@@ -35,9 +35,9 @@ readonly class Set
         $this->data = $data;
     }
 
-    public static function createFrom(mixed $data): self
+    public static function createFrom(mixed $data): static
     {
-        return new self($data);
+        return new static($data);
     }
 
     public function get(string $field, mixed $default = null): mixed
@@ -53,9 +53,9 @@ readonly class Set
         throw new SchemaException(sprintf("Field '%s' not found.", $field));
     }
 
-    public function with(string $field, mixed $value): self
+    public function with(string $field, mixed $value): static
     {
-        return new self(array_merge($this->toArray(), [$field => $value]));
+        return new static(array_merge($this->toArray(), [$field => $value]));
     }
 
     /**
@@ -67,9 +67,9 @@ readonly class Set
         return array_map(fn (mixed $item) => $item instanceof Set ? $item->toArray() : $item, $this->data);
     }
 
-    public function along(array $values): self
+    public function along(array $values): static
     {
-        return new self(array_merge($this->toArray(), $values));
+        return new static(array_merge($this->toArray(), $values));
     }
 
     public function has(string $field): bool
