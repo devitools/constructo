@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Constructo\Test\Stub;
 
-use DateTime;
 use Constructo\Support\Entity;
 use Constructo\Test\Stub\Type\SingleBacked;
+use DateTime;
 
 class EntityStub extends Entity
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Constructo\Test\Stub;
 
-use DateTimeImmutable;
 use Constructo\Support\Reflective\Attribute\Managed;
+use DateTimeImmutable;
 
 class EntityManaged
 {

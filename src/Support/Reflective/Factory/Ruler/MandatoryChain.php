@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Constructo\Support\Reflective\Factory\Ruler;
 
-use ReflectionParameter;
 use Constructo\Support\Reflective\Factory\Chain;
 use Constructo\Support\Reflective\Ruleset;
+use ReflectionParameter;
 
 class MandatoryChain extends Chain
 {

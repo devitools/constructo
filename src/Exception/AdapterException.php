@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Constructo\Exception;
 
-use InvalidArgumentException;
 use Constructo\Exception\Adapter\NotResolved;
 use Constructo\Support\Set;
+use InvalidArgumentException;
 use Throwable;
 
 use function array_map;

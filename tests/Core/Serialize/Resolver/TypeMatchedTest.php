@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Constructo\Test\Core\Serialize\Resolver;
 
-use DateTime;
-use DateTimeImmutable;
-use Faker\Factory;
 use Constructo\Core\Serialize\Resolver\TypeMatched;
 use Constructo\Exception\Adapter\NotResolved;
 use Constructo\Support\Reflective\Factory\Target;
@@ -24,6 +21,9 @@ use Constructo\Test\Stub\Type\Enumeration;
 use Constructo\Test\Stub\Type\Intersected;
 use Constructo\Test\Stub\Union;
 use Constructo\Test\Stub\Variety;
+use DateTime;
+use DateTimeImmutable;
+use Faker\Factory;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 

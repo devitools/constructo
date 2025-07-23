@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Constructo\Type;
 
-use DomainException;
 use Constructo\Contract\Collectable;
 use Constructo\Contract\Exportable;
 use Constructo\Support\Datum;
 use Constructo\Type\Collection\AbstractCollection;
+use DomainException;
 
 /**
  * @template T

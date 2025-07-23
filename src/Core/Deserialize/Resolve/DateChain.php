@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Constructo\Core\Deserialize\Resolve;
 
-use DateTimeInterface;
 use Constructo\Core\Deserialize\Chain;
 use Constructo\Support\Value;
 use Constructo\Type\Timestamp;
+use DateTimeInterface;
 use ReflectionParameter;
 
 class DateChain extends Chain

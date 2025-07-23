@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Constructo\Support\Reflective\Factory\Ruler;
 
 use BackedEnum;
+use Constructo\Support\Reflective\Factory\Chain;
+use Constructo\Support\Reflective\Ruleset;
 use ReflectionEnum;
 use ReflectionException;
 use ReflectionNamedType;
 use ReflectionParameter;
 use ReflectionType;
 use ReflectionUnionType;
-use Constructo\Support\Reflective\Factory\Chain;
-use Constructo\Support\Reflective\Ruleset;
 
 use function Constructo\Cast\boolify;
 use function Constructo\Cast\stringify;

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Constructo\Core\Serialize\Resolver;
 
-use DateMalformedStringException;
 use Constructo\Core\Serialize\ResolverTyped;
 use Constructo\Support\Reflective\Attribute\Managed;
 use Constructo\Support\Reflective\Attribute\Pattern;
@@ -14,6 +13,7 @@ use Constructo\Support\Reflective\Definition\TypeExtended;
 use Constructo\Support\Set;
 use Constructo\Support\Value;
 use Constructo\Type\Timestamp;
+use DateMalformedStringException;
 use ReflectionNamedType;
 use ReflectionParameter;
 

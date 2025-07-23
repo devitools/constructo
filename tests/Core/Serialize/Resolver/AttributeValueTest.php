@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Constructo\Test\Core\Serialize\Resolver;
 
-use DateTimeImmutable;
-use DateTimeInterface;
 use Constructo\Core\Serialize\Resolver\AttributeValue;
 use Constructo\Exception\Adapter\NotResolved;
 use Constructo\Support\Managed;
 use Constructo\Support\Reflective\Factory\Target;
 use Constructo\Support\Set;
 use Constructo\Test\Stub\AttributesVariety;
+use DateTimeImmutable;
+use DateTimeInterface;
 use PHPUnit\Framework\TestCase;
 
 use function Constructo\Crypt\encrypt;

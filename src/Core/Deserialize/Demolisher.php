@@ -20,8 +20,8 @@ use Constructo\Support\Set;
 use ReflectionException;
 use ReflectionParameter;
 
-use function get_object_vars;
 use function Constructo\Cast\arrayify;
+use function get_object_vars;
 
 class Demolisher extends Engine
 {

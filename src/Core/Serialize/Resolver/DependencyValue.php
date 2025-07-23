@@ -18,9 +18,9 @@ use ReflectionUnionType;
 
 use function array_key_exists;
 use function class_exists;
+use function Constructo\Cast\arrayify;
 use function count;
 use function enum_exists;
-use function Constructo\Cast\arrayify;
 
 final class DependencyValue extends ResolverTyped
 {

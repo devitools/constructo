@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Constructo\Support;
 
+use Constructo\Contract\Exportable;
 use Error;
 use JsonSerializable;
-use Constructo\Contract\Exportable;
 use Throwable;
 
 class Datum implements Exportable, JsonSerializable

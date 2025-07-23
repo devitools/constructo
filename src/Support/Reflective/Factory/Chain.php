@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Constructo\Support\Reflective\Factory;
 
-use ReflectionParameter;
 use Constructo\Support\Reflective\Ruleset;
+use ReflectionParameter;
 
 abstract class Chain extends Ruler
 {

@@ -8,7 +8,6 @@ use Constructo\Core\Serialize\Resolver\CollectionValue;
 use Constructo\Exception\Adapter\NotResolved;
 use Constructo\Support\Set;
 use Constructo\Test\Stub\Domain\Collection\Game\FeatureCollection;
-use Constructo\Test\Stub\Domain\Entity\Game\Feature;
 use PHPUnit\Framework\TestCase;
 use ReflectionNamedType;
 use ReflectionParameter;

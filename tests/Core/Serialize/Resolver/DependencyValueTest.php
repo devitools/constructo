@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Constructo\Test\Core\Serialize\Resolver;
 
-use DateTime;
-use DateTimeImmutable;
-use Faker\Factory;
 use Constructo\Core\Serialize\Resolver\DependencyValue;
 use Constructo\Exception\Adapter\NotResolved;
 use Constructo\Support\Reflective\Factory\Target;
@@ -19,6 +16,9 @@ use Constructo\Test\Stub\Intersection;
 use Constructo\Test\Stub\Native;
 use Constructo\Test\Stub\NoConstructor;
 use Constructo\Test\Stub\Union;
+use DateTime;
+use DateTimeImmutable;
+use Faker\Factory;
 use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
 use stdClass;

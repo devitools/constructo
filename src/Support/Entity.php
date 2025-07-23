@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Constructo\Support;
 
-use JsonSerializable;
 use Constructo\Contract\Exportable;
+use JsonSerializable;
 
 class Entity implements Exportable, JsonSerializable
 {

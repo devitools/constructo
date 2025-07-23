@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Constructo\Test\Core\Serialize;
 
-use DateTime;
-use Faker\Factory;
 use Constructo\Core\Serialize\Builder;
 use Constructo\Exception\Adapter\NotResolved;
 use Constructo\Exception\AdapterException;
@@ -18,6 +16,8 @@ use Constructo\Test\Stub\NoConstructor;
 use Constructo\Test\Stub\Type\Intersected;
 use Constructo\Test\Stub\Type\SingleBacked;
 use Constructo\Test\Stub\Variety;
+use DateTime;
+use Faker\Factory;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 

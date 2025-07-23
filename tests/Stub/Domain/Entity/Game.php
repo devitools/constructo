@@ -6,9 +6,9 @@ namespace Constructo\Test\Stub\Domain\Entity;
 
 use Constructo\Support\Reflective\Attribute\Managed;
 use Constructo\Support\Reflective\Attribute\Pattern;
-use Constructo\Type\Timestamp;
 use Constructo\Test\Stub\Domain\Collection\Game\FeatureCollection;
 use Constructo\Test\Stub\Domain\Entity\Command\GameCommand;
+use Constructo\Type\Timestamp;
 
 class Game extends GameCommand
 {

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Constructo\Support\Reflective;
 
+use Constructo\Contract\Collectable;
+use Constructo\Contract\Formatter;
+use Constructo\Support\Reflective\Engine\Resolution;
 use Constructo\Type\Collection;
 use ReflectionClass;
 use ReflectionException;
@@ -12,9 +15,6 @@ use ReflectionNamedType;
 use ReflectionParameter;
 use ReflectionType;
 use ReflectionUnionType;
-use Constructo\Contract\Collectable;
-use Constructo\Contract\Formatter;
-use Constructo\Support\Reflective\Engine\Resolution;
 
 use function array_map;
 use function gettype;

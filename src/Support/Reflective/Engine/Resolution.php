@@ -11,9 +11,9 @@ use Constructo\Support\Reflective\Notation;
 use Constructo\Support\Value;
 use ReflectionParameter;
 
-use function is_array;
-use function Constructo\Notation\format;
 use function Constructo\Cast\stringify;
+use function Constructo\Notation\format;
+use function is_array;
 use function sprintf;
 
 abstract class Resolution

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Constructo\Test\Stub;
 
-use DateTimeImmutable;
-use SensitiveParameter;
 use Constructo\Support\Reflective\Attribute\Define;
 use Constructo\Support\Reflective\Attribute\Managed;
 use Constructo\Support\Reflective\Attribute\Pattern;
 use Constructo\Support\Reflective\Definition\Type;
 use Constructo\Test\Stub\Type\Sensitive;
+use DateTimeImmutable;
+use SensitiveParameter;
 
 readonly class AttributesVariety
 {

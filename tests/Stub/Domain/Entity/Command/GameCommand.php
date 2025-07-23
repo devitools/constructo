@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Constructo\Test\Stub\Domain\Entity\Command;
 
 use Constructo\Support\Entity;
-use Constructo\Type\Timestamp;
 use Constructo\Test\Stub\Domain\Collection\Game\FeatureCollection;
+use Constructo\Type\Timestamp;
 
 class GameCommand extends Entity
 {

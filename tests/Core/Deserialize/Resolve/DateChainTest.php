@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Constructo\Test\Core\Deserialize\Resolve;
 
-use DateTimeImmutable;
-use DateTimeInterface;
 use Constructo\Core\Deserialize\Resolve\DateChain;
 use Constructo\Type\Timestamp;
+use DateTimeImmutable;
+use DateTimeInterface;
 use PHPUnit\Framework\TestCase;
 use ReflectionParameter;
 

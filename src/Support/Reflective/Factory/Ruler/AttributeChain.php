@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Constructo\Support\Reflective\Factory\Ruler;
 
-use ReflectionAttribute;
-use ReflectionNamedType;
-use ReflectionParameter;
-use ReflectionType;
-use ReflectionUnionType;
 use Constructo\Support\Reflective\Attribute\Define;
 use Constructo\Support\Reflective\Attribute\Pattern;
 use Constructo\Support\Reflective\Definition\Type;
 use Constructo\Support\Reflective\Definition\TypeExtended;
 use Constructo\Support\Reflective\Factory\Chain;
 use Constructo\Support\Reflective\Ruleset;
+use ReflectionAttribute;
+use ReflectionNamedType;
+use ReflectionParameter;
+use ReflectionType;
+use ReflectionUnionType;
 
-use function Constructo\Notation\snakify;
 use function Constructo\Cast\boolify;
+use function Constructo\Notation\snakify;
 
 class AttributeChain extends Chain
 {
