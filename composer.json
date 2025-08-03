@@ -27,12 +27,12 @@
     "php": "^8.3",
     "ext-json": "*",
     "jawira/case-converter": "^3.5",
-    "visus/cuid2": "^5.1"
+    "visus/cuid2": "^5.1",
+    "fakerphp/faker": "^1.24"
   },
   "require-dev": {
     "bnf/phpstan-psr-container": "^1.1",
     "deptrac/deptrac": "^3.0",
-    "fakerphp/faker": "^1.24",
     "php-mock/php-mock-phpunit": "^2.12",
     "phpmd/phpmd": "^2.15",
     "phpstan/phpstan": "^2",
