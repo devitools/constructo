@@ -100,7 +100,7 @@ final class ExampleTest extends TestCase
 
 ### Adding New Tests
 
-1. Create test file in `tests/` mirroring the `src/` structure
+1. Create a test file in `tests/` mirroring the `src/` structure
 2. Use `final class {Name}Test extends TestCase`
 3. Import required classes and use stub classes from `Constructo\Test\Stub\`
 4. Use `Set::createFrom()` for test data and `Target::createFrom()` for reflection
@@ -116,6 +116,14 @@ final class ExampleTest extends TestCase
 - **Core:** Main serialization/deserialization logic (`src/Core/`)
 - **Support:** Utility classes and reflection helpers (`src/Support/`)
 - **Types:** Type-specific implementations (`src/Type/`)
+
+## Coding Standards and Practices
+
+This project adheres to strict coding standards and best practices:
+- **Strict Types:** All files use `declare(strict_types=1);`
+- **PSR-12:** Follow PSR-12 coding standards for consistency
+- **Type Hints:** Just use type hints if the typing is not clear or is ambiguous
+- **Comments:** Do not use comments for code explanations, prefer clear code structure
 
 ### Key Classes
 

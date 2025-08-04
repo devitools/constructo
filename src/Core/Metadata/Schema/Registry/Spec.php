@@ -7,12 +7,12 @@ namespace Constructo\Core\Metadata\Schema\Registry;
 use Constructo\Contract\Formatter;
 use Constructo\Support\Set;
 
-class Spec
+readonly class Spec
 {
     public function __construct(
-        public readonly string $name,
-        public readonly Set $properties,
-        public readonly ?Formatter $formatter,
+        public string $name,
+        public Set $properties,
+        public ?Formatter $formatter,
     ) {
     }
 }
