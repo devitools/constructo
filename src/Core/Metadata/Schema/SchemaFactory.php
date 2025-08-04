@@ -6,28 +6,17 @@ namespace Constructo\Core\Metadata\Schema;
 
 use Constructo\Core\Metadata\Schema;
 use Constructo\Core\Metadata\Schema\Field\Fieldset;
-use Constructo\Core\Metadata\Schema\Registry\RegistryFactory;
-use Constructo\Support\Cache;
-use Constructo\Support\Reflective\Schema\SchemaReflector;
-use ReflectionException;
+use Constructo\Core\Metadata\Schema\Registry\SpecsFactory;
 
 class SchemaFactory
 {
-    public function make(): Schema
+    public function __construct(private readonly SpecsFactory $specsFactory)
     {
-        $schemaRegistry = (new RegistryFactory())->make();
-        return new Schema($schemaRegistry, new Fieldset());
     }
 
-    /**
-     * @template T of object
-     * @param class-string<T>|null $source
-     * @throws ReflectionException
-     */
-    public function makeFrom(string $source = null): Schema
+    public function make(): Schema
     {
-        $schemaRegistry = (new RegistryFactory())->make();
-        $schema = new Schema($schemaRegistry, new Fieldset());
-        return (new SchemaReflector(new Cache(), $schemaRegistry))->extract($source, $schema);
+        $schemaRegistry = $this->specsFactory->make();
+        return new Schema($schemaRegistry, new Fieldset());
     }
 }

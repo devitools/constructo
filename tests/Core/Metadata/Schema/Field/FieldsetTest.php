@@ -7,7 +7,7 @@ namespace Constructo\Test\Core\Metadata\Schema\Field;
 use Constructo\Core\Metadata\Schema\Field;
 use Constructo\Core\Metadata\Schema\Field\Fieldset;
 use Constructo\Core\Metadata\Schema\Field\Rules;
-use Constructo\Core\Metadata\Schema\Registry;
+use Constructo\Core\Metadata\Schema\Registry\Specs;
 use PHPUnit\Framework\TestCase;
 
 final class FieldsetTest extends TestCase
@@ -20,7 +20,7 @@ final class FieldsetTest extends TestCase
     {
         $this->fieldset = new Fieldset();
 
-        $registry = $this->createMock(Registry::class);
+        $registry = $this->createMock(Specs::class);
 
         $rules1 = new Rules();
         $rules2 = new Rules();

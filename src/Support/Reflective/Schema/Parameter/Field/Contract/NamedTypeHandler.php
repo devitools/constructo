@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Support\Reflective\Parameter\Type\Contract;
+namespace Constructo\Support\Reflective\Schema\Parameter\Field\Contract;
 
 use Constructo\Core\Metadata\Schema\Field;
 use ReflectionNamedType;

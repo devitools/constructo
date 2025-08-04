@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Support\Reflective\Parameter\Type;
+namespace Constructo\Support\Reflective\Schema\Parameter\Field;
 
 use Constructo\Core\Metadata\Schema\Field;
-use Constructo\Core\Metadata\Schema\Registry;
+use Constructo\Core\Metadata\Schema\Registry\Specs;
 use Constructo\Support\Reflective\Attribute\Define;
 use Constructo\Support\Reflective\Definition\Type;
 use Constructo\Support\Reflective\Definition\TypeExtended;
-use Constructo\Support\Reflective\Parameter\Type\Contract\TypeHandler;
+use Constructo\Support\Reflective\Schema\Parameter\Field\Contract\TypeHandler;
 use ReflectionAttribute;
 use ReflectionParameter;
 
@@ -20,7 +20,7 @@ class DefineAttributeTypeHandler extends TypeHandler
 {
     public function resolve(ReflectionParameter $parameter, Field $field): void
     {
-        $type = $this->resolveDefineAttributeType($parameter, $field->registry);
+        $type = $this->resolveDefineAttributeType($parameter, $field->specs);
         if ($type !== null) {
             $field->{$type}();
             return;
@@ -29,13 +29,13 @@ class DefineAttributeTypeHandler extends TypeHandler
         parent::resolve($parameter, $field);
     }
 
-    private function resolveDefineAttributeType(ReflectionParameter $parameter, Registry $specs): ?string
+    private function resolveDefineAttributeType(ReflectionParameter $parameter, Specs $specs): ?string
     {
         $type = $this->detecteAttributeType($parameter);
         if ($type === null) {
             return null;
         }
-        return $specs->hasSpec($type)
+        return $specs->has($type)
             ? $type
             : null;
     }

@@ -2,31 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Core\Metadata\Schema;
+namespace Constructo\Core\Metadata\Schema\Registry;
 
 use Constructo\Contract\Formatter;
-use Constructo\Core\Metadata\Schema\Registry\Spec;
 use Constructo\Support\Set;
 use InvalidArgumentException;
 
 use function class_exists;
-use function Constructo\Cast\stringify;
 use function Constructo\Notation\snakify;
 use function gettype;
 use function is_string;
 use function sprintf;
 
-class Registry
+class Specs
 {
     private array $specs = [];
-    private readonly array $types;
 
-    public function __construct(array $types = [])
-    {
-        $this->types = array_merge($this->defaultTypes(), $types);
-    }
-
-    public function getSpec(string $name): ?Spec
+    public function get(string $name): ?Spec
     {
         $name = snakify($name);
         $spec = $this->specs[$name] ?? null;
@@ -36,7 +28,7 @@ class Registry
         return null;
     }
 
-    public function registerSpec(string $name, array $data): void
+    public function register(string $name, array $data): void
     {
         $name = snakify($name);
         $properties = Set::createFrom($data);
@@ -46,18 +38,10 @@ class Registry
         $this->specs[$name] = $spec;
     }
 
-    public function hasSpec(string $name): bool
+    public function has(string $name): bool
     {
         $name = snakify($name);
         return isset($this->specs[$name]);
-    }
-
-    public function getType(string $source): ?string
-    {
-        $type = $this->types[$source] ?? null;
-        return $type
-            ? stringify($type)
-            : null;
     }
 
     protected function defineFormatter(Set $properties): ?Formatter
@@ -78,14 +62,5 @@ class Registry
             );
         }
         return $instance;
-    }
-
-    protected function defaultTypes(): array
-    {
-        return [
-            'DateTime' => 'date',
-            'DateTimeImmutable' => 'date',
-            'DateTimeInterface' => 'date',
-        ];
     }
 }

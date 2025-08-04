@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Support\Reflective\Parameter;
+namespace Constructo\Support\Reflective\Schema\Parameter;
 
 use Constructo\Core\Metadata\Schema\Field;
-use ReflectionParameter;
 use Constructo\Support\Reflective\Attribute\Managed;
+use ReflectionParameter;
 
 class ManagedChain extends Chain
 {

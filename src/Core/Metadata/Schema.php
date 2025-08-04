@@ -7,7 +7,7 @@ namespace Constructo\Core\Metadata;
 use Constructo\Core\Metadata\Schema\Field;
 use Constructo\Core\Metadata\Schema\Field\Fieldset;
 use Constructo\Core\Metadata\Schema\Field\Rules;
-use Constructo\Core\Metadata\Schema\Registry;
+use Constructo\Core\Metadata\Schema\Registry\Specs;
 use InvalidArgumentException;
 
 use function array_map;
@@ -15,7 +15,7 @@ use function array_map;
 final readonly class Schema
 {
     public function __construct(
-        private Registry $registry,
+        private Specs $specs,
         private Fieldset $fieldset,
     ) {
     }
@@ -27,7 +27,7 @@ final readonly class Schema
             return $field;
         }
 
-        $field = new Field($this->registry, new Rules(), $name);
+        $field = new Field($this->specs, new Rules(), $name);
         $this->fieldset->add($name, $field);
         return $field;
     }

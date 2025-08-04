@@ -6,15 +6,15 @@ namespace Constructo\Test\Core\Metadata;
 
 use Constructo\Core\Metadata\Schema;
 use Constructo\Core\Metadata\Schema\Field\Fieldset;
-use Constructo\Core\Metadata\Schema\Registry;
-use Constructo\Core\Metadata\Schema\Registry\RegistryFactory;
+use Constructo\Core\Metadata\Schema\Registry\Specs;
+use Constructo\Core\Metadata\Schema\Registry\SpecsFactory;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 final class SchemaTest extends TestCase
 {
     private Schema $schema;
-    private Registry $registry;
+    private Specs $specs;
 
     protected function setUp(): void
     {
@@ -39,9 +39,9 @@ final class SchemaTest extends TestCase
             'bail' => [],
         ];
 
-        $registryFactory = new RegistryFactory([], $specs);
-        $this->registry = $registryFactory->make();
-        $this->schema = new Schema($this->registry, new Fieldset());
+        $specsFactory = new SpecsFactory($specs);
+        $this->specs = $specsFactory->make();
+        $this->schema = new Schema($this->specs, new Fieldset());
     }
 
     public function testCanAddFieldToSchema(): void
@@ -176,7 +176,7 @@ final class SchemaTest extends TestCase
 
     public function testExampleUsageScenario(): void
     {
-        $this->registry->registerSpec('in', ['params' => ['values']]);
+        $this->specs->register('in', ['params' => ['values']]);
 
         $this->schema->add('type')
             ->required()

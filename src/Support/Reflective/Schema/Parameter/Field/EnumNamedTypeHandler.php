@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Support\Reflective\Parameter\Type;
+namespace Constructo\Support\Reflective\Schema\Parameter\Field;
 
-use Constructo\Core\Metadata\Schema\Field;
-use Constructo\Support\Reflective\Parameter\Type\Contract\NamedTypeHandler;
-use Constructo\Support\Reflective\Parameter\Type\Contract\NamedTypeResolution;
 use BackedEnum;
+use Constructo\Core\Metadata\Schema\Field;
+use Constructo\Support\Reflective\Schema\Parameter\Field\Contract\NamedTypeHandler;
+use Constructo\Support\Reflective\Schema\Parameter\Field\Contract\NamedTypeResolution;
 use ReflectionEnum;
 use ReflectionEnumBackedCase;
 use ReflectionException;

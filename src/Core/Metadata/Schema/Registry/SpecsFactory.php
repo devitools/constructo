@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Constructo\Core\Metadata\Schema\Registry;
 
-use Constructo\Core\Metadata\Schema\Registry;
 use InvalidArgumentException;
 
 use function assert;
@@ -12,21 +11,19 @@ use function Constructo\Cast\arrayify;
 use function Constructo\Cast\stringify;
 use function gettype;
 
-readonly class RegistryFactory
+readonly class SpecsFactory
 {
-    public function __construct(
-        private array $types = [],
-        private array $specs = [],
-    ) {
+    public function __construct(private array $specs = [])
+    {
     }
 
-    public function make(): Registry
+    public function make(): Specs
     {
-        $registry = new Registry($this->types);
-        assert($registry instanceof Registry);
+        $registry = new Specs();
+        assert($registry instanceof Specs);
         foreach ($this->specs as $key => $value) {
             $this->validate($key, $value);
-            $registry->registerSpec(stringify($key), arrayify($value));
+            $registry->register(stringify($key), arrayify($value));
         }
         return $registry;
     }

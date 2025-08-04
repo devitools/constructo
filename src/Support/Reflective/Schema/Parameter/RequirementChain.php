@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Support\Reflective\Parameter;
+namespace Constructo\Support\Reflective\Schema\Parameter;
 
 use Constructo\Core\Metadata\Schema\Field;
-use Constructo\Core\Metadata\Schema\Registry;
+use Constructo\Core\Metadata\Schema\Registry\Specs;
 use ReflectionParameter;
 
 class RequirementChain extends Chain
 {
     public function __construct(
         private readonly ?Field $parent = null,
-        ?Registry $specs = null,
+        ?Specs $specs = null,
     ) {
         parent::__construct($specs);
     }

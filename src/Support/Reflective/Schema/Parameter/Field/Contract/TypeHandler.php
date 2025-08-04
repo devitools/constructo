@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Support\Reflective\Parameter\Type\Contract;
+namespace Constructo\Support\Reflective\Schema\Parameter\Field\Contract;
 
 use Constructo\Core\Metadata\Schema\Field;
-use Constructo\Core\Metadata\Schema\Registry;
+use Constructo\Support\Reflective\Schema\Parameter\Registry\Types;
 use ReflectionParameter;
 
 abstract class TypeHandler
 {
     protected ?TypeHandler $previous = null;
 
-    public function __construct(protected readonly ?Registry $specs = null)
+    public function __construct(protected readonly ?Types $types = null)
     {
     }
 

@@ -6,19 +6,22 @@ namespace Constructo\Support\Reflective\Schema;
 
 use Constructo\Core\Metadata\Schema;
 use Constructo\Core\Metadata\Schema\Field;
-use Constructo\Core\Metadata\Schema\Registry;
 use Constructo\Support\Cache;
 use Constructo\Support\Reflective\Factory\Target;
 use Constructo\Support\Reflective\Notation;
-use Constructo\Support\Reflective\Parameter\ManagedChain;
-use Constructo\Support\Reflective\Parameter\RequirementChain;
-use Constructo\Support\Reflective\Parameter\TypeChain;
+use Constructo\Support\Reflective\Schema\Parameter\ManagedChain;
+use Constructo\Support\Reflective\Schema\Parameter\Registry\Types;
+use Constructo\Support\Reflective\Schema\Parameter\RequirementChain;
+use Constructo\Support\Reflective\Schema\Parameter\TypeChain;
 use ReflectionException;
 use ReflectionParameter;
 
+use function array_pop;
+use function assert;
 use function Constructo\Notation\format;
 use function implode;
 use function in_array;
+use function sprintf;
 
 class SchemaReflector
 {
@@ -26,7 +29,7 @@ class SchemaReflector
 
     public function __construct(
         protected readonly Cache $cache,
-        protected readonly ?Registry $registry = null,
+        protected readonly ?Types $types = null,
         protected readonly Notation $notation = Notation::SNAKE,
     ) {
     }
@@ -50,7 +53,7 @@ class SchemaReflector
      */
     protected function extractFields(array $parameters, Schema $schema, ?Field $parent = null, array $path = []): void
     {
-        $chain = (new TypeChain($this->registry))
+        $chain = (new TypeChain($this->types))
             ->then(new RequirementChain($parent))
             ->then(new ManagedChain());
 

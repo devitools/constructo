@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Support\Reflective\Parameter\Type;
+namespace Constructo\Support\Reflective\Schema\Parameter\Field;
 
 use Constructo\Core\Metadata\Schema\Field;
-use Constructo\Support\Reflective\Parameter\Type\Contract\TypeHandler;
+use Constructo\Support\Reflective\Attribute\Pattern;
+use Constructo\Support\Reflective\Schema\Parameter\Field\Contract\TypeHandler;
 use ReflectionAttribute;
 use ReflectionParameter;
-use Constructo\Support\Reflective\Attribute\Pattern;
 
 use function array_shift;
 use function assert;
 
-class PatternAttributeTypeHandler extends TypeHandler
+class ManagedAttributeTypeHandler extends TypeHandler
 {
     public function resolve(ReflectionParameter $parameter, Field $field): void
     {

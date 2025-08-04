@@ -106,6 +106,19 @@ final class ExampleTest extends TestCase
 4. Use `Set::createFrom()` for test data and `Target::createFrom()` for reflection
 5. Run tests via `make test` to verify
 
+### Test Best Practices
+
+**Avoid Redundant Type Checking:**
+
+- Do not use `$this->assertInstanceOf(ClassName::class, $object)` immediately after creating an object with
+  `new ClassName()` or calling a method that returns a specific type
+- If the constructor or method fails, PHP will throw an exception or type error; the test doesn't need to verify the
+  object type
+- Instead, test meaningful functionality like method calls, state changes, return values, or object behavior
+- **Bad Example:** `$registry = $factory->make(); $this->assertInstanceOf(Registry::class, $registry);`
+- **Good Example:** `$registry = $factory->make(); $this->assertTrue($registry->hasSpec('required'));`
+- Focus on testing that the created object works correctly, not just that it exists
+
 ## Additional Development Information
 
 ### Project Architecture
@@ -120,6 +133,7 @@ final class ExampleTest extends TestCase
 ## Coding Standards and Practices
 
 This project adheres to strict coding standards and best practices:
+
 - **Strict Types:** All files use `declare(strict_types=1);`
 - **PSR-12:** Follow PSR-12 coding standards for consistency
 - **Type Hints:** Just use type hints if the typing is not clear or is ambiguous

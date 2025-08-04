@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Support\Reflective\Parameter\Type;
+namespace Constructo\Support\Reflective\Schema\Parameter\Field;
 
 use Constructo\Core\Metadata\Schema\Field;
-use Constructo\Support\Reflective\Parameter\Type\Contract\NamedTypeHandler;
-use Constructo\Support\Reflective\Parameter\Type\Contract\NamedTypeResolution;
+use Constructo\Support\Reflective\Schema\Parameter\Field\Contract\NamedTypeHandler;
+use Constructo\Support\Reflective\Schema\Parameter\Field\Contract\NamedTypeResolution;
 use ReflectionNamedType;
 
 use function class_exists;
@@ -27,7 +27,7 @@ class DependencyTypeHandler extends NamedTypeHandler
 
     private function resolveDynamicType(Field $field, string $source): void
     {
-        $type = $this->specs->getType($source);
+        $type = $this->types->get($source);
         if (is_string($type)) {
             $field->{$type}();
             return;

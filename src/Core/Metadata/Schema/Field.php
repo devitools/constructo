@@ -9,6 +9,7 @@ use BadMethodCallException;
 use Closure;
 use Constructo\Core\Metadata\Schema\Field\Rules;
 use Constructo\Core\Metadata\Schema\Registry\Spec;
+use Constructo\Core\Metadata\Schema\Registry\Specs;
 
 /**
  * # Global setup
@@ -113,7 +114,7 @@ final class Field
     private ?string $source = null;
 
     public function __construct(
-        public readonly Registry $registry,
+        public readonly Specs $specs,
         private readonly Rules $rules,
         public readonly string $name,
     ) {
@@ -159,7 +160,7 @@ final class Field
             $this->handleVisibility($name);
             return $this;
         }
-        $spec = $this->registry->getSpec($name);
+        $spec = $this->specs->get($name);
         if ($spec instanceof Spec) {
             $this->handleSpec($spec, $arguments);
             return $this;
