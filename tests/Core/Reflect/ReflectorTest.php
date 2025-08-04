@@ -245,7 +245,10 @@ final class ReflectorTest extends TestCase
           "slug": [ "required", "string" ],
           "published_at": [ "required", "date" ],
           "data": [ "required", "array" ],
-          "features": [ "required", "array" ]
+          "features": [ "required", "array" ],
+          "features.*.name": [ "required", "string" ],
+          "features.*.description": [ "required", "string" ],
+          "features.*.enabled": [ "required", "bool" ]
         }';
         $expected = json_decode($json, true);
         $this->assertEquals($expected, $rules);

@@ -28,4 +28,19 @@ final class DependencyChainTest extends TestCase
 
         $this->assertEquals('test', $result->content);
     }
+
+    public function testResolveBackedEnum(): void
+    {
+        $chain = new DependencyChain();
+        $enum = TestStatus::ACTIVE;
+        $result = $chain->resolve($this->createMock(ReflectionParameter::class), $enum);
+
+        $this->assertEquals('active', $result->content);
+    }
+}
+
+enum TestStatus: string
+{
+    case ACTIVE = 'active';
+    case INACTIVE = 'inactive';
 }

@@ -63,4 +63,35 @@ final class CollectionValueTest extends TestCase
         // Assert
         $this->assertInstanceOf(NotResolved::class, $result->content);
     }
+
+    public function testShouldResolveCollectionWithArrayData(): void
+    {
+        // Arrange
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->expects($this->once())
+            ->method('getName')
+            ->willReturn(FeatureCollection::class);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->expects($this->once())
+            ->method('getType')
+            ->willReturn($type);
+        $parameter->expects($this->once())
+            ->method('getName')
+            ->willReturn('features');
+
+        $set = Set::createFrom([
+            'features' => [
+                ['name' => 'feature1', 'description' => 'First feature', 'enabled' => true],
+                ['name' => 'feature2', 'description' => 'Second feature', 'enabled' => false],
+            ],
+        ]);
+        $collectionValue = new CollectionValue();
+
+        // Act
+        $result = $collectionValue->resolve($parameter, $set);
+
+        // Assert
+        $this->assertInstanceOf(FeatureCollection::class, $result->content);
+        $this->assertCount(2, $result->content);
+    }
 }
