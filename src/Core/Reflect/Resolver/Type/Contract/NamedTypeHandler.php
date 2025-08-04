@@ -39,20 +39,20 @@ abstract class NamedTypeHandler extends TypeHandler
         return NamedTypeResolution::NotResolved;
     }
 
-    protected function resolveBuiltinType(string $type): ?string
+    protected function resolveBuiltinType(string $candidate): ?string
     {
-        if (isset(self::BUILTIN_TYPE_MAPPING[$type])) {
-            return self::BUILTIN_TYPE_MAPPING[$type];
+        if (isset(self::BUILTIN_TYPE_MAPPING[$candidate])) {
+            return self::BUILTIN_TYPE_MAPPING[$candidate];
         }
 
         $regular = [
             'string',
             'array',
         ];
-        if (in_array($type, $regular, true)) {
-            return $type;
+        $type = null;
+        if (in_array($candidate, $regular, true)) {
+            $type = $candidate;
         }
-
-        return null;
+        return $type;
     }
 }

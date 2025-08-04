@@ -13,6 +13,8 @@ use ReflectionEnumBackedCase;
 use ReflectionException;
 use ReflectionNamedType;
 
+use function enum_exists;
+
 class EnumNamedTypeHandler extends NamedTypeHandler
 {
     /**
@@ -21,7 +23,7 @@ class EnumNamedTypeHandler extends NamedTypeHandler
     protected function resolveNamedType(ReflectionNamedType $parameter, Field $field): NamedTypeResolution
     {
         $enumClassName = $parameter->getName();
-        if (! is_subclass_of($enumClassName, BackedEnum::class)) {
+        if (! enum_exists($enumClassName)) {
             return NamedTypeResolution::NotResolved;
         }
         return $this->resolveEnumType($enumClassName, $field);

@@ -12,6 +12,7 @@ class PersonCommand
         public readonly string $name,
         public readonly ?Person $mom,
         public readonly ?Person $dad = null,
+        public readonly string|int $externalId = 'default',
     ) {
     }
 }

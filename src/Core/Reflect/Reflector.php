@@ -22,11 +22,12 @@ use function assert;
 use function Constructo\Notation\format;
 use function implode;
 use function in_array;
+use function is_array;
 use function sprintf;
 
 class Reflector
 {
-    private array $currentPath = [];
+    private array $sources = [];
 
     public function __construct(
         protected readonly SchemaFactory $factory,
@@ -44,9 +45,9 @@ class Reflector
     public function reflect(string $source): Schema
     {
         $this->cache->reset();
-        $this->currentPath = [];
+        $this->sources = [];
 
-        $parameters = $this->getParameters($source);
+        $parameters = $this->extractParameters($source);
         $schema = $this->factory->make();
         $this->introspect($parameters, $schema);
 
@@ -74,11 +75,7 @@ class Reflector
             $chain->resolve($parameter, $field, $nestedPath);
 
             $source = $field->getSource();
-            if ($source === null) {
-                continue;
-            }
-
-            if ($this->wouldCauseCircularReference($source)) {
+            if ($source === null || $this->wouldCauseCircularReference($source)) {
                 continue;
             }
 
@@ -91,43 +88,33 @@ class Reflector
      */
     private function introspectSource(string $source, Schema $schema, Field $parent, array $path): void
     {
-        $nestedParameters = $this->getParameters($source);
+        $nestedParameters = $this->extractParameters($source);
         if (empty($nestedParameters)) {
             return;
         }
 
-        $this->currentPath[] = $source;
+        $this->sources[] = $source;
         $this->introspect($nestedParameters, $schema, $parent, $path);
-        array_pop($this->currentPath);
+        array_pop($this->sources);
     }
 
     private function wouldCauseCircularReference(string $source): bool
     {
-        return in_array($source, $this->currentPath, true);
+        return in_array($source, $this->sources, true);
     }
 
     /**
      * @throws ReflectionException
      */
-    private function getParameters(string $source): array
+    private function extractParameters(string $source): array
     {
-        $cacheKey = sprintf("parameters:%s", $source);
-
-        $parameters = $this->cache->get($cacheKey);
-        if ($parameters === null) {
-            $parameters = $this->extractParameters($source);
-            $this->cache->set($cacheKey, $parameters);
+        $key = sprintf("parameters:%s", $source);
+        $parameters = $this->cache->get($key);
+        if (is_array($parameters)) {
+            return $parameters;
         }
-
-        return $parameters;
-    }
-
-    /**
-     * @throws ReflectionException
-     */
-    protected function extractParameters(string $source): array
-    {
-        return Target::createFrom($source)
+        $parameters = Target::createFrom($source)
             ->getReflectionParameters();
+        return $this->cache->set($key, $parameters);
     }
 }

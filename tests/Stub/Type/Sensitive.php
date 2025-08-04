@@ -33,4 +33,9 @@ class Sensitive implements TypeExtended
         );
         return new Value(encrypt($value));
     }
+
+    public function rule(): ?string
+    {
+        return 'string';
+    }
 }

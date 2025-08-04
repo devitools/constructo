@@ -264,7 +264,8 @@ final class ReflectorTest extends TestCase
           "dad" : [ "sometimes", "nullable", "array" ],
           "dad.name" : [ "sometimes", "string" ],
           "dad.mom" : [ "sometimes", "nullable", "array" ],
-          "dad.dad" : [ "sometimes", "nullable", "array" ]
+          "dad.dad" : [ "sometimes", "nullable", "array" ],
+          "external_id" : [ "sometimes", "required" ]
         }';
         $expected = json_decode($json, true);
         $this->assertEquals($expected, $rules);

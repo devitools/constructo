@@ -51,16 +51,14 @@ class DefineAttributeTypeHandler extends TypeHandler
         $attribute = array_shift($attributes);
         assert($attribute instanceof ReflectionAttribute);
         $instance = $attribute->newInstance();
+        assert($instance instanceof Define);
 
-        foreach ($instance->types as $type) {
-            $rule = $this->extractRuleFromType($type);
-            if ($rule === null) {
-                continue;
-            }
-            return $rule;
+        $types = $instance->types;
+        if (count($types) !== 1) {
+            return null;
         }
-
-        return null;
+        $type = array_shift($types);
+        return $this->extractRuleFromType($type);
     }
 
     private function extractRuleFromType(mixed $type): ?string
