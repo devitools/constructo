@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Testing\Extension;
+namespace Constructo\Testing;
 
-use Constructo\Support\Reflective\Factory\Target;
 use ReflectionClass;
 use ReflectionException;
 
@@ -23,7 +22,6 @@ trait MakeExtension
      */
     protected function make(string $class, array $args = []): mixed
     {
-        $target = Target::createFrom($class);
         return (new ReflectionClass($class))->newInstanceArgs(array_values($args));
     }
 }

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Testing\Faker\Resolver;
+namespace Constructo\Core\Fake\Resolver;
 
 use BackedEnum;
+use Constructo\Core\Fake\Resolver;
 use Constructo\Support\Set;
 use Constructo\Support\Value;
 use Random\RandomException;
 use ReflectionNamedType;
 use ReflectionParameter;
-use Constructo\Testing\Faker\Resolver;
 
 final class FromEnum extends Resolver
 {

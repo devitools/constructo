@@ -2,15 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Testing\Faker\Resolver;
+namespace Constructo\Core\Fake\Resolver;
 
+use Constructo\Core\Fake\Resolver;
 use Constructo\Support\Set;
 use Constructo\Support\Value;
+use Constructo\Testing\MakeExtension;
+use Constructo\Testing\ManagedExtension;
 use Constructo\Type\Collection;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionParameter;
-use Constructo\Testing\Faker\Resolver;
 
 final class FromCollection extends Resolver
 {

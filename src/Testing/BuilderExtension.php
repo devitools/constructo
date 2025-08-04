@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Testing\Extension;
+namespace Constructo\Testing;
 
 use Constructo\Core\Serialize\Builder;
 

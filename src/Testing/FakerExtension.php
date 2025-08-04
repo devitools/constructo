@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Testing\Extension;
+namespace Constructo\Testing;
 
-use Constructo\Testing\Faker\Faker;
+use Constructo\Core\Fake\Faker;
 use Faker\Generator;
 
 trait FakerExtension

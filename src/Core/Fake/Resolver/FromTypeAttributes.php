@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Testing\Faker\Resolver;
+namespace Constructo\Core\Fake\Resolver;
 
-use Constructo\Support\Set;
-use Constructo\Support\Value;
-use ReflectionNamedType;
-use ReflectionParameter;
-use ReflectionType;
-use ReflectionUnionType;
+use Constructo\Core\Fake\Resolver;
 use Constructo\Exception\ManagedException;
 use Constructo\Support\Reflective\Attribute\Define;
 use Constructo\Support\Reflective\Attribute\Managed;
 use Constructo\Support\Reflective\Attribute\Pattern;
 use Constructo\Support\Reflective\Definition\Type;
 use Constructo\Support\Reflective\Definition\TypeExtended;
-use Serendipity\Hyperf\Testing\Extension\MakeExtension;
-use Constructo\Testing\Extension\ManagedExtension;
-use Constructo\Testing\Faker\Resolver;
+use Constructo\Support\Set;
+use Constructo\Support\Value;
+use Constructo\Testing\MakeExtension;
+use Constructo\Testing\ManagedExtension;
+use ReflectionNamedType;
+use ReflectionParameter;
+use ReflectionType;
+use ReflectionUnionType;
 
 final class FromTypeAttributes extends Resolver
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Testing\Faker;
+namespace Constructo\Core\Fake;
 
 use Constructo\Support\Set;
 use Constructo\Support\Value;

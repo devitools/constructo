@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Testing\Faker\Resolver;
+namespace Constructo\Core\Fake\Resolver;
 
+use Constructo\Core\Fake\Resolver;
 use Constructo\Support\Set;
 use Constructo\Support\Value;
+use Constructo\Testing\MakeExtension;
+use Constructo\Testing\ManagedExtension;
+use Constructo\Type\Timestamp;
 use DateMalformedStringException;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use ReflectionParameter;
-use Constructo\Type\Timestamp;
-use Serendipity\Hyperf\Testing\Extension\MakeExtension;
-use Constructo\Testing\Extension\ManagedExtension;
-use Constructo\Testing\Faker\Resolver;
 
 final class FromTypeDate extends Resolver
 {

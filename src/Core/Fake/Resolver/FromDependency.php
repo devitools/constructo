@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Testing\Faker\Resolver;
+namespace Constructo\Core\Fake\Resolver;
 
+use Constructo\Core\Fake\Resolver;
 use Constructo\Support\Set;
 use Constructo\Support\Value;
 use ReflectionException;
@@ -12,7 +13,6 @@ use ReflectionNamedType;
 use ReflectionParameter;
 use ReflectionType;
 use ReflectionUnionType;
-use Constructo\Testing\Faker\Resolver;
 
 final class FromDependency extends Resolver
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Testing\Faker\Resolver;
+namespace Constructo\Core\Fake\Resolver;
 
+use Constructo\Core\Fake\Resolver;
 use Constructo\Support\Set;
 use Constructo\Support\Value;
 use ReflectionParameter;
-use Constructo\Testing\Faker\Resolver;
 
 final class FromPreset extends Resolver
 {
