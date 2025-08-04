@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Core\Metadata\Schema\Registry;
+namespace Constructo\Factory;
 
+use Constructo\Contract\Schema\SpecsFactory;
+use Constructo\Core\Metadata\Schema\Registry\Specs;
 use InvalidArgumentException;
 
 use function assert;
@@ -11,7 +13,7 @@ use function Constructo\Cast\arrayify;
 use function Constructo\Cast\stringify;
 use function gettype;
 
-readonly class SpecsFactory
+readonly class DefaultSpecsFactory implements SpecsFactory
 {
     public function __construct(private array $specs = [])
     {

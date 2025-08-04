@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Constructo\Support\Reflective\Schema\Parameter\Registry;
 
 use Constructo\Core\Metadata\Schema;
-use Constructo\Core\Metadata\Schema\SchemaFactory;
+use Constructo\Factory\SchemaFactory;
 use Constructo\Support\Cache;
 use Constructo\Support\Reflective\Schema\SchemaReflector;
 use ReflectionException;

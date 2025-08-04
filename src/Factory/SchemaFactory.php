@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Core\Metadata\Schema;
+namespace Constructo\Factory;
 
+use Constructo\Contract\Schema\SpecsFactory;
 use Constructo\Core\Metadata\Schema;
 use Constructo\Core\Metadata\Schema\Field\Fieldset;
-use Constructo\Core\Metadata\Schema\Registry\SpecsFactory;
 
 class SchemaFactory
 {
@@ -16,7 +16,7 @@ class SchemaFactory
 
     public function make(): Schema
     {
-        $schemaRegistry = $this->specsFactory->make();
-        return new Schema($schemaRegistry, new Fieldset());
+        $specs = $this->specsFactory->make();
+        return new Schema($specs, new Fieldset());
     }
 }

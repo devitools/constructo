@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Test\Core\Metadata\Schema\Registry;
+namespace Constructo\Test\Factory;
 
-use Constructo\Core\Metadata\Schema\Registry\SpecsFactory;
+use Constructo\Factory\DefaultSpecsFactory;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
-final class SpecsFactoryTest extends TestCase
+final class DefaultSpecsFactoryTest extends TestCase
 {
     public function testCanCreateSpecsFactoryWithEmptySpecs(): void
     {
-        $factory = new SpecsFactory();
+        $factory = new DefaultSpecsFactory();
 
         $registry = $factory->make();
 
@@ -21,9 +21,12 @@ final class SpecsFactoryTest extends TestCase
 
     public function testCanCreateSpecsFactoryWithSpecs(): void
     {
-        $specs = ['required' => [], 'nullable' => []];
+        $specs = [
+            'required' => [],
+            'nullable' => [],
+        ];
 
-        $factory = new SpecsFactory($specs);
+        $factory = new DefaultSpecsFactory($specs);
 
         $registry = $factory->make();
 
@@ -34,7 +37,7 @@ final class SpecsFactoryTest extends TestCase
 
     public function testMakeReturnsRegistryWithDefaultBehavior(): void
     {
-        $factory = new SpecsFactory();
+        $factory = new DefaultSpecsFactory();
 
         $registry = $factory->make();
 
@@ -49,7 +52,7 @@ final class SpecsFactoryTest extends TestCase
             'min' => ['params' => ['min']],
         ];
 
-        $factory = new SpecsFactory($specs);
+        $factory = new DefaultSpecsFactory($specs);
         $registry = $factory->make();
 
         // Test that all specs are registered correctly
@@ -64,7 +67,7 @@ final class SpecsFactoryTest extends TestCase
 
     public function testValidateAcceptsValidStringNameAndArrayProperties(): void
     {
-        $factory = new SpecsFactory();
+        $factory = new DefaultSpecsFactory();
 
         $this->expectNotToPerformAssertions();
         $factory->validate('required', []);
@@ -72,7 +75,7 @@ final class SpecsFactoryTest extends TestCase
 
     public function testValidateAcceptsValidStringNameAndArrayPropertiesWithData(): void
     {
-        $factory = new SpecsFactory();
+        $factory = new DefaultSpecsFactory();
 
         $this->expectNotToPerformAssertions();
         $factory->validate('min', ['params' => ['min']]);
@@ -80,7 +83,7 @@ final class SpecsFactoryTest extends TestCase
 
     public function testValidateThrowsExceptionForNonStringName(): void
     {
-        $factory = new SpecsFactory();
+        $factory = new DefaultSpecsFactory();
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Spec name must be a string, integer given.');
@@ -90,7 +93,7 @@ final class SpecsFactoryTest extends TestCase
 
     public function testValidateThrowsExceptionForNullName(): void
     {
-        $factory = new SpecsFactory();
+        $factory = new DefaultSpecsFactory();
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Spec name must be a string, NULL given.');
@@ -100,7 +103,7 @@ final class SpecsFactoryTest extends TestCase
 
     public function testValidateThrowsExceptionForBooleanName(): void
     {
-        $factory = new SpecsFactory();
+        $factory = new DefaultSpecsFactory();
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Spec name must be a string, boolean given.');
@@ -110,7 +113,7 @@ final class SpecsFactoryTest extends TestCase
 
     public function testValidateThrowsExceptionForArrayName(): void
     {
-        $factory = new SpecsFactory();
+        $factory = new DefaultSpecsFactory();
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Spec name must be a string, array given.');
@@ -120,7 +123,7 @@ final class SpecsFactoryTest extends TestCase
 
     public function testValidateThrowsExceptionForNonArrayProperties(): void
     {
-        $factory = new SpecsFactory();
+        $factory = new DefaultSpecsFactory();
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Spec properties must be an array, string given.');
@@ -130,7 +133,7 @@ final class SpecsFactoryTest extends TestCase
 
     public function testValidateThrowsExceptionForNullProperties(): void
     {
-        $factory = new SpecsFactory();
+        $factory = new DefaultSpecsFactory();
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Spec properties must be an array, NULL given.');
@@ -140,7 +143,7 @@ final class SpecsFactoryTest extends TestCase
 
     public function testValidateThrowsExceptionForIntegerProperties(): void
     {
-        $factory = new SpecsFactory();
+        $factory = new DefaultSpecsFactory();
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Spec properties must be an array, integer given.');
@@ -150,7 +153,7 @@ final class SpecsFactoryTest extends TestCase
 
     public function testValidateThrowsExceptionForBooleanProperties(): void
     {
-        $factory = new SpecsFactory();
+        $factory = new DefaultSpecsFactory();
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Spec properties must be an array, boolean given.');
@@ -166,12 +169,22 @@ final class SpecsFactoryTest extends TestCase
             'integer' => [],
             'min' => ['params' => ['min']],
             'max' => ['params' => ['max']],
-            'between' => ['params' => ['min', 'max']],
+            'between' => [
+                'params' => [
+                    'min',
+                    'max',
+                ],
+            ],
             'in' => ['params' => ['values']],
-            'regex' => ['params' => ['pattern', 'parameters:optional']],
+            'regex' => [
+                'params' => [
+                    'pattern',
+                    'parameters:optional',
+                ],
+            ],
         ];
 
-        $factory = new SpecsFactory($specs);
+        $factory = new DefaultSpecsFactory($specs);
         $registry = $factory->make();
 
         $this->assertTrue($registry->has('required'));

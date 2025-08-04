@@ -7,11 +7,11 @@ namespace Constructo\Test\Core\Metadata;
 use Constructo\Core\Metadata\Schema;
 use Constructo\Core\Metadata\Schema\Field\Fieldset;
 use Constructo\Core\Metadata\Schema\Registry\Specs;
-use Constructo\Core\Metadata\Schema\Registry\SpecsFactory;
+use Constructo\Factory\DefaultSpecsFactory;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
-final class SchemaTest extends TestCase
+class SchemaTest extends TestCase
 {
     private Schema $schema;
     private Specs $specs;
@@ -39,7 +39,7 @@ final class SchemaTest extends TestCase
             'bail' => [],
         ];
 
-        $specsFactory = new SpecsFactory($specs);
+        $specsFactory = new DefaultSpecsFactory($specs);
         $this->specs = $specsFactory->make();
         $this->schema = new Schema($this->specs, new Fieldset());
     }

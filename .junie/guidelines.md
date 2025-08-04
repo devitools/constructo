@@ -62,6 +62,10 @@ make test
 
 # Run specific test file (within Docker container)
 docker compose exec app vendor/bin/phpunit tests/Path/To/TestFile.php
+
+# Run tests by filter/pattern (correct approach)
+docker compose exec app vendor/bin/phpunit --filter=TestClassName
+# Note: make test FILTER=TestName is NOT the correct command for filtering
 ```
 
 ### Test Structure and Patterns
@@ -118,6 +122,22 @@ final class ExampleTest extends TestCase
 - **Bad Example:** `$registry = $factory->make(); $this->assertInstanceOf(Registry::class, $registry);`
 - **Good Example:** `$registry = $factory->make(); $this->assertTrue($registry->hasSpec('required'));`
 - Focus on testing that the created object works correctly, not just that it exists
+
+### Testing Classes with Magic Methods
+
+**Field Class Testing Pattern:**
+
+When testing classes like `Field` that use `__call` method to map virtual methods from docblock through specs:
+
+- Focus on testing the mapping engine that connects docblock methods to specs
+- Create a simple `Specs` instance and use `register()` to add test specs instead of using factories
+- Testing with one spec is sufficient to verify the mapping mechanism works
+- Test the fluent API behavior and rule registration through the `__call` method
+
+**Factory Naming Conventions:**
+
+- Use `DefaultSpecsFactory` instead of `BasicSpecsFactory` for consistency
+- When possible, avoid factories in tests and create objects directly for simpler test setup
 
 ## Additional Development Information
 
