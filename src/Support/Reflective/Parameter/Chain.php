@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Constructo\Support\Reflective\Parameter;
 
-use Constructo\Core\Metadata\Schema\Element\SchemaRegistry;
 use Constructo\Core\Metadata\Schema\Field;
+use Constructo\Core\Metadata\Schema\Registry;
 use ReflectionParameter;
 
 abstract class Chain
 {
     protected ?Chain $previous = null;
 
-    public function __construct(protected readonly ?SchemaRegistry $specs = null)
+    public function __construct(protected readonly ?Registry $specs = null)
     {
     }
 

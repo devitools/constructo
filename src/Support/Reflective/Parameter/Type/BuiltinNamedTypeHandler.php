@@ -19,7 +19,7 @@ class BuiltinNamedTypeHandler extends NamedTypeHandler
             return NamedTypeResolution::NotResolved;
         }
         $type = $this->resolveBuiltinType($parameter->getName());
-        if (is_string($type) && $field->specs->has($type)) {
+        if (is_string($type) && $field->registry->hasSpec($type)) {
             $field->{$type}();
         }
         return NamedTypeResolution::Resolved;

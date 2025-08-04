@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Core\Metadata\Schema\Element;
+namespace Constructo\Core\Metadata\Schema\Registry;
 
 use Constructo\Contract\Formatter;
 use Constructo\Support\Set;

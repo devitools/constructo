@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Core\Metadata\Schema\Element;
+namespace Constructo\Core\Metadata\Schema\Registry;
 
+use Constructo\Core\Metadata\Schema\Registry;
 use InvalidArgumentException;
 
 use function assert;
 use function Constructo\Cast\arrayify;
-use function gettype;
 use function Constructo\Cast\stringify;
+use function gettype;
 
-readonly class SchemaRegistryFactory
+readonly class RegistryFactory
 {
     public function __construct(
         private array $types = [],
@@ -19,13 +20,13 @@ readonly class SchemaRegistryFactory
     ) {
     }
 
-    public function make(): SchemaRegistry
+    public function make(): Registry
     {
-        $registry = new SchemaRegistry($this->types);
-        assert($registry instanceof SchemaRegistry);
+        $registry = new Registry($this->types);
+        assert($registry instanceof Registry);
         foreach ($this->specs as $key => $value) {
             $this->validate($key, $value);
-            $registry->register(stringify($key), arrayify($value));
+            $registry->registerSpec(stringify($key), arrayify($value));
         }
         return $registry;
     }

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Core\Metadata\Schema\Field;
+namespace Constructo\Core\Metadata\Schema\Field\Formatter;
 
 use BadMethodCallException;
 use Closure;
 use Constructo\Contract\Formatter;
 
-use function count;
-use function is_array;
 use function Constructo\Cast\arrayify;
 use function Constructo\Cast\stringify;
+use function count;
+use function is_array;
 use function sprintf;
 
 class PatternFormatter implements Formatter

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Constructo\Core\Metadata;
 
-use Constructo\Core\Metadata\Schema\Element\Rules;
-use Constructo\Core\Metadata\Schema\Element\SchemaRegistry;
 use Constructo\Core\Metadata\Schema\Field;
-use Constructo\Core\Metadata\Schema\Fieldset;
+use Constructo\Core\Metadata\Schema\Field\Fieldset;
+use Constructo\Core\Metadata\Schema\Field\Rules;
+use Constructo\Core\Metadata\Schema\Registry;
 use InvalidArgumentException;
 
 use function array_map;
@@ -15,7 +15,7 @@ use function array_map;
 final readonly class Schema
 {
     public function __construct(
-        private SchemaRegistry $registry,
+        private Registry $registry,
         private Fieldset $fieldset,
     ) {
     }

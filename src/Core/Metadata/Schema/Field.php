@@ -5,11 +5,10 @@ declare(strict_types=1);
 
 namespace Constructo\Core\Metadata\Schema;
 
-use Constructo\Core\Metadata\Schema\Element\Rules;
-use Constructo\Core\Metadata\Schema\Element\Spec;
-use Constructo\Core\Metadata\Schema\Element\SchemaRegistry;
 use BadMethodCallException;
 use Closure;
+use Constructo\Core\Metadata\Schema\Field\Rules;
+use Constructo\Core\Metadata\Schema\Registry\Spec;
 
 /**
  * # Global setup
@@ -114,7 +113,7 @@ final class Field
     private ?string $source = null;
 
     public function __construct(
-        public readonly SchemaRegistry $specs,
+        public readonly Registry $registry,
         private readonly Rules $rules,
         public readonly string $name,
     ) {
@@ -160,7 +159,7 @@ final class Field
             $this->handleVisibility($name);
             return $this;
         }
-        $spec = $this->specs->get($name);
+        $spec = $this->registry->getSpec($name);
         if ($spec instanceof Spec) {
             $this->handleSpec($spec, $arguments);
             return $this;

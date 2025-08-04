@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace Constructo\Core\Metadata\Schema;
 
 use Constructo\Core\Metadata\Schema;
-use Constructo\Core\Metadata\Schema\Element\SchemaRegistryFactory;
+use Constructo\Core\Metadata\Schema\Field\Fieldset;
+use Constructo\Core\Metadata\Schema\Registry\RegistryFactory;
 use Constructo\Support\Cache;
-use Constructo\Support\Reflective\SchemaReflector;
+use Constructo\Support\Reflective\Schema\SchemaReflector;
 use ReflectionException;
 
 class SchemaFactory
 {
     public function make(): Schema
     {
-        $schemaRegistry = (new SchemaRegistryFactory())->make();
+        $schemaRegistry = (new RegistryFactory())->make();
         return new Schema($schemaRegistry, new Fieldset());
     }
 
@@ -25,7 +26,7 @@ class SchemaFactory
      */
     public function makeFrom(string $source = null): Schema
     {
-        $schemaRegistry = (new SchemaRegistryFactory())->make();
+        $schemaRegistry = (new RegistryFactory())->make();
         $schema = new Schema($schemaRegistry, new Fieldset());
         return (new SchemaReflector(new Cache(), $schemaRegistry))->extract($source, $schema);
     }

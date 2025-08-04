@@ -2,28 +2,31 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Core\Metadata\Schema\Element;
+namespace Constructo\Core\Metadata\Schema;
 
-use InvalidArgumentException;
 use Constructo\Contract\Formatter;
+use Constructo\Core\Metadata\Schema\Registry\Spec;
 use Constructo\Support\Set;
+use InvalidArgumentException;
 
 use function class_exists;
+use function Constructo\Cast\stringify;
+use function Constructo\Notation\snakify;
 use function gettype;
 use function is_string;
-use function Serendipity\Notation\snakify;
-use function Constructo\Cast\stringify;
 use function sprintf;
 
-class SchemaRegistry
+class Registry
 {
     private array $specs = [];
+    private readonly array $types;
 
-    public function __construct(private readonly array $types = [])
+    public function __construct(array $types = [])
     {
+        $this->types = array_merge($this->defaultTypes(), $types);
     }
 
-    public function get(string $name): ?Spec
+    public function getSpec(string $name): ?Spec
     {
         $name = snakify($name);
         $spec = $this->specs[$name] ?? null;
@@ -33,7 +36,7 @@ class SchemaRegistry
         return null;
     }
 
-    public function register(string $name, array $data): void
+    public function registerSpec(string $name, array $data): void
     {
         $name = snakify($name);
         $properties = Set::createFrom($data);
@@ -43,7 +46,21 @@ class SchemaRegistry
         $this->specs[$name] = $spec;
     }
 
-    public function defineFormatter(Set $properties): ?Formatter
+    public function hasSpec(string $name): bool
+    {
+        $name = snakify($name);
+        return isset($this->specs[$name]);
+    }
+
+    public function getType(string $source): ?string
+    {
+        $type = $this->types[$source] ?? null;
+        return $type
+            ? stringify($type)
+            : null;
+    }
+
+    protected function defineFormatter(Set $properties): ?Formatter
     {
         $formatter = $properties->get('formatter');
         if ($formatter === null) {
@@ -63,17 +80,12 @@ class SchemaRegistry
         return $instance;
     }
 
-    public function has(string $name): bool
+    protected function defaultTypes(): array
     {
-        $name = snakify($name);
-        return isset($this->specs[$name]);
-    }
-
-    public function type(string $source): ?string
-    {
-        $type = $this->types[$source] ?? null;
-        return $type
-            ? stringify($type)
-            : null;
+        return [
+            'DateTime' => 'date',
+            'DateTimeImmutable' => 'date',
+            'DateTimeInterface' => 'date',
+        ];
     }
 }

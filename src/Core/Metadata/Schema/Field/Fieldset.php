@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Core\Metadata\Schema;
+namespace Constructo\Core\Metadata\Schema\Field;
 
 use Closure;
+use Constructo\Core\Metadata\Schema\Field;
 
 class Fieldset
 {

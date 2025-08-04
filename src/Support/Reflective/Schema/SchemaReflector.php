@@ -2,22 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Support\Reflective;
+namespace Constructo\Support\Reflective\Schema;
 
-use Constructo\Support\Cache;
 use Constructo\Core\Metadata\Schema;
-use Constructo\Core\Metadata\Schema\Element\SchemaRegistry;
 use Constructo\Core\Metadata\Schema\Field;
+use Constructo\Core\Metadata\Schema\Registry;
+use Constructo\Support\Cache;
+use Constructo\Support\Reflective\Factory\Target;
+use Constructo\Support\Reflective\Notation;
 use Constructo\Support\Reflective\Parameter\ManagedChain;
 use Constructo\Support\Reflective\Parameter\RequirementChain;
 use Constructo\Support\Reflective\Parameter\TypeChain;
 use ReflectionException;
 use ReflectionParameter;
-use Constructo\Support\Reflective\Factory\Target;
 
+use function Constructo\Notation\format;
 use function implode;
 use function in_array;
-use function Constructo\Notation\format;
 
 class SchemaReflector
 {
@@ -25,7 +26,7 @@ class SchemaReflector
 
     public function __construct(
         protected readonly Cache $cache,
-        protected readonly ?SchemaRegistry $registry = null,
+        protected readonly ?Registry $registry = null,
         protected readonly Notation $notation = Notation::SNAKE,
     ) {
     }

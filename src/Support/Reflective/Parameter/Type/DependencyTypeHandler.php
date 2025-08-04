@@ -27,7 +27,7 @@ class DependencyTypeHandler extends NamedTypeHandler
 
     private function resolveDynamicType(Field $field, string $source): void
     {
-        $type = $this->specs->type($source);
+        $type = $this->specs->getType($source);
         if (is_string($type)) {
             $field->{$type}();
             return;

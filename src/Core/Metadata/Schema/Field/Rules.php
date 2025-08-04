@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Core\Metadata\Schema\Element;
+namespace Constructo\Core\Metadata\Schema\Field;
 
+use Constructo\Core\Metadata\Schema\Registry\Spec;
 use InvalidArgumentException;
 
 use function array_filter;
-use function count;
 use function Constructo\Cast\stringify;
+use function count;
 use function str_contains;
 
 class Rules
@@ -17,7 +18,7 @@ class Rules
 
     public function all(): array
     {
-        return array_values($this->rules);
+        return array_map(fn (Rule $rule): string => stringify($rule), array_values($this->rules));
     }
 
     public function register(Spec $spec, array $arguments): void
