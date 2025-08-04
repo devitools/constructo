@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Constructo\Test\Stub;
 
 use Hyperf\Validation\Rule;
-use Serendipity\Presentation\Input;
+use Constructo\Presentation\Input;
 
 use function Hyperf\Collection\data_get;
 use function preg_replace;

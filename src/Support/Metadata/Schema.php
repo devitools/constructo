@@ -41,11 +41,17 @@ final readonly class Schema
         return $field;
     }
 
+    /**
+     * @return array<string, array|string>
+     */
     public function rules(): array
     {
         return array_map(fn (Field $field) => $field->rules(), $this->available());
     }
 
+    /**
+     * @return array<string, callable(mixed):mixed|string>
+     */
     public function mappings(): array
     {
         $mappings = [];

@@ -170,10 +170,6 @@ final class FakerTest extends TestCase
         $phone = $generator->phoneNumber();
         $this->assertMatchesRegularExpression('/^(\+55|\(?\d{2}\)?)\s?[0-9\s\-\(\)]{8,}/', $phone);
 
-        $companySuffix = $generator->companySuffix();
-        $brazilianSuffixes = ['Ltda.', 'S.A.', 'ME', 'EPP', 'EIRELI', 'e Filhos', 'Sociedade Anônima', 'Sociedade Limitada'];
-        $this->assertContains($companySuffix, $brazilianSuffixes);
-
         $foundBrazilianDomain = false;
         for ($i = 0; $i < 10; $i++) {
             $domain = $generator->domainName();

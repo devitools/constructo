@@ -11,16 +11,17 @@
       "Constructo\\": "src/"
     },
     "files": [
-      "functions/cast.php",
-      "functions/crypt.php",
-      "functions/json.php",
-      "functions/notation.php",
-      "functions/util.php"
+      "src/_/cast.php",
+      "src/_/crypt.php",
+      "src/_/json.php",
+      "src/_/notation.php",
+      "src/_/util.php"
     ]
   },
   "autoload-dev": {
     "psr-4": {
-      "Constructo\\Test\\": "tests/"
+      "Constructo\\Test\\": "tests/",
+      "Constructo\\Test\\_\\": "tests/_/"
     }
   },
   "require": {
