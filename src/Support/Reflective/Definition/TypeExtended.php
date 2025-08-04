@@ -15,4 +15,6 @@ interface TypeExtended
     public function demolish(mixed $value, Closure $demolish): mixed;
 
     public function fake(Faker $faker): ?Value;
+
+    public function rule(): ?string;
 }

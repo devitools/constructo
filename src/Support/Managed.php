@@ -4,15 +4,20 @@ declare(strict_types=1);
 
 namespace Constructo\Support;
 
+use Constructo\Contract\Managed\IdGenerator;
 use Constructo\Exception\ManagedException;
+use Constructo\Support\Managed\Cuid2IdGenerator;
 use Constructo\Type\Timestamp;
-use Throwable;
-use Visus\Cuid2\Cuid2;
 
-class Managed
+readonly class Managed
 {
-    public function __construct(public readonly int $length = 10)
-    {
+    private IdGenerator $idGenerator;
+
+    public function __construct(
+        int $length = 10,
+        ?IdGenerator $idGenerator = null,
+    ) {
+        $this->idGenerator = $idGenerator ?? new Cuid2IdGenerator($length);
     }
 
     /**
@@ -20,11 +25,7 @@ class Managed
      */
     public function id(): string
     {
-        try {
-            return (new Cuid2($this->length))->toString();
-        } catch (Throwable $exception) {
-            throw new ManagedException('id', $exception);
-        }
+        return $this->idGenerator->generate();
     }
 
     public function now(): string
