@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Test\Core\Reflect\Resolve;
+namespace Constructo\Test\Core\Reflect\Resolver;
 
-use Constructo\Core\Reflect\Resolve\RequirementChain;
+use Constructo\Core\Reflect\Resolver\RequirementResolver;
 use Constructo\Factory\DefaultSpecsFactory;
 use Constructo\Support\Metadata\Schema\Field;
 use Constructo\Support\Metadata\Schema\Field\Rules;
@@ -12,7 +12,7 @@ use Constructo\Support\Metadata\Schema\Registry\Specs;
 use PHPUnit\Framework\TestCase;
 use ReflectionParameter;
 
-final class RequirementChainTest extends TestCase
+final class RequirementResolverTest extends TestCase
 {
     private Specs $specs;
 
@@ -38,7 +38,7 @@ final class RequirementChainTest extends TestCase
             isDefaultValueAvailable: false
         );
         $field = new Field($this->specs, new Rules(), 'test');
-        $chain = new RequirementChain();
+        $chain = new RequirementResolver();
 
         $chain->resolve($parameter, $field, ['test']);
 
@@ -54,7 +54,7 @@ final class RequirementChainTest extends TestCase
             isDefaultValueAvailable: false
         );
         $field = new Field($this->specs, new Rules(), 'test');
-        $chain = new RequirementChain();
+        $chain = new RequirementResolver();
 
         $chain->resolve($parameter, $field, ['test']);
 
@@ -70,7 +70,7 @@ final class RequirementChainTest extends TestCase
             isDefaultValueAvailable: true
         );
         $field = new Field($this->specs, new Rules(), 'test');
-        $chain = new RequirementChain();
+        $chain = new RequirementResolver();
 
         $chain->resolve($parameter, $field, ['test']);
 
@@ -87,7 +87,7 @@ final class RequirementChainTest extends TestCase
             isDefaultValueAvailable: false
         );
         $field = new Field($this->specs, new Rules(), 'test');
-        $chain = new RequirementChain();
+        $chain = new RequirementResolver();
 
         $chain->resolve($parameter, $field, ['test']);
 
@@ -106,7 +106,7 @@ final class RequirementChainTest extends TestCase
             isDefaultValueAvailable: false
         );
         $field = new Field($this->specs, new Rules(), 'test');
-        $chain = new RequirementChain($parentField);
+        $chain = new RequirementResolver($parentField);
 
         $chain->resolve($parameter, $field, ['test']);
 
@@ -122,7 +122,7 @@ final class RequirementChainTest extends TestCase
             isDefaultValueAvailable: true
         );
         $field = new Field($this->specs, new Rules(), 'test');
-        $chain = new RequirementChain();
+        $chain = new RequirementResolver();
 
         $chain->resolve($parameter, $field, ['test']);
 
@@ -138,22 +138,12 @@ final class RequirementChainTest extends TestCase
             isDefaultValueAvailable: false
         );
         $field = new Field($this->specs, new Rules(), 'test');
-        $chain = new RequirementChain();
+        $chain = new RequirementResolver();
 
         $chain->resolve($parameter, $field, ['test']);
 
         $this->assertTrue($field->hasRule('nullable'));
         $this->assertFalse($field->hasRule('filled'));
-    }
-
-    public function testConstructorWithParentAndSpecs(): void
-    {
-        $parentField = new Field($this->specs, new Rules(), 'parent');
-        $specs = new Specs();
-
-        $chain = new RequirementChain($parentField, $specs);
-
-        $this->assertInstanceOf(RequirementChain::class, $chain);
     }
 
     private function createParameterMock(

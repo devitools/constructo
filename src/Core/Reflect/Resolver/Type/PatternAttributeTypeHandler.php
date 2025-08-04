@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Core\Reflect\Resolve\Type;
+namespace Constructo\Core\Reflect\Resolver\Type;
 
-use Constructo\Core\Reflect\Resolve\Type\Contract\TypeHandler;
+use Constructo\Core\Reflect\Resolver\Type\Contract\TypeHandler;
 use Constructo\Support\Metadata\Schema\Field;
 use Constructo\Support\Reflective\Attribute\Pattern;
 use ReflectionAttribute;

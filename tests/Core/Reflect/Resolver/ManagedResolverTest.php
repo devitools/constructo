@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Test\Core\Reflect\Resolve;
+namespace Constructo\Test\Core\Reflect\Resolver;
 
-use Constructo\Core\Reflect\Resolve\ManagedChain;
+use Constructo\Core\Reflect\Resolver\ManagedResolver;
 use Constructo\Factory\DefaultSpecsFactory;
 use Constructo\Support\Metadata\Schema\Field;
 use Constructo\Support\Metadata\Schema\Field\Rules;
@@ -14,9 +14,9 @@ use PHPUnit\Framework\TestCase;
 use ReflectionAttribute;
 use ReflectionParameter;
 
-final class ManagedChainTest extends TestCase
+final class ManagedResolverTest extends TestCase
 {
-    private ManagedChain $chain;
+    private ManagedResolver $chain;
     private Specs $specs;
 
     protected function setUp(): void
@@ -25,7 +25,7 @@ final class ManagedChainTest extends TestCase
 
         $specsFactory = new DefaultSpecsFactory($specsData);
         $this->specs = $specsFactory->make();
-        $this->chain = new ManagedChain();
+        $this->chain = new ManagedResolver();
     }
 
     public function testResolveWithManagedAttribute(): void
@@ -57,13 +57,13 @@ final class ManagedChainTest extends TestCase
         $path = ['test'];
 
         // Create a mock previous chain to verify it gets called
-        $mockPreviousChain = $this->createMock(ManagedChain::class);
+        $mockPreviousChain = $this->createMock(ManagedResolver::class);
         $mockPreviousChain->expects($this->once())
             ->method('resolve')
             ->with($parameter, $field, $path);
 
         // Set up the chain with a previous chain
-        $chain = new ManagedChain();
+        $chain = new ManagedResolver();
         $mockPreviousChain->then($chain);
 
         $chain->resolve($parameter, $field, $path);

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Constructo\Core\Reflect;
 
-use Constructo\Core\Reflect\Resolve\ManagedChain;
-use Constructo\Core\Reflect\Resolve\RequirementChain;
-use Constructo\Core\Reflect\Resolve\TypeChain;
+use Constructo\Core\Reflect\Resolver\ManagedResolver;
+use Constructo\Core\Reflect\Resolver\RequirementResolver;
+use Constructo\Core\Reflect\Resolver\TypeResolver;
 use Constructo\Factory\SchemaFactory;
 use Constructo\Support\Cache;
 use Constructo\Support\Metadata\Schema;
@@ -59,9 +59,9 @@ class Reflector
      */
     protected function introspect(array $parameters, Schema $schema, ?Field $parent = null, array $path = []): void
     {
-        $chain = (new TypeChain($this->types))
-            ->then(new RequirementChain($parent))
-            ->then(new ManagedChain());
+        $chain = (new TypeResolver($this->types))
+            ->then(new RequirementResolver($parent))
+            ->then(new ManagedResolver());
 
         foreach ($parameters as $parameter) {
             assert($parameter instanceof ReflectionParameter);

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Test\Core\Reflect\Resolve\Type;
+namespace Constructo\Test\Core\Reflect\Resolver\Type;
 
-use Constructo\Core\Reflect\Resolve\Type\DefineAttributeTypeHandler;
+use Constructo\Core\Reflect\Resolver\Type\DefineAttributeTypeHandler;
 use Constructo\Factory\DefaultSpecsFactory;
 use Constructo\Support\Metadata\Schema\Field;
 use Constructo\Support\Metadata\Schema\Field\Rules;

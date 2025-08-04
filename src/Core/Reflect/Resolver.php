@@ -8,9 +8,9 @@ use Constructo\Support\Metadata\Schema\Field;
 use Constructo\Support\Metadata\Schema\Registry\Types;
 use ReflectionParameter;
 
-abstract class Chain
+abstract class Resolver
 {
-    protected ?Chain $previous = null;
+    protected ?Resolver $previous = null;
 
     public function __construct(protected readonly ?Types $types = null)
     {
@@ -23,13 +23,13 @@ abstract class Chain
         }
     }
 
-    final public function then(Chain $resolver): Chain
+    final public function then(Resolver $resolver): Resolver
     {
         $resolver->setPrevious($this);
         return $resolver;
     }
 
-    final protected function setPrevious(Chain $previous): void
+    final protected function setPrevious(Resolver $previous): void
     {
         $this->previous = $previous;
     }

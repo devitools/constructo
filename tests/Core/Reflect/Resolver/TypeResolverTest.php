@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Test\Core\Reflect\Resolve;
+namespace Constructo\Test\Core\Reflect\Resolver;
 
-use Constructo\Core\Reflect\Resolve\TypeChain;
-use Constructo\Core\Reflect\Resolve\Type\BuiltinNamedTypeHandler;
-use Constructo\Core\Reflect\Resolve\Type\DefineAttributeTypeHandler;
-use Constructo\Core\Reflect\Resolve\Type\DependencyTypeHandler;
-use Constructo\Core\Reflect\Resolve\Type\EnumNamedTypeHandler;
-use Constructo\Core\Reflect\Resolve\Type\PatternAttributeTypeHandler;
+use Constructo\Core\Reflect\Resolver\TypeResolver;
+use Constructo\Core\Reflect\Resolver\Type\BuiltinNamedTypeHandler;
+use Constructo\Core\Reflect\Resolver\Type\DefineAttributeTypeHandler;
+use Constructo\Core\Reflect\Resolver\Type\DependencyTypeHandler;
+use Constructo\Core\Reflect\Resolver\Type\EnumNamedTypeHandler;
+use Constructo\Core\Reflect\Resolver\Type\PatternAttributeTypeHandler;
 use Constructo\Support\Metadata\Schema\Field;
 use Constructo\Support\Metadata\Schema\Field\Rules;
 use Constructo\Support\Metadata\Schema\Registry\Specs;
@@ -17,9 +17,9 @@ use Constructo\Support\Metadata\Schema\Registry\Types;
 use PHPUnit\Framework\TestCase;
 use ReflectionParameter;
 
-final class TypeChainTest extends TestCase
+final class TypeResolverTest extends TestCase
 {
-    private TypeChain $chain;
+    private TypeResolver $chain;
     private Types $types;
     private Specs $specs;
 
@@ -27,7 +27,7 @@ final class TypeChainTest extends TestCase
     {
         $this->types = new Types();
         $this->specs = new Specs();
-        $this->chain = new TypeChain($this->types);
+        $this->chain = new TypeResolver($this->types);
     }
 
     public function testResolveCreatesCorrectHandlerChain(): void
@@ -57,13 +57,13 @@ final class TypeChainTest extends TestCase
         $parameter->method('getAttributes')->willReturn([]);
 
         // Create a mock previous chain to verify it gets called
-        $mockPreviousChain = $this->createMock(TypeChain::class);
+        $mockPreviousChain = $this->createMock(TypeResolver::class);
         $mockPreviousChain->expects($this->once())
             ->method('resolve')
             ->with($parameter, $field, $path);
 
         // Set up the chain with a previous chain
-        $chain = new TypeChain($this->types);
+        $chain = new TypeResolver($this->types);
         $mockPreviousChain->then($chain);
 
         $chain->resolve($parameter, $field, $path);
@@ -72,16 +72,16 @@ final class TypeChainTest extends TestCase
     public function testConstructorWithTypes(): void
     {
         $types = new Types();
-        $chain = new TypeChain($types);
+        $chain = new TypeResolver($types);
 
-        $this->assertInstanceOf(TypeChain::class, $chain);
+        $this->assertInstanceOf(TypeResolver::class, $chain);
     }
 
     public function testConstructorWithoutTypes(): void
     {
-        $chain = new TypeChain();
+        $chain = new TypeResolver();
 
-        $this->assertInstanceOf(TypeChain::class, $chain);
+        $this->assertInstanceOf(TypeResolver::class, $chain);
     }
 
     public function testResolveWithStringParameter(): void

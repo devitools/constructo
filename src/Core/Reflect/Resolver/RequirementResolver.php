@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Core\Reflect\Resolve;
+namespace Constructo\Core\Reflect\Resolver;
 
-use Constructo\Core\Reflect\Chain;
+use Constructo\Core\Reflect\Resolver;
 use Constructo\Support\Metadata\Schema\Field;
-use Constructo\Support\Metadata\Schema\Registry\Specs;
+use Constructo\Support\Metadata\Schema\Registry\Types;
 use ReflectionParameter;
 
-class RequirementChain extends Chain
+class RequirementResolver extends Resolver
 {
     public function __construct(
         private readonly ?Field $parent = null,
-        ?Specs $specs = null,
+        ?Types $types = null,
     ) {
-        parent::__construct();
+        parent::__construct($types);
     }
 
     public function resolve(ReflectionParameter $parameter, Field $field, array $path): void

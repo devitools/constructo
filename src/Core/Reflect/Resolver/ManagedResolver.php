@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Core\Reflect\Resolve;
+namespace Constructo\Core\Reflect\Resolver;
 
-use Constructo\Core\Reflect\Chain;
+use Constructo\Core\Reflect\Resolver;
 use Constructo\Support\Metadata\Schema\Field;
 use Constructo\Support\Reflective\Attribute\Managed;
 use ReflectionParameter;
 
-class ManagedChain extends Chain
+class ManagedResolver extends Resolver
 {
     public function resolve(ReflectionParameter $parameter, Field $field, array $path): void
     {

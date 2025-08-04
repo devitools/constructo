@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Test\Core\Reflect\Resolve\Type;
+namespace Constructo\Test\Core\Reflect\Resolver\Type;
 
-use Constructo\Core\Reflect\Resolve\Type\DependencyTypeHandler;
+use Constructo\Core\Reflect\Resolver\Type\DependencyTypeHandler;
 use Constructo\Factory\DefaultSpecsFactory;
 use Constructo\Support\Metadata\Schema\Field;
 use Constructo\Support\Metadata\Schema\Field\Rules;
@@ -88,11 +88,11 @@ final class DependencyTypeHandlerTest extends TestCase
 
         // Mock enum_exists to return true for TestEnum
         $this->handler = new class($this->types) extends DependencyTypeHandler {
-            protected function resolveNamedType(\ReflectionNamedType $parameter, \Constructo\Support\Metadata\Schema\Field $field): \Constructo\Core\Reflect\Resolve\Type\Contract\NamedTypeResolution
+            protected function resolveNamedType(\ReflectionNamedType $parameter, \Constructo\Support\Metadata\Schema\Field $field): \Constructo\Core\Reflect\Resolver\Type\Contract\NamedTypeResolution
             {
                 $source = $parameter->getName();
                 if ($source === 'TestEnum') {
-                    return \Constructo\Core\Reflect\Resolve\Type\Contract\NamedTypeResolution::NotResolved;
+                    return \Constructo\Core\Reflect\Resolver\Type\Contract\NamedTypeResolution::NotResolved;
                 }
                 return parent::resolveNamedType($parameter, $field);
             }

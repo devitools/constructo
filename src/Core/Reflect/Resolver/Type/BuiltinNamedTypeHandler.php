@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Core\Reflect\Resolve\Type;
+namespace Constructo\Core\Reflect\Resolver\Type;
 
-use Constructo\Core\Reflect\Resolve\Type\Contract\NamedTypeHandler;
-use Constructo\Core\Reflect\Resolve\Type\Contract\NamedTypeResolution;
+use Constructo\Core\Reflect\Resolver\Type\Contract\NamedTypeHandler;
+use Constructo\Core\Reflect\Resolver\Type\Contract\NamedTypeResolution;
 use Constructo\Support\Metadata\Schema\Field;
 use ReflectionNamedType;
 

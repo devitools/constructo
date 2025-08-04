@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Core\Reflect\Resolve;
+namespace Constructo\Core\Reflect\Resolver;
 
-use Constructo\Core\Reflect\Chain;
-use Constructo\Core\Reflect\Resolve\Type\BuiltinNamedTypeHandler;
-use Constructo\Core\Reflect\Resolve\Type\DefineAttributeTypeHandler;
-use Constructo\Core\Reflect\Resolve\Type\DependencyTypeHandler;
-use Constructo\Core\Reflect\Resolve\Type\EnumNamedTypeHandler;
-use Constructo\Core\Reflect\Resolve\Type\PatternAttributeTypeHandler;
+use Constructo\Core\Reflect\Resolver;
+use Constructo\Core\Reflect\Resolver\Type\BuiltinNamedTypeHandler;
+use Constructo\Core\Reflect\Resolver\Type\DefineAttributeTypeHandler;
+use Constructo\Core\Reflect\Resolver\Type\DependencyTypeHandler;
+use Constructo\Core\Reflect\Resolver\Type\EnumNamedTypeHandler;
+use Constructo\Core\Reflect\Resolver\Type\PatternAttributeTypeHandler;
 use Constructo\Support\Metadata\Schema\Field;
 use ReflectionParameter;
 
-class TypeChain extends Chain
+class TypeResolver extends Resolver
 {
     public function resolve(ReflectionParameter $parameter, Field $field, array $path): void
     {
