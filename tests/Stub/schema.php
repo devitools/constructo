@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 
-use Constructo\Core\Metadata\Schema\Field\Formatter\MergeFormatter;
-use Constructo\Core\Metadata\Schema\Field\Formatter\PatternFormatter;
+use Constructo\Support\Metadata\Schema\Field\Formatter\MergeFormatter;
+use Constructo\Support\Metadata\Schema\Field\Formatter\PatternFormatter;
 
 return [
     'specs' => [

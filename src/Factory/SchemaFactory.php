@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Constructo\Factory;
 
-use Constructo\Contract\Schema\SpecsFactory;
-use Constructo\Core\Metadata\Schema;
-use Constructo\Core\Metadata\Schema\Field\Fieldset;
+use Constructo\Contract\Reflect\SpecsFactory;
+use Constructo\Support\Metadata\Schema;
+use Constructo\Support\Metadata\Schema\Field\Fieldset;
 
-class SchemaFactory
+readonly class SchemaFactory
 {
-    public function __construct(private readonly SpecsFactory $specsFactory)
+    public function __construct(private SpecsFactory $specsFactory)
     {
     }
 
