@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Constructo\Factory;
 
 use Constructo\Contract\Reflect\TypesFactory;
+use Constructo\Core\Reflect\Introspection\Introspector;
 use Constructo\Core\Reflect\Reflector;
 use Constructo\Support\Cache;
 use Constructo\Support\Reflective\Notation;
@@ -15,6 +16,7 @@ readonly class ReflectorFactory
         private TypesFactory $typesFactory,
         private SchemaFactory $schemaFactory,
         private Cache $cache,
+        private Introspector $introspector,
         private Notation $notation = Notation::SNAKE,
     ) {
     }
@@ -22,6 +24,6 @@ readonly class ReflectorFactory
     public function make(): Reflector
     {
         $types = $this->typesFactory->make();
-        return new Reflector($this->schemaFactory, $types, $this->cache, $this->notation);
+        return new Reflector($this->schemaFactory, $types, $this->cache, $this->introspector, $this->notation);
     }
 }

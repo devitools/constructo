@@ -6,7 +6,7 @@ namespace Constructo\Test\Factory;
 
 use Constructo\Contract\Reflect\SpecsFactory;
 use Constructo\Contract\Reflect\TypesFactory;
-use Constructo\Core\Reflect\Reflector;
+use Constructo\Core\Reflect\Introspection\Introspector;
 use Constructo\Factory\ReflectorFactory;
 use Constructo\Factory\SchemaFactory;
 use Constructo\Support\Cache;
@@ -21,17 +21,20 @@ final class ReflectorFactoryTest extends TestCase
     {
         $types = new Types();
         $cache = new Cache();
+        $introspector = new Introspector();
         $notation = Notation::SNAKE;
 
         $typesFactory = $this->createMock(TypesFactory::class);
-        $typesFactory->method('make')->willReturn($types);
+        $typesFactory->method('make')
+            ->willReturn($types);
 
         $specs = new Specs();
         $specsFactory = $this->createMock(SpecsFactory::class);
-        $specsFactory->method('make')->willReturn($specs);
+        $specsFactory->method('make')
+            ->willReturn($specs);
         $schemaFactory = new SchemaFactory($specsFactory);
 
-        $factory = new ReflectorFactory($typesFactory, $schemaFactory, $cache, $notation);
+        $factory = new ReflectorFactory($typesFactory, $schemaFactory, $cache, $introspector, $notation);
 
         $reflector = $factory->make();
 
@@ -43,16 +46,19 @@ final class ReflectorFactoryTest extends TestCase
     {
         $types = new Types();
         $cache = new Cache();
+        $introspector = new Introspector();
 
         $typesFactory = $this->createMock(TypesFactory::class);
-        $typesFactory->method('make')->willReturn($types);
+        $typesFactory->method('make')
+            ->willReturn($types);
 
         $specs = new Specs();
         $specsFactory = $this->createMock(SpecsFactory::class);
-        $specsFactory->method('make')->willReturn($specs);
+        $specsFactory->method('make')
+            ->willReturn($specs);
         $schemaFactory = new SchemaFactory($specsFactory);
 
-        $factory = new ReflectorFactory($typesFactory, $schemaFactory, $cache);
+        $factory = new ReflectorFactory($typesFactory, $schemaFactory, $cache, $introspector);
 
         $reflector = $factory->make();
 
@@ -64,6 +70,7 @@ final class ReflectorFactoryTest extends TestCase
     {
         $types = new Types();
         $cache = new Cache();
+        $introspector = new Introspector();
 
         $typesFactory = $this->createMock(TypesFactory::class);
         $typesFactory->expects($this->once())
@@ -72,10 +79,11 @@ final class ReflectorFactoryTest extends TestCase
 
         $specs = new Specs();
         $specsFactory = $this->createMock(SpecsFactory::class);
-        $specsFactory->method('make')->willReturn($specs);
+        $specsFactory->method('make')
+            ->willReturn($specs);
         $schemaFactory = new SchemaFactory($specsFactory);
 
-        $factory = new ReflectorFactory($typesFactory, $schemaFactory, $cache);
+        $factory = new ReflectorFactory($typesFactory, $schemaFactory, $cache, $introspector);
 
         $factory->make();
     }
@@ -84,27 +92,30 @@ final class ReflectorFactoryTest extends TestCase
     {
         $types = new Types();
         $cache = new Cache();
+        $introspector = new Introspector();
 
         $typesFactory = $this->createMock(TypesFactory::class);
-        $typesFactory->method('make')->willReturn($types);
+        $typesFactory->method('make')
+            ->willReturn($types);
 
         $specs = new Specs();
         $specsFactory = $this->createMock(SpecsFactory::class);
-        $specsFactory->method('make')->willReturn($specs);
+        $specsFactory->method('make')
+            ->willReturn($specs);
         $schemaFactory = new SchemaFactory($specsFactory);
 
         // Test with CAMEL notation
-        $factoryCamel = new ReflectorFactory($typesFactory, $schemaFactory, $cache, Notation::CAMEL);
+        $factoryCamel = new ReflectorFactory($typesFactory, $schemaFactory, $cache, $introspector, Notation::CAMEL);
         $reflectorCamel = $factoryCamel->make();
         $this->assertNotNull($reflectorCamel);
 
         // Test with PASCAL notation
-        $factoryPascal = new ReflectorFactory($typesFactory, $schemaFactory, $cache, Notation::PASCAL);
+        $factoryPascal = new ReflectorFactory($typesFactory, $schemaFactory, $cache, $introspector, Notation::PASCAL);
         $reflectorPascal = $factoryPascal->make();
         $this->assertNotNull($reflectorPascal);
 
         // Test with KEBAB notation
-        $factoryKebab = new ReflectorFactory($typesFactory, $schemaFactory, $cache, Notation::KEBAB);
+        $factoryKebab = new ReflectorFactory($typesFactory, $schemaFactory, $cache, $introspector, Notation::KEBAB);
         $reflectorKebab = $factoryKebab->make();
         $this->assertNotNull($reflectorKebab);
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Constructo\Test\Core\Reflect;
 
 use Constructo\Contract\Reflect\TypesFactory;
+use Constructo\Core\Reflect\Introspection\Introspector;
 use Constructo\Core\Reflect\Reflector;
 use Constructo\Factory\DefaultSpecsFactory;
 use Constructo\Factory\SchemaFactory;
@@ -13,6 +14,7 @@ use Constructo\Support\Metadata\Schema\Registry\Types;
 use Constructo\Support\Reflective\Notation;
 use Constructo\Test\Stub\Domain\Entity\Command\GameCommand;
 use Constructo\Test\Stub\Domain\Entity\Command\PersonCommand;
+use Constructo\Test\Stub\Domain\Entity\EmptyClass;
 use Constructo\Test\Stub\Reflector\Sample;
 use PHPUnit\Framework\TestCase;
 
@@ -26,6 +28,7 @@ final class ReflectorTest extends TestCase
     {
         $types = new Types();
         $cache = new Cache();
+        $introspector = new Introspector();
         $notation = Notation::SNAKE;
 
         $typesFactory = $this->createMock(TypesFactory::class);
@@ -73,7 +76,7 @@ final class ReflectorTest extends TestCase
         $schemaFactory = new SchemaFactory($specsFactory);
 
 
-        $this->reflector = new Reflector($schemaFactory, $types, $cache, $notation);
+        $this->reflector = new Reflector($schemaFactory, $types, $cache, $introspector, $notation);
     }
 
     public function testReflectSampleClassCreatesSchemaWithAllFields(): void
@@ -228,6 +231,9 @@ final class ReflectorTest extends TestCase
           "optional_object_field.published_at" : [ "sometimes", "date" ],
           "optional_object_field.data" : [ "sometimes", "array" ],
           "optional_object_field.features" : [ "sometimes", "array" ],
+          "optional_object_field.features.*.name" : [ "sometimes", "string" ],
+          "optional_object_field.features.*.description" : [ "sometimes", "string" ],
+          "optional_object_field.features.*.enabled" : [ "sometimes", "boolean" ],
           "default_enum_field" : [ "sometimes", "required", "integer", "in:1,2,3" ],
           "processed_nullable_field" : [ "sometimes", "nullable", "string" ]
         }';
@@ -248,7 +254,7 @@ final class ReflectorTest extends TestCase
           "features": [ "required", "array" ],
           "features.*.name": [ "required", "string" ],
           "features.*.description": [ "required", "string" ],
-          "features.*.enabled": [ "required", "bool" ]
+          "features.*.enabled": [ "required", "boolean" ]
         }';
         $expected = json_decode($json, true);
         $this->assertEquals($expected, $rules);
@@ -272,5 +278,27 @@ final class ReflectorTest extends TestCase
         }';
         $expected = json_decode($json, true);
         $this->assertEquals($expected, $rules);
+    }
+
+    public function testReflectClassWithEmptySourceReturnsEarly(): void
+    {
+        // Create a stub class that has EmptyClass as a field source
+        $stubClass = new class(new EmptyClass()) {
+            public function __construct(
+                public EmptyClass $emptyField,
+            ) {
+            }
+        };
+
+        $schema = $this->reflector->reflect($stubClass::class);
+        $rules = $schema->rules();
+
+        // Should have the field but no nested rules since EmptyClass has no parameters
+        $this->assertArrayHasKey('empty_field', $rules);
+        $this->assertEquals(['required', 'array'], $rules['empty_field']);
+
+        // Should not have any nested rules for empty_field since EmptyClass has no constructor parameters
+        $nestedKeys = array_filter(array_keys($rules), fn($key) => str_starts_with($key, 'empty_field.'));
+        $this->assertEmpty($nestedKeys);
     }
 }

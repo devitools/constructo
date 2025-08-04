@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Constructo\Core\Reflect;
 
+use Constructo\Core\Reflect\Introspection\Introspector;
 use Constructo\Core\Reflect\Resolver\ManagedResolver;
 use Constructo\Core\Reflect\Resolver\RequirementResolver;
 use Constructo\Core\Reflect\Resolver\TypeResolver;
@@ -30,10 +31,13 @@ class Reflector
     private array $sources = [];
 
     public function __construct(
-        protected readonly SchemaFactory $factory,
-        protected readonly Types $types,
-        protected readonly Cache $cache,
-        protected readonly Notation $notation = Notation::SNAKE,
+        private readonly SchemaFactory $factory,
+        private readonly Types $types,
+        private readonly Cache $cache,
+        private readonly Introspector $introspector,
+        private readonly Notation $notation = Notation::SNAKE,
+        private readonly string $conector = '.',
+        private readonly string $expansor = '*',
     ) {
     }
 
@@ -69,7 +73,7 @@ class Reflector
                 ...$path,
                 format($parameter->getName(), $this->notation),
             ];
-            $name = implode('.', $nestedPath);
+            $name = implode($this->conector, $nestedPath);
 
             $field = $schema->add($name);
             $chain->resolve($parameter, $field, $nestedPath);
@@ -88,6 +92,13 @@ class Reflector
      */
     private function introspectSource(string $source, Schema $schema, Field $parent, array $path): void
     {
+        $result = $this->introspector->analyze($source);
+        $introspection = $result->introspectable();
+        if ($introspection !== null) {
+            $source = $introspection;
+            $path = [...$path, $this->expansor];
+        }
+
         $nestedParameters = $this->extractParameters($source);
         if (empty($nestedParameters)) {
             return;
