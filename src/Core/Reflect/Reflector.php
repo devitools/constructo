@@ -48,7 +48,7 @@ class Reflector
 
         $parameters = $this->getParameters($source);
         $schema = $this->factory->make();
-        $this->extractFields($parameters, $schema);
+        $this->introspect($parameters, $schema);
 
         return $schema;
     }
@@ -56,7 +56,7 @@ class Reflector
     /**
      * @throws ReflectionException
      */
-    protected function extractFields(array $parameters, Schema $schema, ?Field $parent = null, array $path = []): void
+    protected function introspect(array $parameters, Schema $schema, ?Field $parent = null, array $path = []): void
     {
         $chain = (new TypeChain($this->types))
             ->then(new RequirementChain($parent))
@@ -82,14 +82,14 @@ class Reflector
                 continue;
             }
 
-            $this->extractFieldsNestedSource($source, $schema, $field, $nestedPath);
+            $this->introspectSource($source, $schema, $field, $nestedPath);
         }
     }
 
     /**
      * @throws ReflectionException
      */
-    private function extractFieldsNestedSource(string $source, Schema $schema, Field $parent, array $path): void
+    private function introspectSource(string $source, Schema $schema, Field $parent, array $path): void
     {
         $nestedParameters = $this->getParameters($source);
         if (empty($nestedParameters)) {
@@ -97,7 +97,7 @@ class Reflector
         }
 
         $this->currentPath[] = $source;
-        $this->extractFields($nestedParameters, $schema, $parent, $path);
+        $this->introspect($nestedParameters, $schema, $parent, $path);
         array_pop($this->currentPath);
     }
 

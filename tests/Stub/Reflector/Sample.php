@@ -8,21 +8,21 @@ use Constructo\Test\Stub\Domain\Entity\Game;
 use Constructo\Test\Stub\Type\TestIntEnum;
 use Constructo\Test\Stub\Type\TestStringEnum;
 
-class Sample
+readonly class Sample
 {
-    public readonly string $name;
+    public string $name;
 
     public function __construct(
-        public readonly string $requiredField,
-        public readonly ?string $requiredNullableField,
-        public readonly TestStringEnum $requiredEnumField,
-        public readonly ?TestStringEnum $requiredNullableEnumField,
+        public string $requiredField,
+        public ?string $requiredNullableField,
+        public TestStringEnum $requiredEnumField,
+        public ?TestStringEnum $requiredNullableEnumField,
         string $processedField,
-        public readonly string $defaultStringField = 'default_value',
-        public readonly ?string $defaultNullField = null,
-        public readonly ?array $optionalArrayField = null,
-        public readonly ?Game $optionalObjectField = null,
-        public readonly TestIntEnum $defaultEnumField = TestIntEnum::ONE,
+        public string $defaultStringField = 'default_value',
+        public ?string $defaultNullField = null,
+        public ?array $optionalArrayField = null,
+        public ?Game $optionalObjectField = null,
+        public TestIntEnum $defaultEnumField = TestIntEnum::ONE,
         ?string $processedNullableField = null,
     ) {
         $this->processedField = strtoupper($processedField);
@@ -33,6 +33,6 @@ class Sample
             null;
     }
 
-    public readonly string $processedField;
-    public readonly ?string $processedNullableField;
+    public string $processedField;
+    public ?string $processedNullableField;
 }

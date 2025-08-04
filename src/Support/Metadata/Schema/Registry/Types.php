@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Constructo\Support\Metadata\Schema\Registry;
 
+use Constructo\Type\Timestamp;
+
 use function Constructo\Cast\stringify;
 
 readonly class Types
@@ -34,6 +36,7 @@ readonly class Types
             'DateTime' => 'date',
             'DateTimeImmutable' => 'date',
             'DateTimeInterface' => 'date',
+            Timestamp::class => 'date',
         ];
     }
 }
