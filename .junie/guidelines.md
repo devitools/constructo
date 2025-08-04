@@ -61,10 +61,10 @@ make lint-psalm     # Static analysis
 make test
 
 # Run specific test file (within Docker container)
-docker compose exec app vendor/bin/phpunit tests/Path/To/TestFile.php
+docker compose exec constructo vendor/bin/phpunit tests/Path/To/TestFile.php
 
 # Run tests by filter/pattern (correct approach)
-docker compose exec app vendor/bin/phpunit --filter=TestClassName
+docker compose exec constructo vendor/bin/phpunit --filter=TestClassName
 # Note: make test FILTER=TestName is NOT the correct command for filtering
 ```
 

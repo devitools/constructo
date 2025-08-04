@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Test\Core\Reflect\Resolver\Type;
+namespace Constructo\Test\Core\Reflect\Resolve\Type;
 
 use BackedEnum;
-use Constructo\Core\Reflect\Resolver\Type\EnumNamedTypeHandler;
+use Constructo\Core\Reflect\Resolve\Type\EnumNamedTypeHandler;
 use Constructo\Factory\DefaultSpecsFactory;
 use Constructo\Support\Metadata\Schema\Field;
 use Constructo\Support\Metadata\Schema\Field\Rules;
@@ -122,15 +122,15 @@ final class EnumNamedTypeHandlerTest extends TestCase
 
         // Create a custom handler to simulate null backing type scenario
         $handler = new class extends EnumNamedTypeHandler {
-            protected function resolveNamedType(\ReflectionNamedType $parameter, \Constructo\Support\Metadata\Schema\Field $field): \Constructo\Core\Reflect\Resolver\Type\Contract\NamedTypeResolution
+            protected function resolveNamedType(\ReflectionNamedType $parameter, \Constructo\Support\Metadata\Schema\Field $field): \Constructo\Core\Reflect\Resolve\Type\Contract\NamedTypeResolution
             {
                 $enumClassName = $parameter->getName();
                 if (! is_subclass_of($enumClassName, \BackedEnum::class)) {
-                    return \Constructo\Core\Reflect\Resolver\Type\Contract\NamedTypeResolution::NotResolved;
+                    return \Constructo\Core\Reflect\Resolve\Type\Contract\NamedTypeResolution::NotResolved;
                 }
 
                 // Simulate enum with null backing type (line 43 coverage)
-                return \Constructo\Core\Reflect\Resolver\Type\Contract\NamedTypeResolution::NotResolved;
+                return \Constructo\Core\Reflect\Resolve\Type\Contract\NamedTypeResolution::NotResolved;
             }
         };
 

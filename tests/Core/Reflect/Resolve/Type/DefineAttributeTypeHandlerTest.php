@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Test\Core\Reflect\Resolver\Type;
+namespace Constructo\Test\Core\Reflect\Resolve\Type;
 
-use Constructo\Core\Reflect\Resolver\Type\DefineAttributeTypeHandler;
+use Constructo\Core\Reflect\Resolve\Type\DefineAttributeTypeHandler;
 use Constructo\Factory\DefaultSpecsFactory;
 use Constructo\Support\Metadata\Schema\Field;
 use Constructo\Support\Metadata\Schema\Field\Rules;
@@ -56,6 +56,18 @@ final class DefineAttributeTypeHandlerTest extends TestCase
         $this->handler->resolve($parameter, $field);
 
         $this->assertTrue($field->hasRule('uuid'));
+    }
+
+    public function testResolveDefineAttributeWithMultipleTypes(): void
+    {
+        $defineAttribute = new Define(Type::EMAIL, Type::UUID);
+        $parameter = $this->createParameterWithDefineAttribute($defineAttribute);
+        $field = new Field($this->specs, new Rules(), 'test');
+
+        $this->handler->resolve($parameter, $field);
+
+        $this->assertFalse($field->hasRule('email'));
+        $this->assertFalse($field->hasRule('uuid'));
     }
 
     public function testDoesNotResolveWhenTypeNotInSpecs(): void

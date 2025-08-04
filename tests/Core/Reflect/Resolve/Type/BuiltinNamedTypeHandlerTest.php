@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Test\Core\Reflect\Resolver\Type;
+namespace Constructo\Test\Core\Reflect\Resolve\Type;
 
-use Constructo\Core\Reflect\Resolver\Type\BuiltinNamedTypeHandler;
-use Constructo\Core\Reflect\Resolver\Type\Contract\NamedTypeResolution;
+use Constructo\Core\Reflect\Resolve\Type\BuiltinNamedTypeHandler;
+use Constructo\Core\Reflect\Resolve\Type\Contract\NamedTypeResolution;
 use Constructo\Factory\DefaultSpecsFactory;
 use Constructo\Support\Metadata\Schema\Field;
 use Constructo\Support\Metadata\Schema\Field\Rules;

@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Core\Reflect\Resolver\Field;
+namespace Constructo\Core\Reflect\Resolve;
 
-use Constructo\Core\Reflect\Resolver\Type\BuiltinNamedTypeHandler;
-use Constructo\Core\Reflect\Resolver\Type\DefineAttributeTypeHandler;
-use Constructo\Core\Reflect\Resolver\Type\DependencyTypeHandler;
-use Constructo\Core\Reflect\Resolver\Type\EnumNamedTypeHandler;
-use Constructo\Core\Reflect\Resolver\Type\PatternAttributeTypeHandler;
+use Constructo\Core\Reflect\Chain;
+use Constructo\Core\Reflect\Resolve\Type\BuiltinNamedTypeHandler;
+use Constructo\Core\Reflect\Resolve\Type\DefineAttributeTypeHandler;
+use Constructo\Core\Reflect\Resolve\Type\DependencyTypeHandler;
+use Constructo\Core\Reflect\Resolve\Type\EnumNamedTypeHandler;
+use Constructo\Core\Reflect\Resolve\Type\PatternAttributeTypeHandler;
 use Constructo\Support\Metadata\Schema\Field;
 use ReflectionParameter;
 

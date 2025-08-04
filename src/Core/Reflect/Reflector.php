@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Constructo\Core\Reflect;
 
-use Constructo\Core\Reflect\Resolver\Field\ManagedChain;
-use Constructo\Core\Reflect\Resolver\Field\RequirementChain;
-use Constructo\Core\Reflect\Resolver\Field\TypeChain;
+use Constructo\Core\Reflect\Resolve\ManagedChain;
+use Constructo\Core\Reflect\Resolve\RequirementChain;
+use Constructo\Core\Reflect\Resolve\TypeChain;
 use Constructo\Factory\SchemaFactory;
 use Constructo\Support\Cache;
 use Constructo\Support\Metadata\Schema;

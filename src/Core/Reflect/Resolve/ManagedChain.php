@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Constructo\Core\Reflect\Resolver\Field;
+namespace Constructo\Core\Reflect\Resolve;
 
+use Constructo\Core\Reflect\Chain;
 use Constructo\Support\Metadata\Schema\Field;
 use Constructo\Support\Reflective\Attribute\Managed;
 use ReflectionParameter;
