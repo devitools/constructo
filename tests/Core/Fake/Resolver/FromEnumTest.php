@@ -4,61 +4,102 @@ declare(strict_types=1);
 
 namespace Constructo\Test\Core\Fake\Resolver;
 
-use Constructo\Core\Fake\Resolver\FromEnum;
+use Constructo\Support\Reflective\Notation;
 use Constructo\Support\Set;
-use Constructo\Test\Stub\Type\Enumeration;
-use Constructo\Test\Stub\Type\Gender;
 use PHPUnit\Framework\TestCase;
-use ReflectionMethod;
+use Constructo\Support\Reflective\Factory\Target;
+use Constructo\Test\Stub\DeepDeepDown;
+use Constructo\Test\Stub\EnumVariety;
+use Constructo\Test\Stub\NotNative;
+use Constructo\Test\Stub\Variety;
+use Constructo\Core\Fake\Resolver\FromEnum;
 
 final class FromEnumTest extends TestCase
 {
-    public function testShouldResolveBackedEnumParameter(): void
+    public function testShouldResolveBackedEnum(): void
     {
-        $resolver = new FromEnum();
-        $method = new ReflectionMethod($this, 'methodWithBackedEnum');
-        $parameter = $method->getParameters()[0];
-        $presets = Set::createFrom([]);
+        $resolver = new FromEnum(Notation::SNAKE);
+        $target = Target::createFrom(NotNative::class);
+        $parameters = $target->getReflectionParameters();
 
-        $result = $resolver->resolve($parameter, $presets);
+        [0 => $backed] = $parameters;
 
-        $this->assertNotNull($result);
-        $this->assertContains($result->get(), ['male', 'female']);
+        $set = Set::createFrom([]);
+        $value = $resolver->resolve($backed, $set);
+
+        $this->assertNotNull($value);
+        $this->assertContains($value->content, ['foo', 'bar', 'baz']);
     }
 
-    public function testShouldReturnNullForNonBackedEnum(): void
+    public function testShouldNotResolveNonBackedEnum(): void
     {
-        $resolver = new FromEnum();
-        $method = new ReflectionMethod($this, 'methodWithNonBackedEnum');
-        $parameter = $method->getParameters()[0];
-        $presets = Set::createFrom([]);
+        $resolver = new FromEnum(Notation::SNAKE);
+        $target = Target::createFrom(NotNative::class);
+        $parameters = $target->getReflectionParameters();
 
-        $result = $resolver->resolve($parameter, $presets);
+        [1 => $enum] = $parameters; // Enum não-backed
 
-        $this->assertNull($result);
+        $set = Set::createFrom([]);
+        $value = $resolver->resolve($enum, $set);
+
+        $this->assertNull($value);
     }
 
-    public function testShouldReturnNullForNonEnumParameter(): void
+    public function testShouldResolveEnumInUnionType(): void
     {
-        $resolver = new FromEnum();
-        $method = new ReflectionMethod($this, 'methodWithNonEnum');
-        $parameter = $method->getParameters()[0];
-        $presets = Set::createFrom([]);
+        $resolver = new FromEnum(Notation::SNAKE);
+        $target = Target::createFrom(EnumVariety::class);
+        $parameters = $target->getReflectionParameters();
 
-        $result = $resolver->resolve($parameter, $presets);
+        $this->assertCount(4, $parameters);
 
-        $this->assertNull($result);
+        [2 => $union] = $parameters; // BackedEnumeration|Enumeration
+
+        $set = Set::createFrom([]);
+        $value = $resolver->resolve($union, $set);
+
+        $this->assertNull($value);
     }
 
-    private function methodWithBackedEnum(Gender $gender): void
+    public function testShouldFallbackToNextResolverForNonEnum(): void
     {
+        $resolver = new FromEnum(Notation::SNAKE);
+        $target = Target::createFrom(Variety::class);
+        $parameters = $target->getReflectionParameters();
+
+        [0 => $nonEnum] = $parameters; // int|string
+
+        $set = Set::createFrom([]);
+        $value = $resolver->resolve($nonEnum, $set);
+
+        $this->assertNull($value);
     }
 
-    private function methodWithNonBackedEnum(Enumeration $enum): void
+    public function testShouldReturnNullForEmptyEnumeration(): void
     {
+        $resolver = new FromEnum(Notation::SNAKE);
+
+        $target = Target::createFrom(NotNative::class);
+        $parameters = $target->getReflectionParameters();
+
+        [0 => $backed] = $parameters;
+
+        $set = Set::createFrom([]);
+
+        $this->assertNotNull($resolver->resolve($backed, $set));
     }
 
-    private function methodWithNonEnum(string $value): void
+    public function testShouldNotResolveNotBackedEnum(): void
     {
+        $resolver = new FromEnum(Notation::SNAKE);
+        $target = Target::createFrom(DeepDeepDown::class);
+        $parameters = $target->getReflectionParameters();
+
+        [2 => $emptyEnum] = $parameters;
+
+        $set = Set::createFrom([]);
+        $value = $resolver->resolve($emptyEnum, $set);
+
+        $this->assertNull($value);
     }
 }

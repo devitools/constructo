@@ -4,46 +4,58 @@ declare(strict_types=1);
 
 namespace Constructo\Test\Core\Fake\Resolver;
 
-use Constructo\Core\Fake\Resolver\FromCollection;
 use Constructo\Support\Set;
-use Constructo\Test\Stub\Domain\Collection\GameCollection;
+use Constructo\Test\Stub\Domain\Collection\Game\FeatureCollection;
 use PHPUnit\Framework\TestCase;
-use ReflectionMethod;
+use ReflectionNamedType;
 use ReflectionParameter;
+use Constructo\Core\Fake\Resolver\FromCollection;
+use stdClass;
 
 final class FromCollectionTest extends TestCase
 {
-    public function testShouldResolveCollectionParameter(): void
+    public function testShouldResolveSuccessfully(): void
     {
-        $resolver = new FromCollection();
-        $method = new ReflectionMethod($this, 'methodWithCollection');
-        $parameter = $method->getParameters()[0];
+        // Arrange
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->expects($this->once())
+            ->method('getName')
+            ->willReturn(FeatureCollection::class);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->expects($this->once())
+            ->method('getType')
+            ->willReturn($type);
+
+        $fromCollection = new FromCollection();
         $presets = Set::createFrom([]);
 
-        $result = $resolver->resolve($parameter, $presets);
+        // Act
+        $result = $fromCollection->resolve($parameter, $presets);
 
-        $this->assertNotNull($result);
-        $this->assertIsArray($result->get());
-        $this->assertNotEmpty($result->get());
+        // Assert
+        $this->assertIsArray($result->content);
+        $this->assertNotEmpty($result->content);
     }
 
-    public function testShouldReturnNullForNonCollectionParameter(): void
+
+    public function testShouldNotResolveCollectionWhenParameterIsNotCollection(): void
     {
-        $resolver = new FromCollection();
-        $method = new ReflectionMethod($this, 'methodWithString');
-        $parameter = $method->getParameters()[0];
-        $presets = Set::createFrom([]);
+        // Arrange
+        $type = $this->createMock(ReflectionNamedType::class);
+        $type->expects($this->once())
+            ->method('getName')
+            ->willReturn(stdClass::class);
+        $parameter = $this->createMock(ReflectionParameter::class);
+        $parameter->expects($this->once())
+            ->method('getType')
+            ->willReturn($type);
+        $set = Set::createFrom([]);
+        $fromCollection = new FromCollection();
 
-        $result = $resolver->resolve($parameter, $presets);
+        // Act
+        $result = $fromCollection->resolve($parameter, $set);
 
+        // Assert
         $this->assertNull($result);
-    }
-
-    private function methodWithCollection(GameCollection $collection): void
-    {
-    }
-
-    private function methodWithString(string $value): void
-    {
     }
 }

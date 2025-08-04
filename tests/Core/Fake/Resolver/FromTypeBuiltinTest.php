@@ -4,96 +4,134 @@ declare(strict_types=1);
 
 namespace Constructo\Test\Core\Fake\Resolver;
 
-use Constructo\Core\Fake\Resolver\FromTypeBuiltin;
+use Constructo\Support\Reflective\Notation;
 use Constructo\Support\Set;
-use Constructo\Test\Stub\Builtin;
-use Constructo\Test\Stub\Domain\Entity\Game;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
-use ReflectionMethod;
+use Constructo\Support\Reflective\Factory\Target;
+use Constructo\Test\Stub\Builtin;
+use Constructo\Test\Stub\Variety;
+use Constructo\Core\Fake\Resolver\FromTypeBuiltin;
 
 final class FromTypeBuiltinTest extends TestCase
 {
     public function testShouldResolveStringType(): void
     {
-        $resolver = new FromTypeBuiltin();
-        $reflection = new ReflectionClass(Builtin::class);
-        $parameter = $reflection->getConstructor()->getParameters()[0];
-        $presets = Set::createFrom([]);
+        $resolver = new FromTypeBuiltin(Notation::SNAKE);
+        $target = Target::createFrom(Builtin::class);
+        $parameters = $target->getReflectionParameters();
 
-        $result = $resolver->resolve($parameter, $presets);
+        [0 => $stringParameter] = $parameters;
 
-        $this->assertNotNull($result);
-        $this->assertIsString($result->get());
+        $set = Set::createFrom([]);
+        $value = $resolver->resolve($stringParameter, $set);
+
+        $this->assertNotNull($value);
+        $this->assertIsString($value->content);
     }
 
     public function testShouldResolveIntType(): void
     {
-        $resolver = new FromTypeBuiltin();
-        $reflection = new ReflectionClass(Builtin::class);
-        $parameter = $reflection->getConstructor()->getParameters()[1];
-        $presets = Set::createFrom([]);
+        $resolver = new FromTypeBuiltin(Notation::SNAKE);
+        $target = Target::createFrom(Builtin::class);
+        $parameters = $target->getReflectionParameters();
 
-        $result = $resolver->resolve($parameter, $presets);
+        [1 => $intParameter] = $parameters;
 
-        $this->assertNotNull($result);
-        $this->assertIsInt($result->get());
-        $this->assertGreaterThanOrEqual(1, $result->get());
-        $this->assertLessThanOrEqual(100, $result->get());
+        $set = Set::createFrom([]);
+        $value = $resolver->resolve($intParameter, $set);
+
+        $this->assertNotNull($value);
+        $this->assertIsInt($value->content);
+        $this->assertGreaterThanOrEqual(1, $value->content);
+        $this->assertLessThanOrEqual(100, $value->content);
     }
 
     public function testShouldResolveFloatType(): void
     {
-        $resolver = new FromTypeBuiltin();
-        $reflection = new ReflectionClass(Builtin::class);
-        $parameter = $reflection->getConstructor()->getParameters()[2];
-        $presets = Set::createFrom([]);
+        $resolver = new FromTypeBuiltin(Notation::SNAKE);
+        $target = Target::createFrom(Builtin::class);
+        $parameters = $target->getReflectionParameters();
 
-        $result = $resolver->resolve($parameter, $presets);
+        [2 => $floatParameter] = $parameters;
 
-        $this->assertNotNull($result);
-        $this->assertIsFloat($result->get());
+        $set = Set::createFrom([]);
+        $value = $resolver->resolve($floatParameter, $set);
+
+        $this->assertNotNull($value);
+        $this->assertIsFloat($value->content);
+        $this->assertGreaterThanOrEqual(1, $value->content);
+        $this->assertLessThanOrEqual(100, $value->content);
     }
 
     public function testShouldResolveBoolType(): void
     {
-        $resolver = new FromTypeBuiltin();
-        $reflection = new ReflectionClass(Builtin::class);
-        $parameter = $reflection->getConstructor()->getParameters()[3];
-        $presets = Set::createFrom([]);
+        $resolver = new FromTypeBuiltin(Notation::SNAKE);
+        $target = Target::createFrom(Builtin::class);
+        $parameters = $target->getReflectionParameters();
 
-        $result = $resolver->resolve($parameter, $presets);
+        [3 => $boolParameter] = $parameters;
 
-        $this->assertNotNull($result);
-        $this->assertIsBool($result->get());
+        $set = Set::createFrom([]);
+        $value = $resolver->resolve($boolParameter, $set);
+
+        $this->assertNotNull($value);
+        $this->assertIsBool($value->content);
     }
 
     public function testShouldResolveArrayType(): void
     {
-        $resolver = new FromTypeBuiltin();
-        $reflection = new ReflectionClass(Builtin::class);
-        $parameter = $reflection->getConstructor()->getParameters()[4];
-        $presets = Set::createFrom([]);
+        $resolver = new FromTypeBuiltin(Notation::SNAKE);
+        $target = Target::createFrom(Builtin::class);
+        $parameters = $target->getReflectionParameters();
 
-        $result = $resolver->resolve($parameter, $presets);
+        [4 => $arrayParameter] = $parameters;
 
-        $this->assertNotNull($result);
-        $this->assertIsArray($result->get());
+        $set = Set::createFrom([]);
+        $value = $resolver->resolve($arrayParameter, $set);
+
+        $this->assertNotNull($value);
+        $this->assertIsArray($value->content);
     }
 
-    public function testShouldReturnNullForNonBuiltinType(): void
+    public function testShouldFallbackToNextResolverForNonBuiltinType(): void
     {
-        $resolver = new FromTypeBuiltin();
-        $method = new ReflectionMethod($this, 'methodWithNonBuiltinType');
-        $parameter = $method->getParameters()[0];
-        $presets = Set::createFrom([]);
+        $resolver = new FromTypeBuiltin(Notation::SNAKE);
+        $target = Target::createFrom(Variety::class);
+        $parameters = $target->getReflectionParameters();
 
-        $result = $resolver->resolve($parameter, $presets);
+        [2 => $nestedParameter] = $parameters; // EntityStub não é um tipo built-in
 
-        $this->assertNull($result);
+        $set = Set::createFrom([]);
+        $value = $resolver->resolve($nestedParameter, $set);
+
+        $this->assertNull($value);
     }
 
-    private function methodWithNonBuiltinType(Game $game): void
+    public function testShouldReturnNullForNullType(): void
     {
+        $resolver = new FromTypeBuiltin(Notation::SNAKE);
+        $target = Target::createFrom(Builtin::class);
+        $parameters = $target->getReflectionParameters();
+
+        [5 => $nullParameter] = $parameters;
+
+        $set = Set::createFrom([]);
+        $value = $resolver->resolve($nullParameter, $set);
+
+        $this->assertNull($value);
+    }
+
+    public function testShouldReturnNullForParameterWithoutType(): void
+    {
+        $resolver = new FromTypeBuiltin(Notation::SNAKE);
+        $target = Target::createFrom(Variety::class);
+        $parameters = $target->getReflectionParameters();
+
+        [3 => $whateverParameter] = $parameters; // Parâmetro sem tipo
+
+        $set = Set::createFrom([]);
+        $value = $resolver->resolve($whateverParameter, $set);
+
+        $this->assertNull($value);
     }
 }
