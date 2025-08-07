@@ -28,6 +28,7 @@ use function Constructo\Cast\stringify;
 use function getenv;
 
 /**
+ * // phpcs:disable Generic.Files.LineLength
  * @method string citySuffix()
  * @method string streetSuffix()
  * @method string buildingNumber()
@@ -95,7 +96,9 @@ use function getenv;
  * @method string getDefaultTimezone()
  * @method string file($sourceDirectory = '/tmp', $targetDirectory = '/tmp', $fullPath = true)
  * @method string randomHtml($maxDepth = 4, $maxWidth = 4)
+ * @codingStandardsIgnoreLine
  * @method string imageUrl($width = 640, $height = 480, $category = null, $randomize = true, $word = null, $gray = false, string $format = 'png')
+ * @codingStandardsIgnoreLine
  * @method string image($dir = null, $width = 640, $height = 480, $category = null, $fullPath = true, $randomize = true, $word = null, $gray = false, string $format = 'png')
  * @method string email()
  * @method string safeEmail()
@@ -182,6 +185,7 @@ use function getenv;
  * @method int randomNumber($nbDigits = null, $strict = false)
  * @method string semver(bool $preRelease = false, bool $build = false)
  * @method string vat($spacedNationalPrefix = true)
+ * // phpcs:enable Generic.Files.LineLength
  */
 class Faker extends Engine implements Contract
 {
@@ -262,7 +266,9 @@ class Faker extends Engine implements Contract
     {
         $fallback = static function (string $default = 'en_US'): string {
             $locale = stringify(getenv('FAKER_LOCALE'), $default);
-            return empty($locale) ? $default : $locale;
+            return empty($locale)
+                ? $default
+                : $locale;
         };
         return $locale ?? $fallback();
     }
