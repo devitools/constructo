@@ -8,10 +8,12 @@ use Constructo\Contract\Reflect\SpecsFactory;
 use Constructo\Support\Metadata\Schema\Registry\Specs;
 use InvalidArgumentException;
 
-use function assert;
 use function Constructo\Cast\arrayify;
 use function Constructo\Cast\stringify;
 use function gettype;
+use function is_array;
+use function is_string;
+use function sprintf;
 
 readonly class DefaultSpecsFactory implements SpecsFactory
 {
@@ -22,7 +24,6 @@ readonly class DefaultSpecsFactory implements SpecsFactory
     public function make(): Specs
     {
         $registry = new Specs();
-        assert($registry instanceof Specs);
         foreach ($this->specs as $key => $value) {
             $this->validate($key, $value);
             $registry->register(stringify($key), arrayify($value));

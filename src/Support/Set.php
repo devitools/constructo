@@ -14,7 +14,7 @@ use function array_merge;
 use function count;
 use function is_array;
 
-readonly class Set
+final readonly class Set
 {
     /**
      * @var array<string, mixed>
@@ -35,9 +35,9 @@ readonly class Set
         $this->data = $data;
     }
 
-    public static function createFrom(mixed $data): static
+    public static function createFrom(mixed $data): Set
     {
-        return new static($data);
+        return new Set($data);
     }
 
     public function get(string $field, mixed $default = null): mixed
@@ -53,9 +53,9 @@ readonly class Set
         throw new SchemaException(sprintf("Field '%s' not found.", $field));
     }
 
-    public function with(string $field, mixed $value): static
+    public function with(string $field, mixed $value): Set
     {
-        return new static(array_merge($this->toArray(), [$field => $value]));
+        return new Set(array_merge($this->toArray(), [$field => $value]));
     }
 
     /**
@@ -67,9 +67,9 @@ readonly class Set
         return array_map(fn (mixed $item) => $item instanceof Set ? $item->toArray() : $item, $this->data);
     }
 
-    public function along(array $values): static
+    public function along(array $values): Set
     {
-        return new static(array_merge($this->toArray(), $values));
+        return new Set(array_merge($this->toArray(), $values));
     }
 
     public function has(string $field): bool

@@ -27,7 +27,7 @@ trait AttributeAdapter
     abstract protected function resolvePatternFromNamedType(
         Pattern $instance,
         mixed $value,
-        ReflectionNamedType $type
+        ReflectionNamedType $type,
     ): ?Value;
 
     /**
@@ -67,7 +67,7 @@ trait AttributeAdapter
     protected function resolvePatternFromUnionType(
         Pattern $instance,
         mixed $value,
-        ReflectionUnionType $unionType
+        ReflectionUnionType $unionType,
     ): ?Value {
         $types = $unionType->getTypes();
         $resolved = null;

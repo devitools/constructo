@@ -9,7 +9,6 @@ use ReflectionType;
 
 readonly class Result
 {
-
     public function __construct(
         public string $source,
         public ?ReflectionType $type = null,

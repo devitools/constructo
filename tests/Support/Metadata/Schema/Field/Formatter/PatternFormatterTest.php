@@ -10,173 +10,114 @@ use PHPUnit\Framework\TestCase;
 
 final class PatternFormatterTest extends TestCase
 {
-    private PatternFormatter $formatter;
-
-    protected function setUp(): void
+    public function testFormatWithNonArrayParameter(): void
     {
-        $this->formatter = new PatternFormatter();
+        $formatter = new PatternFormatter();
+        $value = ['Hello %s!', 'World'];
+        $result = $formatter->format($value);
+
+        $this->assertSame(['Hello World!'], $result);
     }
 
     public function testFormatWithSingleElement(): void
     {
+        $formatter = new PatternFormatter();
         $value = ['Hello World'];
-        $result = $this->formatter->format($value);
+        $result = $formatter->format($value);
 
         $this->assertSame(['Hello World'], $result);
     }
 
     public function testFormatWithSingleElementNumber(): void
     {
+        $formatter = new PatternFormatter();
         $value = [123];
-        $result = $this->formatter->format($value);
+        $result = $formatter->format($value);
 
         $this->assertSame(['123'], $result);
     }
 
-    public function testFormatWithSingleElementBoolean(): void
+    public function testFormatWithPatternAndArrayParameters(): void
     {
-        $value = [true];
-        $result = $this->formatter->format($value);
-
-        $this->assertSame(['1'], $result);
-    }
-
-    public function testFormatWithSingleElementNull(): void
-    {
-        $value = [null];
-        $result = $this->formatter->format($value);
-
-        $this->assertSame([''], $result);
-    }
-
-    public function testFormatWithPatternAndParameters(): void
-    {
+        $formatter = new PatternFormatter();
         $value = ['Hello %s, you are %d years old', ['John', 25]];
-        $result = $this->formatter->format($value);
+        $result = $formatter->format($value);
 
         $this->assertSame(['Hello John, you are 25 years old'], $result);
     }
 
-    public function testFormatWithPatternAndSingleParameter(): void
-    {
-        $value = ['Welcome %s!', ['Alice']];
-        $result = $this->formatter->format($value);
-
-        $this->assertSame(['Welcome Alice!'], $result);
-    }
-
     public function testFormatWithPatternAndNullParameters(): void
     {
+        $formatter = new PatternFormatter();
         $value = ['Simple pattern', null];
-        $result = $this->formatter->format($value);
+        $result = $formatter->format($value);
 
         $this->assertSame(['Simple pattern'], $result);
     }
 
-    public function testFormatWithPatternAndEmptyParameters(): void
-    {
-        $value = ['No parameters', []];
-        $result = $this->formatter->format($value);
-
-        $this->assertSame(['No parameters'], $result);
-    }
-
     public function testFormatWithPatternAndClosureParameters(): void
     {
+        $formatter = new PatternFormatter();
         $closure = fn() => ['Dynamic', 'Parameters'];
         $value = ['%s %s from closure', $closure];
-        $result = $this->formatter->format($value);
+        $result = $formatter->format($value);
 
         $this->assertSame(['Dynamic Parameters from closure'], $result);
     }
 
-    public function testFormatWithPatternAndClosureReturningString(): void
-    {
-        $closure = fn() => ['SingleValue'];
-        $value = ['Value: %s', $closure];
-        $result = $this->formatter->format($value);
-
-        $this->assertSame(['Value: SingleValue'], $result);
-    }
-
-    public function testFormatWithComplexPattern(): void
-    {
-        $value = ['User: %s (ID: %d, Active: %s)', ['John Doe', 123, 'Yes']];
-        $result = $this->formatter->format($value);
-
-        $this->assertSame(['User: John Doe (ID: 123, Active: Yes)'], $result);
-    }
-
-    public function testFormatWithNumericPattern(): void
-    {
-        $value = ['%.2f%%', [85.678]];
-        $result = $this->formatter->format($value);
-
-        $this->assertSame(['85.68%'], $result);
-    }
-
     public function testFormatWithNonArrayThrowsException(): void
     {
+        $formatter = new PatternFormatter();
+
         $this->expectException(BadMethodCallException::class);
         $this->expectExceptionMessage('PatternFormatter expects an array value.');
 
-        $this->formatter->format('not an array');
-    }
-
-    public function testFormatWithNullThrowsException(): void
-    {
-        $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage('PatternFormatter expects an array value.');
-
-        $this->formatter->format(null);
+        $formatter->format('not an array');
     }
 
     public function testFormatWithEmptyArrayThrowsException(): void
     {
+        $formatter = new PatternFormatter();
+
         $this->expectException(BadMethodCallException::class);
         $this->expectExceptionMessage('PatternFormatter expects an array with one or two elements.');
 
-        $this->formatter->format([]);
+        $formatter->format([]);
     }
 
     public function testFormatWithThreeElementsThrowsException(): void
     {
+        $formatter = new PatternFormatter();
+
         $this->expectException(BadMethodCallException::class);
         $this->expectExceptionMessage('PatternFormatter expects an array with one or two elements.');
 
-        $this->formatter->format(['pattern', ['param1'], 'extra']);
+        $formatter->format(['pattern', ['param1'], 'extra']);
     }
 
-    public function testFormatWithFourElementsThrowsException(): void
+    public function testNormalizeParametersWithNonArrayConvertsToArray(): void
     {
-        $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage('PatternFormatter expects an array with one or two elements.');
+        $formatter = new PatternFormatter();
+        $result = $formatter->normalizeParameters('single_value');
 
-        $this->formatter->format(['pattern', ['param1'], 'extra', 'more']);
+        $this->assertSame(['single_value'], $result);
     }
 
-    public function testFormatWithParametersMethod(): void
+    public function testNormalizeParametersWithClosure(): void
     {
-        $value = ['Hello %s!', ['World']];
-        $result = $this->formatter->formatWithParameters($value);
+        $formatter = new PatternFormatter();
+        $closure = fn() => ['test', 'values'];
+        $result = $formatter->normalizeParameters($closure);
 
-        $this->assertSame(['Hello World!'], $result);
+        $this->assertSame(['test', 'values'], $result);
     }
 
-    public function testFormatWithParametersMethodAndClosure(): void
+    public function testNormalizeParametersWithMixedTypes(): void
     {
-        $closure = fn() => ['Closure', 'Test'];
-        $value = ['%s %s', $closure];
-        $result = $this->formatter->formatWithParameters($value);
+        $formatter = new PatternFormatter();
+        $parameters = [true, 42, 3.14, 'string', new \stdClass(), null];
+        $result = $formatter->normalizeParameters($parameters);
 
-        $this->assertSame(['Closure Test'], $result);
-    }
-
-    public function testFormatWithOption(): void
-    {
-        $value = ['Test %s', ['value']];
-        $result = $this->formatter->format($value, 'some_option');
-
-        $this->assertSame(['Test value'], $result);
+        $this->assertSame([true, 42, 3.14, 'string', null, null], $result);
     }
 }

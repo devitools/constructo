@@ -7,6 +7,7 @@ namespace Constructo\Test\Testing;
 use Constructo\Core\Fake\Faker;
 use Constructo\Testing\FakerExtension;
 use Constructo\Testing\MakeExtension;
+use Constructo\Testing\Stub\FakerExtensionTestWrapper;
 use Faker\Generator;
 use PHPUnit\Framework\TestCase;
 
@@ -48,21 +49,5 @@ final class FakerExtensionTest extends TestCase
         $generator2 = $testClass->getGenerator();
 
         $this->assertSame($generator1, $generator2);
-    }
-}
-
-final class FakerExtensionTestWrapper
-{
-    use FakerExtension;
-    use MakeExtension;
-
-    public function getFaker(): Faker
-    {
-        return $this->faker();
-    }
-
-    public function getGenerator(): Generator
-    {
-        return $this->generator();
     }
 }
