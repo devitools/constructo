@@ -50,7 +50,7 @@ final class MakeExtensionTestWrapper
     }
 }
 
-final class TestClassWithConstructor
+final readonly class TestClassWithConstructor
 {
     public function __construct(private string $value)
     {

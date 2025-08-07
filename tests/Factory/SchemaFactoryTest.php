@@ -5,15 +5,20 @@ declare(strict_types=1);
 namespace Constructo\Test\Factory;
 
 use Constructo\Contract\Reflect\SpecsFactory;
+use Constructo\Core\Serialize\Builder;
 use Constructo\Factory\SchemaFactory;
 use Constructo\Support\Metadata\Schema\Registry\Specs;
+use Constructo\Testing\MakeExtension;
 use PHPUnit\Framework\TestCase;
 
 final class SchemaFactoryTest extends TestCase
 {
+    use MakeExtension;
+
     public function testMakeCreatesSchemaWithSpecsFromFactory(): void
     {
-        $specs = new Specs();
+        $builder = $this->make(Builder::class);
+        $specs = $this->make(Specs::class, [$builder]);
         $specs->register('required', []);
 
         $specsFactory = $this->createMock(SpecsFactory::class);
@@ -30,7 +35,8 @@ final class SchemaFactoryTest extends TestCase
 
     public function testMakeCreatesSchemaWithEmptySpecs(): void
     {
-        $specs = new Specs();
+        $builder = $this->make(Builder::class);
+        $specs = $this->make(Specs::class, [$builder]);
 
         $specsFactory = $this->createMock(SpecsFactory::class);
         $specsFactory->method('make')->willReturn($specs);

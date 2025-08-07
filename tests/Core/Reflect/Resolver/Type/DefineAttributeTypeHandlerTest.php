@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Constructo\Test\Core\Reflect\Resolver\Type;
 
 use Constructo\Core\Reflect\Resolver\Type\DefineAttributeTypeHandler;
+use Constructo\Core\Serialize\Builder;
 use Constructo\Factory\DefaultSpecsFactory;
 use Constructo\Support\Metadata\Schema\Field;
 use Constructo\Support\Metadata\Schema\Field\Rules;
@@ -12,19 +13,22 @@ use Constructo\Support\Metadata\Schema\Registry\Specs;
 use Constructo\Support\Reflective\Attribute\Define;
 use Constructo\Support\Reflective\Definition\Type;
 use Constructo\Support\Reflective\Definition\TypeExtended;
+use Constructo\Testing\MakeExtension;
 use PHPUnit\Framework\TestCase;
 use ReflectionAttribute;
 use ReflectionParameter;
 
-final class DefineAttributeTypeHandlerTest extends TestCase
+class DefineAttributeTypeHandlerTest extends TestCase
 {
+    use MakeExtension;
+
     private DefineAttributeTypeHandler $handler;
     private Specs $specs;
 
     protected function setUp(): void
     {
         $this->handler = new DefineAttributeTypeHandler();
-
+        $builder = $this->make(Builder::class);
         $specsData = [
             'string' => [],
             'integer' => [],
@@ -32,7 +36,7 @@ final class DefineAttributeTypeHandlerTest extends TestCase
             'uuid' => [],
         ];
 
-        $specsFactory = new DefaultSpecsFactory($specsData);
+        $specsFactory = new DefaultSpecsFactory($builder, $specsData);
         $this->specs = $specsFactory->make();
     }
 

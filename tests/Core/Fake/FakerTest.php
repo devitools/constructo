@@ -6,10 +6,8 @@ namespace Constructo\Test\Core\Fake;
 
 use Constructo\Core\Fake\Faker;
 use Constructo\Support\Reflective\Notation;
-use Constructo\Support\Set;
 use Constructo\Test\Stub\Builtin;
 use Constructo\Test\Stub\EnumVariety;
-use Faker\Generator;
 use PHPUnit\Framework\TestCase;
 
 final class FakerTest extends TestCase
@@ -42,7 +40,7 @@ final class FakerTest extends TestCase
     public function testShouldCreateFakerWithFormatters(): void
     {
         $formatters = [
-            'string' => fn($value) => strtoupper($value),
+            'string' => fn ($value) => strtoupper((string) $value),
         ];
         $faker = new Faker(formatters: $formatters);
 
@@ -83,7 +81,8 @@ final class FakerTest extends TestCase
     public function testShouldReturnEmptySetForClassWithoutParameters(): void
     {
         $faker = new Faker();
-        $emptyClass = new class {};
+        $emptyClass = new class {
+        };
 
         $result = $faker->fake($emptyClass::class);
 
@@ -142,7 +141,15 @@ final class FakerTest extends TestCase
         $this->assertMatchesRegularExpression('/^(\+33|0)[0-9\s\(\)\.]{8,}/', $phone);
 
         $companySuffix = $generator->companySuffix();
-        $frenchSuffixes = ['SA', 'SAS', 'SARL', 'S.A.', 'et Fils', 'S.A.S.', 'S.A.R.L.'];
+        $frenchSuffixes = [
+            'SA',
+            'SAS',
+            'SARL',
+            'S.A.',
+            'et Fils',
+            'S.A.S.',
+            'S.A.R.L.',
+        ];
         $this->assertContains($companySuffix, $frenchSuffixes);
 
         $timezone = $generator->timezone('FR');
@@ -212,7 +219,7 @@ final class FakerTest extends TestCase
         $faker = new Faker();
         $presets = [
             'string' => 'preset_string',
-            'int' => 42
+            'int' => 42,
         ];
 
         $result = $faker->fake(Builtin::class, $presets);
@@ -228,7 +235,13 @@ final class FakerTest extends TestCase
     {
         $faker = new Faker();
 
-        $number = $faker->generate('numberBetween', [10, 20]);
+        $number = $faker->generate(
+            'numberBetween',
+            [
+                10,
+                20,
+            ]
+        );
 
         $this->assertIsInt($number);
         $this->assertGreaterThanOrEqual(10, $number);

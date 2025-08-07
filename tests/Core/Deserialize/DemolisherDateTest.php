@@ -18,9 +18,9 @@ final class DemolisherDateTest extends TestCase
         // Arrange
         $demolisher = new Demolisher();
         $timestamp = new Timestamp();
-        $instance = new class($timestamp) implements Exportable {
+        $instance = new readonly class($timestamp) implements Exportable {
             public function __construct(
-                private readonly Timestamp $createdAt
+                private Timestamp $createdAt
             ) {
             }
 
@@ -44,9 +44,9 @@ final class DemolisherDateTest extends TestCase
         // Arrange
         $demolisher = new Demolisher();
         $dateTime = new DateTimeImmutable();
-        $instance = new class($dateTime) implements Exportable {
+        $instance = new readonly class($dateTime) implements Exportable {
             public function __construct(
-                private readonly DateTimeImmutable $updatedAt
+                private DateTimeImmutable $updatedAt
             ) {
             }
 

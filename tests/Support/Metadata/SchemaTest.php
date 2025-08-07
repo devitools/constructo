@@ -4,20 +4,25 @@ declare(strict_types=1);
 
 namespace Constructo\Test\Support\Metadata;
 
+use Constructo\Core\Serialize\Builder;
 use Constructo\Factory\DefaultSpecsFactory;
 use Constructo\Support\Metadata\Schema;
 use Constructo\Support\Metadata\Schema\Field\Fieldset;
 use Constructo\Support\Metadata\Schema\Registry\Specs;
+use Constructo\Testing\MakeExtension;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class SchemaTest extends TestCase
 {
+    use MakeExtension;
+
     private Schema $schema;
     private Specs $specs;
 
     protected function setUp(): void
     {
+        $builder = $this->make(Builder::class);
         $specs = [
             'required' => [],
             'string' => [],
@@ -30,16 +35,26 @@ class SchemaTest extends TestCase
             'uuid' => [],
             'min' => ['params' => ['min']],
             'max' => ['params' => ['max']],
-            'between' => ['params' => ['min', 'max']],
+            'between' => [
+                'params' => [
+                    'min',
+                    'max',
+                ],
+            ],
             'in' => ['params' => ['values']],
-            'regex' => ['params' => ['pattern', 'parameters:optional']],
+            'regex' => [
+                'params' => [
+                    'pattern',
+                    'parameters:optional',
+                ],
+            ],
             'distinct' => [],
             'nullable' => [],
             'sometimes' => [],
             'bail' => [],
         ];
 
-        $specsFactory = new DefaultSpecsFactory($specs);
+        $specsFactory = new DefaultSpecsFactory($builder, $specs);
         $this->specs = $specsFactory->make();
         $this->schema = new Schema($this->specs, new Fieldset());
     }
@@ -181,7 +196,13 @@ class SchemaTest extends TestCase
         $this->schema->add('type')
             ->required()
             ->string()
-            ->in(['Type1', 'Type2', 'Type3']);
+            ->in(
+                [
+                    'Type1',
+                    'Type2',
+                    'Type3',
+                ]
+            );
 
         $this->schema->add('people')
             ->required()
@@ -224,7 +245,7 @@ class SchemaTest extends TestCase
 
         $regexRuleFound = false;
         foreach ($rules['people.*'] as $rule) {
-            if (str_contains($rule, 'regex:')) {
+            if (str_contains((string) $rule, 'regex:')) {
                 $regexRuleFound = true;
                 break;
             }

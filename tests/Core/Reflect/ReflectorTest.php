@@ -7,6 +7,7 @@ namespace Constructo\Test\Core\Reflect;
 use Constructo\Contract\Reflect\TypesFactory;
 use Constructo\Core\Reflect\Introspection\Introspector;
 use Constructo\Core\Reflect\Reflector;
+use Constructo\Core\Serialize\Builder;
 use Constructo\Factory\DefaultSpecsFactory;
 use Constructo\Factory\SchemaFactory;
 use Constructo\Support\Cache;
@@ -16,19 +17,23 @@ use Constructo\Test\Stub\Domain\Entity\Command\GameCommand;
 use Constructo\Test\Stub\Domain\Entity\Command\PersonCommand;
 use Constructo\Test\Stub\Domain\Entity\EmptyClass;
 use Constructo\Test\Stub\Reflector\Sample;
+use Constructo\Testing\MakeExtension;
 use PHPUnit\Framework\TestCase;
 
 use function json_decode;
 
-final class ReflectorTest extends TestCase
+class ReflectorTest extends TestCase
 {
+    use MakeExtension;
+
     private Reflector $reflector;
 
     protected function setUp(): void
     {
-        $types = new Types();
-        $cache = new Cache();
-        $introspector = new Introspector();
+        $types = $this->make(Types::class);
+        $cache = $this->make(Cache::class);
+        $builder = $this->make(Builder::class);
+        $introspector = $this->make(Introspector::class);
         $notation = Notation::SNAKE;
 
         $typesFactory = $this->createMock(TypesFactory::class);
@@ -72,7 +77,7 @@ final class ReflectorTest extends TestCase
             'size' => ['params' => ['size']],
         ];
 
-        $specsFactory = new DefaultSpecsFactory($specsData);
+        $specsFactory = new DefaultSpecsFactory($builder, $specsData);
         $schemaFactory = new SchemaFactory($specsFactory);
 
 
@@ -295,10 +300,16 @@ final class ReflectorTest extends TestCase
 
         // Should have the field but no nested rules since EmptyClass has no parameters
         $this->assertArrayHasKey('empty_field', $rules);
-        $this->assertEquals(['required', 'array'], $rules['empty_field']);
+        $this->assertEquals(
+            [
+                'required',
+                'array',
+            ],
+            $rules['empty_field']
+        );
 
         // Should not have any nested rules for empty_field since EmptyClass has no constructor parameters
-        $nestedKeys = array_filter(array_keys($rules), fn($key) => str_starts_with($key, 'empty_field.'));
+        $nestedKeys = array_filter(array_keys($rules), fn ($key) => str_starts_with($key, 'empty_field.'));
         $this->assertEmpty($nestedKeys);
     }
 }

@@ -5,17 +5,21 @@ declare(strict_types=1);
 namespace Constructo\Test\Core\Reflect\Resolver;
 
 use Constructo\Core\Reflect\Resolver\ManagedResolver;
+use Constructo\Core\Serialize\Builder;
 use Constructo\Factory\DefaultSpecsFactory;
 use Constructo\Support\Metadata\Schema\Field;
 use Constructo\Support\Metadata\Schema\Field\Rules;
 use Constructo\Support\Metadata\Schema\Registry\Specs;
 use Constructo\Support\Reflective\Attribute\Managed;
+use Constructo\Testing\MakeExtension;
 use PHPUnit\Framework\TestCase;
 use ReflectionAttribute;
 use ReflectionParameter;
 
-final class ManagedResolverTest extends TestCase
+class ManagedResolverTest extends TestCase
 {
+    use MakeExtension;
+
     private ManagedResolver $chain;
     private Specs $specs;
 
@@ -23,7 +27,8 @@ final class ManagedResolverTest extends TestCase
     {
         $specsData = [];
 
-        $specsFactory = new DefaultSpecsFactory($specsData);
+        $builder = $this->make(Builder::class);
+        $specsFactory = new DefaultSpecsFactory($builder, $specsData);
         $this->specs = $specsFactory->make();
         $this->chain = new ManagedResolver();
     }

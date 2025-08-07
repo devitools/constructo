@@ -5,18 +5,22 @@ declare(strict_types=1);
 namespace Constructo\Test\Core\Reflect\Resolver\Type;
 
 use Constructo\Core\Reflect\Resolver\Type\DependencyTypeHandler;
+use Constructo\Core\Serialize\Builder;
 use Constructo\Factory\DefaultSpecsFactory;
 use Constructo\Support\Metadata\Schema\Field;
 use Constructo\Support\Metadata\Schema\Field\Rules;
 use Constructo\Support\Metadata\Schema\Registry\Specs;
 use Constructo\Support\Metadata\Schema\Registry\Types;
+use Constructo\Testing\MakeExtension;
 use PHPUnit\Framework\TestCase;
 use ReflectionNamedType;
 use ReflectionParameter;
 use stdClass;
 
-final class DependencyTypeHandlerTest extends TestCase
+class DependencyTypeHandlerTest extends TestCase
 {
+    use MakeExtension;
+
     private DependencyTypeHandler $handler;
     private Specs $specs;
     private Types $types;
@@ -25,13 +29,13 @@ final class DependencyTypeHandlerTest extends TestCase
     {
         $this->types = new Types();
         $this->handler = new DependencyTypeHandler($this->types);
-
+        $builder = $this->make(Builder::class);
         $specsData = [
             'array' => [],
             'string' => [],
         ];
 
-        $specsFactory = new DefaultSpecsFactory($specsData);
+        $specsFactory = new DefaultSpecsFactory($builder, $specsData);
         $this->specs = $specsFactory->make();
     }
 

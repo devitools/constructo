@@ -6,24 +6,28 @@ namespace Constructo\Test\Core\Reflect\Resolver\Type;
 
 use Constructo\Core\Reflect\Resolver\Type\BuiltinNamedTypeHandler;
 use Constructo\Core\Reflect\Resolver\Type\Contract\NamedTypeResolution;
+use Constructo\Core\Serialize\Builder;
 use Constructo\Factory\DefaultSpecsFactory;
 use Constructo\Support\Metadata\Schema\Field;
 use Constructo\Support\Metadata\Schema\Field\Rules;
 use Constructo\Support\Metadata\Schema\Registry\Specs;
+use Constructo\Testing\MakeExtension;
 use PHPUnit\Framework\TestCase;
 use ReflectionNamedType;
 use ReflectionParameter;
 use ReflectionUnionType;
 
-final class BuiltinNamedTypeHandlerTest extends TestCase
+class BuiltinNamedTypeHandlerTest extends TestCase
 {
+    use MakeExtension;
+
     private BuiltinNamedTypeHandler $handler;
     private Specs $specs;
 
     protected function setUp(): void
     {
-        $this->handler = new BuiltinNamedTypeHandler();
-
+        $this->handler = $this->make(BuiltinNamedTypeHandler::class);
+        $builder = $this->make(Builder::class);
         $specsData = [
             'string' => [],
             'integer' => [],
@@ -32,7 +36,7 @@ final class BuiltinNamedTypeHandlerTest extends TestCase
             'array' => [],
         ];
 
-        $specsFactory = new DefaultSpecsFactory($specsData);
+        $specsFactory = new DefaultSpecsFactory($builder, $specsData);
         $this->specs = $specsFactory->make();
     }
 

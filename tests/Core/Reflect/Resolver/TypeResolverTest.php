@@ -10,23 +10,28 @@ use Constructo\Core\Reflect\Resolver\Type\DefineAttributeTypeHandler;
 use Constructo\Core\Reflect\Resolver\Type\DependencyTypeHandler;
 use Constructo\Core\Reflect\Resolver\Type\EnumNamedTypeHandler;
 use Constructo\Core\Reflect\Resolver\Type\PatternAttributeTypeHandler;
+use Constructo\Core\Serialize\Builder;
 use Constructo\Support\Metadata\Schema\Field;
 use Constructo\Support\Metadata\Schema\Field\Rules;
 use Constructo\Support\Metadata\Schema\Registry\Specs;
 use Constructo\Support\Metadata\Schema\Registry\Types;
+use Constructo\Testing\MakeExtension;
 use PHPUnit\Framework\TestCase;
 use ReflectionParameter;
 
-final class TypeResolverTest extends TestCase
+class TypeResolverTest extends TestCase
 {
+    use MakeExtension;
+
     private TypeResolver $chain;
     private Types $types;
     private Specs $specs;
 
     protected function setUp(): void
     {
-        $this->types = new Types();
-        $this->specs = new Specs();
+        $this->types = $this->make(Types::class);
+        $builder = $this->make(Builder::class);
+        $this->specs = $this->make(Specs::class, [$builder]);
         $this->chain = new TypeResolver($this->types);
     }
 

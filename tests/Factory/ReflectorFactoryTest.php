@@ -7,34 +7,40 @@ namespace Constructo\Test\Factory;
 use Constructo\Contract\Reflect\SpecsFactory;
 use Constructo\Contract\Reflect\TypesFactory;
 use Constructo\Core\Reflect\Introspection\Introspector;
+use Constructo\Core\Serialize\Builder;
 use Constructo\Factory\ReflectorFactory;
 use Constructo\Factory\SchemaFactory;
 use Constructo\Support\Cache;
 use Constructo\Support\Metadata\Schema\Registry\Specs;
 use Constructo\Support\Metadata\Schema\Registry\Types;
 use Constructo\Support\Reflective\Notation;
+use Constructo\Testing\MakeExtension;
 use PHPUnit\Framework\TestCase;
 
 final class ReflectorFactoryTest extends TestCase
 {
+    use MakeExtension;
+
     public function testMakeCreatesReflectorWithAllDependencies(): void
     {
         $types = new Types();
         $cache = new Cache();
         $introspector = new Introspector();
+        $builder = $this->make(Builder::class);
+        $specs = $this->make(Specs::class, [$builder]);
+
         $notation = Notation::SNAKE;
 
         $typesFactory = $this->createMock(TypesFactory::class);
         $typesFactory->method('make')
             ->willReturn($types);
 
-        $specs = new Specs();
         $specsFactory = $this->createMock(SpecsFactory::class);
         $specsFactory->method('make')
             ->willReturn($specs);
-        $schemaFactory = new SchemaFactory($specsFactory);
+        $schemaFactory = $this->make(SchemaFactory::class, [$specsFactory]);
 
-        $factory = new ReflectorFactory($typesFactory, $schemaFactory, $cache, $introspector, $notation);
+        $factory = $this->make(ReflectorFactory::class, [$typesFactory, $schemaFactory, $cache, $introspector, $notation]);
 
         $reflector = $factory->make();
 
@@ -47,12 +53,13 @@ final class ReflectorFactoryTest extends TestCase
         $types = new Types();
         $cache = new Cache();
         $introspector = new Introspector();
+        $builder = $this->make(Builder::class);
+        $specs = $this->make(Specs::class, [$builder]);
 
         $typesFactory = $this->createMock(TypesFactory::class);
         $typesFactory->method('make')
             ->willReturn($types);
 
-        $specs = new Specs();
         $specsFactory = $this->createMock(SpecsFactory::class);
         $specsFactory->method('make')
             ->willReturn($specs);
@@ -71,13 +78,14 @@ final class ReflectorFactoryTest extends TestCase
         $types = new Types();
         $cache = new Cache();
         $introspector = new Introspector();
+        $builder = $this->make(Builder::class);
+        $specs = $this->make(Specs::class, [$builder]);
 
         $typesFactory = $this->createMock(TypesFactory::class);
         $typesFactory->expects($this->once())
             ->method('make')
             ->willReturn($types);
 
-        $specs = new Specs();
         $specsFactory = $this->createMock(SpecsFactory::class);
         $specsFactory->method('make')
             ->willReturn($specs);
@@ -93,12 +101,13 @@ final class ReflectorFactoryTest extends TestCase
         $types = new Types();
         $cache = new Cache();
         $introspector = new Introspector();
+        $builder = $this->make(Builder::class);
+        $specs = $this->make(Specs::class, [$builder]);
 
         $typesFactory = $this->createMock(TypesFactory::class);
         $typesFactory->method('make')
             ->willReturn($types);
 
-        $specs = new Specs();
         $specsFactory = $this->createMock(SpecsFactory::class);
         $specsFactory->method('make')
             ->willReturn($specs);

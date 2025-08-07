@@ -4,19 +4,30 @@ declare(strict_types=1);
 
 namespace Constructo\Test\Support\Metadata\Schema\Registry;
 
+use Constructo\Core\Serialize\Builder;
 use Constructo\Support\Metadata\Schema\Registry\Spec;
 use Constructo\Support\Metadata\Schema\Registry\Specs;
 use Constructo\Support\Set;
 use Constructo\Test\Stub\Formatter\ArrayFormatter;
+use Constructo\Testing\MakeExtension;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-final class SpecsTest extends TestCase
+class SpecsTest extends TestCase
 {
+    use MakeExtension;
+
+    private Builder $builder;
+
+    protected function setUp(): void
+    {
+        $this->builder = $this->make(Builder::class);
+    }
+
     public function testCanCreateEmptySpecs(): void
     {
-        $specs = new Specs();
+        $specs = new Specs($this->builder);
 
         $this->assertFalse($specs->has('nonexistent'));
         $this->assertNull($specs->get('nonexistent'));
@@ -24,7 +35,7 @@ final class SpecsTest extends TestCase
 
     public function testCanRegisterAndRetrieveSpec(): void
     {
-        $specs = new Specs();
+        $specs = new Specs($this->builder);
         $data = ['param1' => 'value1'];
 
         $specs->register('required', $data);
@@ -40,7 +51,7 @@ final class SpecsTest extends TestCase
 
     public function testCanRegisterSpecWithFormatter(): void
     {
-        $specs = new Specs();
+        $specs = new Specs($this->builder);
         $data = ['formatter' => ArrayFormatter::class];
 
         $specs->register('formatted', $data);
@@ -54,7 +65,7 @@ final class SpecsTest extends TestCase
 
     public function testRegisterConvertsNameToSnakeCase(): void
     {
-        $specs = new Specs();
+        $specs = new Specs($this->builder);
 
         $specs->register('CamelCase', []);
         $specs->register('kebab-case', []);
@@ -71,7 +82,7 @@ final class SpecsTest extends TestCase
 
     public function testGetConvertsNameToSnakeCase(): void
     {
-        $specs = new Specs();
+        $specs = new Specs($this->builder);
         $specs->register('test_spec', []);
 
         $this->assertInstanceOf(Spec::class, $specs->get('testSpec'));
@@ -82,7 +93,7 @@ final class SpecsTest extends TestCase
 
     public function testHasConvertsNameToSnakeCase(): void
     {
-        $specs = new Specs();
+        $specs = new Specs($this->builder);
         $specs->register('test_spec', []);
 
         $this->assertTrue($specs->has('testSpec'));
@@ -93,14 +104,14 @@ final class SpecsTest extends TestCase
 
     public function testGetReturnsNullForNonExistentSpec(): void
     {
-        $specs = new Specs();
+        $specs = new Specs($this->builder);
 
         $this->assertNull($specs->get('nonexistent'));
     }
 
     public function testRegisterOverwritesExistingSpec(): void
     {
-        $specs = new Specs();
+        $specs = new Specs($this->builder);
 
         $specs->register('test', ['param1' => 'value1']);
         $specs->register('test', ['param2' => 'value2']);
@@ -112,9 +123,12 @@ final class SpecsTest extends TestCase
 
     public function testRegisterWithComplexData(): void
     {
-        $specs = new Specs();
+        $specs = new Specs($this->builder);
         $data = [
-            'params' => ['min', 'max'],
+            'params' => [
+                'min',
+                'max',
+            ],
             'required' => true,
             'nullable' => false,
             'default' => 'test',
@@ -123,7 +137,13 @@ final class SpecsTest extends TestCase
         $specs->register('complex', $data);
 
         $spec = $specs->get('complex');
-        $this->assertSame(['min', 'max'], $spec->properties->get('params'));
+        $this->assertSame(
+            [
+                'min',
+                'max',
+            ],
+            $spec->properties->get('params')
+        );
         $this->assertTrue($spec->properties->get('required'));
         $this->assertFalse($spec->properties->get('nullable'));
         $this->assertSame('test', $spec->properties->get('default'));
@@ -131,7 +151,7 @@ final class SpecsTest extends TestCase
 
     public function testDefineFormatterWithNullFormatter(): void
     {
-        $specs = new Specs();
+        $specs = new Specs($this->builder);
 
         $specs->register('no_formatter', []);
 
@@ -141,7 +161,7 @@ final class SpecsTest extends TestCase
 
     public function testDefineFormatterThrowsExceptionForNonStringFormatter(): void
     {
-        $specs = new Specs();
+        $specs = new Specs($this->builder);
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Formatter must be a valid class-string, integer given.');
@@ -151,7 +171,7 @@ final class SpecsTest extends TestCase
 
     public function testDefineFormatterThrowsExceptionForNonExistentClass(): void
     {
-        $specs = new Specs();
+        $specs = new Specs($this->builder);
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Formatter must be a valid class-string, string given.');
@@ -161,7 +181,7 @@ final class SpecsTest extends TestCase
 
     public function testDefineFormatterThrowsExceptionForNonFormatterClass(): void
     {
-        $specs = new Specs();
+        $specs = new Specs($this->builder);
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Formatter must implement Constructo\Contract\Formatter, object given.');
@@ -171,7 +191,7 @@ final class SpecsTest extends TestCase
 
     public function testDefineFormatterThrowsExceptionForArrayFormatter(): void
     {
-        $specs = new Specs();
+        $specs = new Specs($this->builder);
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Formatter must be a valid class-string, array given.');
@@ -181,7 +201,7 @@ final class SpecsTest extends TestCase
 
     public function testDefineFormatterThrowsExceptionForBooleanFormatter(): void
     {
-        $specs = new Specs();
+        $specs = new Specs($this->builder);
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Formatter must be a valid class-string, boolean given.');
@@ -191,7 +211,7 @@ final class SpecsTest extends TestCase
 
     public function testDefineFormatterWithNullFormatterValue(): void
     {
-        $specs = new Specs();
+        $specs = new Specs($this->builder);
 
         // Null formatter should not throw exception, it should be treated as no formatter
         $specs->register('null_formatter', ['formatter' => null]);
@@ -202,7 +222,7 @@ final class SpecsTest extends TestCase
 
     public function testMultipleSpecsRegistration(): void
     {
-        $specs = new Specs();
+        $specs = new Specs($this->builder);
 
         $specs->register('required', []);
         $specs->register('string', ['type' => 'string']);

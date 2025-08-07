@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Constructo\Test\Core\Reflect\Resolver\Type;
 
 use BackedEnum;
+use Constructo\Core\Reflect\Resolver\Type\Contract\NamedTypeResolution;
 use Constructo\Core\Reflect\Resolver\Type\EnumNamedTypeHandler;
+use Constructo\Core\Serialize\Builder;
 use Constructo\Factory\DefaultSpecsFactory;
 use Constructo\Support\Metadata\Schema\Field;
 use Constructo\Support\Metadata\Schema\Field\Rules;
 use Constructo\Support\Metadata\Schema\Registry\Specs;
+use Constructo\Testing\MakeExtension;
 use PHPUnit\Framework\TestCase;
 use ReflectionNamedType;
 use ReflectionParameter;
@@ -36,25 +39,27 @@ enum TestUnitEnum
 
 enum TestEmptyBackedEnum: string
 {
-    // Enum with no cases to test empty values scenario
+    // Enum with no cases to test an empty values scenario
 }
 
-final class EnumNamedTypeHandlerTest extends TestCase
+class EnumNamedTypeHandlerTest extends TestCase
 {
+    use MakeExtension;
+
     private EnumNamedTypeHandler $handler;
     private Specs $specs;
 
     protected function setUp(): void
     {
-        $this->handler = new EnumNamedTypeHandler();
-
+        $this->handler = $this->make(EnumNamedTypeHandler::class);
+        $builder = $this->make(Builder::class);
         $specsData = [
             'string' => [],
             'integer' => [],
             'in' => ['params' => ['values']],
         ];
 
-        $specsFactory = new DefaultSpecsFactory($specsData);
+        $specsFactory = new DefaultSpecsFactory($builder, $specsData);
         $this->specs = $specsFactory->make();
     }
 
@@ -120,17 +125,17 @@ final class EnumNamedTypeHandlerTest extends TestCase
         $parameter = $this->createParameterWithType(TestEmptyBackedEnum::class, false);
         $field = new Field($this->specs, new Rules(), 'test');
 
-        // Create a custom handler to simulate null backing type scenario
         $handler = new class extends EnumNamedTypeHandler {
-            protected function resolveNamedType(\ReflectionNamedType $parameter, \Constructo\Support\Metadata\Schema\Field $field): \Constructo\Core\Reflect\Resolver\Type\Contract\NamedTypeResolution
-            {
+            protected function resolveNamedType(
+                ReflectionNamedType $parameter,
+                Field $field,
+            ): NamedTypeResolution {
                 $enumClassName = $parameter->getName();
-                if (! is_subclass_of($enumClassName, \BackedEnum::class)) {
-                    return \Constructo\Core\Reflect\Resolver\Type\Contract\NamedTypeResolution::NotResolved;
+                if (! is_subclass_of($enumClassName, BackedEnum::class)) {
+                    return NamedTypeResolution::Resolved;
                 }
 
-                // Simulate enum with null backing type (line 43 coverage)
-                return \Constructo\Core\Reflect\Resolver\Type\Contract\NamedTypeResolution::NotResolved;
+                return NamedTypeResolution::NotResolved;
             }
         };
 
@@ -157,10 +162,13 @@ final class EnumNamedTypeHandlerTest extends TestCase
         $parameter = $this->createMock(ReflectionParameter::class);
         $type = $this->createMock(ReflectionNamedType::class);
 
-        $type->method('getName')->willReturn($typeName);
-        $type->method('isBuiltin')->willReturn($isBuiltin);
+        $type->method('getName')
+            ->willReturn($typeName);
+        $type->method('isBuiltin')
+            ->willReturn($isBuiltin);
 
-        $parameter->method('getType')->willReturn($type);
+        $parameter->method('getType')
+            ->willReturn($type);
 
         return $parameter;
     }

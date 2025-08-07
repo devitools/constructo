@@ -5,24 +5,28 @@ declare(strict_types=1);
 namespace Constructo\Test\Core\Reflect\Resolver\Type;
 
 use Constructo\Core\Reflect\Resolver\Type\PatternAttributeTypeHandler;
+use Constructo\Core\Serialize\Builder;
 use Constructo\Factory\DefaultSpecsFactory;
 use Constructo\Support\Metadata\Schema\Field;
 use Constructo\Support\Metadata\Schema\Field\Rules;
 use Constructo\Support\Metadata\Schema\Registry\Specs;
 use Constructo\Support\Reflective\Attribute\Pattern;
+use Constructo\Testing\MakeExtension;
 use PHPUnit\Framework\TestCase;
 use ReflectionAttribute;
 use ReflectionParameter;
 
-final class PatternAttributeTypeHandlerTest extends TestCase
+class PatternAttributeTypeHandlerTest extends TestCase
 {
+    use MakeExtension;
+
     private PatternAttributeTypeHandler $handler;
     private Specs $specs;
 
     protected function setUp(): void
     {
         $this->handler = new PatternAttributeTypeHandler();
-
+        $builder = $this->make(Builder::class);
         $specsData = [
             'regex' => [
                 'params' => [
@@ -32,7 +36,7 @@ final class PatternAttributeTypeHandlerTest extends TestCase
             ],
         ];
 
-        $specsFactory = new DefaultSpecsFactory($specsData);
+        $specsFactory = new DefaultSpecsFactory($builder, $specsData);
         $this->specs = $specsFactory->make();
     }
 

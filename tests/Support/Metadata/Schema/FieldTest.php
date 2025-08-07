@@ -5,18 +5,23 @@ declare(strict_types=1);
 namespace Constructo\Test\Support\Metadata\Schema;
 
 use BadMethodCallException;
+use Constructo\Core\Serialize\Builder;
 use Constructo\Factory\DefaultSpecsFactory;
 use Constructo\Support\Metadata\Schema\Field;
 use Constructo\Support\Metadata\Schema\Field\Rules;
 use Constructo\Support\Metadata\Schema\Registry\Specs;
+use Constructo\Testing\MakeExtension;
 use PHPUnit\Framework\TestCase;
 
-final class FieldTest extends TestCase
+class FieldTest extends TestCase
 {
+    use MakeExtension;
+
     private Specs $specs;
 
     protected function setUp(): void
     {
+        $builder = $this->make(Builder::class);
         $specsData = [
             'required' => [],
             'string' => [],
@@ -28,15 +33,25 @@ final class FieldTest extends TestCase
             'uuid' => [],
             'min' => ['params' => ['min']],
             'max' => ['params' => ['max']],
-            'between' => ['params' => ['min', 'max']],
+            'between' => [
+                'params' => [
+                    'min',
+                    'max',
+                ],
+            ],
             'in' => ['params' => ['values']],
-            'regex' => ['params' => ['pattern', 'parameters:optional']],
+            'regex' => [
+                'params' => [
+                    'pattern',
+                    'parameters:optional',
+                ],
+            ],
             'nullable' => [],
             'sometimes' => [],
             'bail' => [],
         ];
 
-        $specsFactory = new DefaultSpecsFactory($specsData);
+        $specsFactory = new DefaultSpecsFactory($builder, $specsData);
         $this->specs = $specsFactory->make();
     }
 
@@ -107,7 +122,10 @@ final class FieldTest extends TestCase
     {
         $field = new Field($this->specs, new Rules(), 'test_field');
 
-        $result = $field->required()->string()->min(3)->max(50);
+        $result = $field->required()
+            ->string()
+            ->min(3)
+            ->max(50);
 
         $this->assertSame($field, $result);
         $this->assertTrue($field->hasRule('required'));
@@ -135,7 +153,7 @@ final class FieldTest extends TestCase
     public function testCanSetMappingWithClosure(): void
     {
         $field = new Field($this->specs, new Rules(), 'test_field');
-        $closure = fn($value) => strtoupper($value);
+        $closure = fn ($value) => strtoupper((string) $value);
 
         $result = $field->map($closure);
 
@@ -225,7 +243,13 @@ final class FieldTest extends TestCase
     {
         $field = new Field($this->specs, new Rules(), 'test_field');
 
-        $result = $field->in(['option1', 'option2', 'option3']);
+        $result = $field->in(
+            [
+                'option1',
+                'option2',
+                'option3',
+            ]
+        );
 
         $this->assertSame($field, $result);
         $this->assertTrue($field->hasRule('in'));
@@ -235,7 +259,13 @@ final class FieldTest extends TestCase
     public function testFieldConstantsAreCorrect(): void
     {
         $this->assertSame(['map'], Field::MAPPING);
-        $this->assertSame(['unavailable', 'available'], Field::VISIBILITY);
+        $this->assertSame(
+            [
+                'unavailable',
+                'available',
+            ],
+            Field::VISIBILITY
+        );
     }
 
     public function testComplexScenarioWithMultipleOperations(): void
