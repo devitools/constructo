@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Constructo\Core\Fake\Resolver;
 
+use Constructo\Contract\Collectable;
 use Constructo\Core\Fake\Resolver;
 use Constructo\Support\Set;
 use Constructo\Support\Value;
 use Constructo\Testing\MakeExtension;
 use Constructo\Testing\ManagedExtension;
-use Constructo\Type\Collection;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionParameter;
@@ -25,14 +25,14 @@ final class FromCollection extends Resolver
     public function resolve(ReflectionParameter $parameter, Set $presets): ?Value
     {
         $collectionName = $this->detectCollectionName($parameter);
-        if ($collectionName) {
-            return $this->resolveCollection($collectionName);
+        if ($collectionName === null) {
+            return parent::resolve($parameter, $presets);
         }
-        return parent::resolve($parameter, $presets);
+        return $this->resolveCollection($collectionName);
     }
 
     /**
-     * @param class-string<Collection> $collectionName
+     * @param class-string<Collectable> $collectionName
      * @throws ReflectionException
      */
     private function resolveCollection(string $collectionName): Value

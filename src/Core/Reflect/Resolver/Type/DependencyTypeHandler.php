@@ -30,13 +30,7 @@ class DependencyTypeHandler extends NamedTypeHandler
      */
     private function resolveDynamicType(Field $field, string $source): void
     {
-        if ($this->types === null) {
-            $field->array();
-            $field->setSource($source);
-            return;
-        }
-
-        $type = $this->types->get($source);
+        $type = $this->types?->get($source);
         if (is_string($type)) {
             $field->{$type}();
             return;
