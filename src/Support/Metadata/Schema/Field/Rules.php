@@ -14,11 +14,19 @@ use function str_contains;
 
 class Rules
 {
+    /**
+     * @var array<string, Rule>
+     */
     private array $rules = [];
 
+    /**
+     * @return array<string>
+     */
     public function all(): array
     {
-        return array_map(fn (Rule $rule): string => stringify($rule), array_values($this->rules));
+        $callback = fn (mixed $rule): string => stringify($rule);
+        $rules = array_values($this->rules);
+        return array_map($callback, $rules);
     }
 
     public function register(Spec $spec, array $arguments): void

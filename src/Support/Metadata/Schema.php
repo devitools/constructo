@@ -46,7 +46,9 @@ final readonly class Schema
      */
     public function rules(): array
     {
-        return array_map(fn (Field $field) => $field->rules(), $this->available());
+        $callback = fn (Field $field) => $field->rules();
+        $rules = $this->available();
+        return array_map($callback, $rules);
     }
 
     /**
@@ -65,6 +67,9 @@ final readonly class Schema
         return $mappings;
     }
 
+    /**
+     * @return array<string, Field>
+     */
     private function available(): array
     {
         return $this->fieldset->filter(fn (Field $field) => $field->isAvailable());

@@ -112,6 +112,10 @@ final class Field
     private bool $available = true;
 
     private Closure|string|null $map = null;
+
+    /**
+     * @var class-string<object>|null
+     */
     private ?string $source = null;
 
     public function __construct(
@@ -121,6 +125,9 @@ final class Field
     ) {
     }
 
+    /**
+     * @return array<string>
+     */
     public function rules(): array
     {
         return $this->rules->all();
@@ -136,11 +143,17 @@ final class Field
         return $this->available;
     }
 
+    /**
+     * @param class-string<object> $source
+     */
     public function setSource(string $source): void
     {
         $this->source = $source;
     }
 
+    /**
+     * @return class-string<object>|null
+     */
     public function getSource(): ?string
     {
         return $this->source;
@@ -174,9 +187,11 @@ final class Field
         return in_array($needle, $haystack, true);
     }
 
-    private function handleMapping(Closure|string $map): void
+    private function handleMapping(mixed $mapping): void
     {
-        $this->map = $map;
+        if ($mapping instanceof Closure || is_string($mapping)) {
+            $this->map = $mapping;
+        }
     }
 
     private function handleVisibility(string $name): void

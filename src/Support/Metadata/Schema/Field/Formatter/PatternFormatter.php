@@ -12,7 +12,7 @@ use function Constructo\Cast\arrayify;
 use function Constructo\Cast\stringify;
 use function count;
 use function is_array;
-use function sprintf;
+use function vsprintf;
 
 class PatternFormatter implements Formatter
 {
@@ -39,9 +39,29 @@ class PatternFormatter implements Formatter
         if ($parameters === null) {
             $parameters = [];
         }
+        $parameters = $this->normalizeParameters($parameters);
+        return [vsprintf(stringify($pattern), $parameters)];
+    }
+
+    /**
+     * @return array<bool|float|int|string|null>
+     */
+    public function normalizeParameters(mixed $parameters): array
+    {
         if ($parameters instanceof Closure) {
             $parameters = arrayify($parameters());
         }
-        return [sprintf(stringify($pattern), ...$parameters)];
+        if (! is_array($parameters)) {
+            $parameters = [$parameters];
+        }
+
+        $normalizer = fn (mixed $value) => match (true) {
+            is_bool($value) => $value,
+            is_int($value) => $value,
+            is_float($value) => $value,
+            is_string($value) => $value,
+            default => null
+        };
+        return array_map($normalizer, $parameters);
     }
 }

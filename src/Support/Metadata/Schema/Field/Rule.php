@@ -10,6 +10,7 @@ use Stringable;
 
 use function Constructo\Cast\arrayify;
 use function Constructo\Cast\stringify;
+use function is_string;
 use function sprintf;
 
 readonly class Rule implements Stringable, JsonSerializable
@@ -20,7 +21,11 @@ readonly class Rule implements Stringable, JsonSerializable
         public Spec $spec,
         public array $arguments = [],
     ) {
-        $this->key = $spec->properties->get('kind') ?? $spec->name;
+        $kind = $spec->properties->get('kind');
+        if (! is_string($kind)) {
+            $kind = null;
+        }
+        $this->key = $kind ?? $spec->name;
     }
 
     public function __toString(): string
@@ -48,7 +53,12 @@ readonly class Rule implements Stringable, JsonSerializable
             is_string($item) => $item,
             is_iterable($item) => implode(
                 ',',
-                array_map(fn (mixed $element): string => $this->enforce($element), $item)
+                array_map(
+                    fn ($element): string => $this->enforce($element),
+                    is_array($item)
+                        ? $item
+                        : iterator_to_array($item)
+                )
             ),
             default => stringify($item),
         };

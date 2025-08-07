@@ -29,8 +29,19 @@ class Fieldset
         return array_key_exists($name, $this->fields);
     }
 
+    /**
+     * @return array<string, Field>
+     */
     public function filter(Closure $criteria): array
     {
         return array_filter($this->fields, $criteria);
+    }
+
+    /**
+     * @return array<string, Field>
+     */
+    public function all(): array
+    {
+        return $this->fields;
     }
 }
