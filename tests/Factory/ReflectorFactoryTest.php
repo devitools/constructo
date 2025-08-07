@@ -128,4 +128,13 @@ final class ReflectorFactoryTest extends TestCase
         $reflectorKebab = $factoryKebab->make();
         $this->assertNotNull($reflectorKebab);
     }
+
+    public function testCreateFromCreatesFactoryWithDefaults(): void
+    {
+        $factory = ReflectorFactory::createFrom();
+
+        $reflector = $factory->make();
+
+        $this->assertNotNull($reflector);
+    }
 }

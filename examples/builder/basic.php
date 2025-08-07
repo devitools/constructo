@@ -4,10 +4,6 @@ namespace Examples\Builder;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-/**
- * @see tests/Examples/BuilderExamplesTest.php:testShouldBuildUserBasic
- */
-
 use Constructo\Core\Serialize\Builder;
 use Constructo\Support\Set;
 use Constructo\Type\Timestamp;
@@ -36,9 +32,9 @@ $set = Set::createFrom([
 // Crie um novo builder e use-o para construir o objeto
 $user = (new Builder())->build(User::class, $set);
 
-echo "Usuário: \n";
-echo sprintf("  ID: %s\n", $user->id);
-echo sprintf("  Nome: %s\n", $user->name);
-echo sprintf("  Ativo: %s\n", $user->isActive);
-echo sprintf("  Tags: %s\n", implode(', ', $user->tags));
-echo sprintf("  Data de Nascimento: %s\n", $user->birthDate->format('Y-m-d'));
+echo "# Usuário: \n";
+echo sprintf("#   ID: %s\n", $user->id);
+echo sprintf("#   Nome: %s\n", $user->name);
+echo sprintf("#   Ativo: %s\n", $user->isActive ? 'Sim' : 'Não');
+echo sprintf("#   Tags: %s\n", implode(', ', $user->tags));
+echo sprintf("#   Data de Nascimento: %s\n", $user->birthDate->format('Y-m-d'));

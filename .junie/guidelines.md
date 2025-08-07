@@ -32,7 +32,6 @@ The project includes comprehensive Composer scripts for development:
 
 ```bash
 # Via Docker (recommended)
-make test           # Run PHPUnit tests with coverage
 make lint           # Run all linting tools
 make ci             # Full CI pipeline (lint + test)
 
@@ -58,14 +57,14 @@ make lint-psalm     # Static analysis
 
 ```bash
 # Run all tests with coverage
-make test
+docker compose exec constructo composer test
 
 # Run specific test file (within Docker container)
 docker compose exec constructo vendor/bin/phpunit tests/Path/To/TestFile.php
 
 # Run tests by filter/pattern (correct approach)
-docker compose exec constructo vendor/bin/phpunit --filter=TestClassName
 # Note: make test FILTER=TestName is NOT the correct command for filtering
+docker compose exec constructo vendor/bin/phpunit --filter=TestClassName
 ```
 
 ### Test Structure and Patterns

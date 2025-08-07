@@ -11,10 +11,12 @@ class FunctionsTest extends TestCase
     public function testShouldRequireFunctions(): void
     {
         $files = [
+            'src/_/@schemata.php',
             'src/_/cast.php',
             'src/_/crypt.php',
             'src/_/json.php',
             'src/_/notation.php',
+            'src/_/polyfill.php',
             'src/_/util.php',
         ];
         foreach ($files as $file) {
