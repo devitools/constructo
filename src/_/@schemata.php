@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 use Constructo\Support\Metadata\Schema\Field\Formatter\MergeFormatter;
 use Constructo\Support\Metadata\Schema\Field\Formatter\PatternFormatter;
 

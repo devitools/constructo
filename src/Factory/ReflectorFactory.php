@@ -14,6 +14,8 @@ use Constructo\Testing\MakeExtension;
 
 use function Constructo\Cast\arrayify;
 
+use const CONSTRUCTO_SCHEMATA;
+
 readonly class ReflectorFactory
 {
     use MakeExtension;
@@ -29,9 +31,8 @@ readonly class ReflectorFactory
 
     public static function createFrom(array $specs = [], array $types = [], Notation $notation = Notation::SNAKE): self
     {
-        $schemata = CONSTRUCTO_SCHEMATA;
-        $specs = array_merge(arrayify($schemata['specs'] ?? null), $specs);
-        $types = array_merge(arrayify($schemata['types'] ?? null), $types);
+        $specs = array_merge(self::extract('specs'), $specs);
+        $types = array_merge(self::extract('types'), $types);
         $builder = new Builder($notation);
         $specsFactory = new DefaultSpecsFactory($builder, $specs);
         return new self(
@@ -47,5 +48,12 @@ readonly class ReflectorFactory
     {
         $types = $this->typesFactory->make();
         return new Reflector($this->schemaFactory, $types, $this->cache, $this->introspector, $this->notation);
+    }
+
+    private static function extract(string $key): array
+    {
+        $schemata = CONSTRUCTO_SCHEMATA;
+        $extracted = $schemata[$key] ?? null;
+        return is_array($extracted) ? $extracted : [];
     }
 }
