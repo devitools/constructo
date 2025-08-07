@@ -30,7 +30,7 @@ class Builder extends Engine
      * @return T
      * @throws AdapterException
      */
-    public function build(string $class, Set $set, array $path = []): mixed
+    public function build(string $class, Set $set = new Set([]), array $path = []): mixed
     {
         try {
             return $this->make($class, $set, $path);

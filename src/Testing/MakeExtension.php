@@ -13,14 +13,14 @@ use ReflectionException;
 trait MakeExtension
 {
     /**
-     * @template T of mixed
+     * @template T of object
      * @param class-string<T> $class
      * @param array<string, mixed> $args
      *
      * @return T
      * @throws ReflectionException
      */
-    protected function make(string $class, array $args = []): mixed
+    protected function make(string $class, array $args = []): object
     {
         return (new ReflectionClass($class))->newInstanceArgs(array_values($args));
     }

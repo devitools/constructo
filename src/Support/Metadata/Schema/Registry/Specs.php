@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Constructo\Support\Metadata\Schema\Registry;
 
 use Constructo\Contract\Formatter;
+use Constructo\Core\Serialize\Builder;
 use Constructo\Support\Set;
 use InvalidArgumentException;
 
@@ -17,6 +18,10 @@ use function sprintf;
 class Specs
 {
     private array $specs = [];
+
+    public function __construct(private readonly Builder $builder)
+    {
+    }
 
     public function get(string $name): ?Spec
     {
@@ -54,7 +59,15 @@ class Specs
             $given = gettype($formatter);
             throw new InvalidArgumentException(sprintf('Formatter must be a valid class-string, %s given.', $given));
         }
-        $instance = new $formatter();
+        return $this->createFormatter($formatter);
+    }
+
+    /**
+     * @param class-string<object> $formatter
+     */
+    private function createFormatter(string $formatter): Formatter
+    {
+        $instance = $this->builder->build($formatter);
         if (! $instance instanceof Formatter) {
             $given = gettype($instance);
             throw new InvalidArgumentException(

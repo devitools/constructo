@@ -166,11 +166,11 @@ final class Field
 
     public function __call(string $name, array $arguments): self
     {
-        if ($this->is(self::MAPPING, $name)) {
+        if ($this->isFrom(self::MAPPING, $name)) {
             $this->handleMapping(...$arguments);
             return $this;
         }
-        if ($this->is(self::VISIBILITY, $name)) {
+        if ($this->isFrom(self::VISIBILITY, $name)) {
             $this->handleVisibility($name);
             return $this;
         }
@@ -182,7 +182,7 @@ final class Field
         throw new BadMethodCallException(sprintf("Entry '%s' is not supported.", $name));
     }
 
-    private function is(array $haystack, string $needle): bool
+    private function isFrom(array $haystack, string $needle): bool
     {
         return in_array($needle, $haystack, true);
     }

@@ -57,18 +57,7 @@ class RequirementResolver extends Resolver
             return;
         }
 
-        if ($this->shouldBePresent($parameter)) {
-            $field->present();
-            return;
-        }
-
-        if ($this->shouldBeFilled($parameter)) {
-            $field->filled();
-        }
-
-        if ($this->shouldUseSometimesRequired($parameter)) {
-            $field->required();
-        }
+        $this->applyRequirementRuleNotStrict($parameter, $field);
     }
 
     private function isStrictlyRequired(ReflectionParameter $parameter): bool
@@ -97,5 +86,21 @@ class RequirementResolver extends Resolver
         return $parameter->isOptional() &&
             $parameter->isDefaultValueAvailable() &&
             ! $parameter->allowsNull();
+    }
+
+    private function applyRequirementRuleNotStrict(ReflectionParameter $parameter, Field $field): void
+    {
+        if ($this->shouldBePresent($parameter)) {
+            $field->present();
+            return;
+        }
+
+        if ($this->shouldBeFilled($parameter)) {
+            $field->filled();
+        }
+
+        if ($this->shouldUseSometimesRequired($parameter)) {
+            $field->required();
+        }
     }
 }

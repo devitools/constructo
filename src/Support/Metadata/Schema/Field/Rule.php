@@ -57,7 +57,7 @@ readonly class Rule implements Stringable, JsonSerializable
                     fn ($element): string => $this->enforce($element),
                     is_array($item)
                         ? $item
-                        : iterator_to_array($item)
+                        : iterator_to_array($item, false)
                 )
             ),
             default => stringify($item),

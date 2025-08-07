@@ -20,13 +20,24 @@ class MergeFormatter implements Formatter
 {
     public function format(mixed $value, mixed $option = null): array
     {
+        $items = $this->getItems($value);
+        if (is_string($items) && class_exists($items) && is_subclass_of($items, BackedEnum::class)) {
+            $items = $items::cases();
+        }
+        return $this->formatItems($items);
+    }
+
+    private function getItems(mixed $value): mixed
+    {
         if (! is_array($value) || count($value) < 1) {
             throw new BadMethodCallException('MergeFormatter requires an array with at least one element.');
         }
         [$items] = $value;
-        if (is_string($items) && class_exists($items) && is_subclass_of($items, BackedEnum::class)) {
-            $items = $items::cases();
-        }
+        return $items;
+    }
+
+    private function formatItems(mixed $items): array
+    {
         $callback = fn (mixed $item) => match (true) {
             $item instanceof BackedEnum => $item->value,
             default => stringify($item),

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Constructo\Factory;
 
 use Constructo\Contract\Reflect\SpecsFactory;
+use Constructo\Core\Serialize\Builder;
 use Constructo\Support\Metadata\Schema\Registry\Specs;
 use InvalidArgumentException;
 
@@ -17,13 +18,15 @@ use function sprintf;
 
 readonly class DefaultSpecsFactory implements SpecsFactory
 {
-    public function __construct(private array $specs = [])
-    {
+    public function __construct(
+        private Builder $builder,
+        private array $specs = [],
+    ) {
     }
 
     public function make(): Specs
     {
-        $registry = new Specs();
+        $registry = new Specs($this->builder);
         foreach ($this->specs as $key => $value) {
             $this->validate($key, $value);
             $registry->register(stringify($key), arrayify($value));
