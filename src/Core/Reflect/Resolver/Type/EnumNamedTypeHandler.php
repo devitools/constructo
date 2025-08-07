@@ -13,6 +13,8 @@ use ReflectionEnumBackedCase;
 use ReflectionException;
 use ReflectionNamedType;
 
+use UnitEnum;
+
 use function enum_exists;
 
 class EnumNamedTypeHandler extends NamedTypeHandler
@@ -30,6 +32,7 @@ class EnumNamedTypeHandler extends NamedTypeHandler
     }
 
     /**
+     * @param class-string<UnitEnum> $enumClassName
      * @throws ReflectionException
      */
     private function resolveEnumType(string $enumClassName, Field $field): NamedTypeResolution

@@ -10,6 +10,9 @@ use ReflectionException;
 
 class Introspector
 {
+    /**
+     * @param class-string $source
+     */
     public function analyze(string $source): Result
     {
         try {

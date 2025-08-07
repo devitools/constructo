@@ -42,8 +42,7 @@ class Reflector
     }
 
     /**
-     * @template T of object
-     * @param class-string<T> $source
+     * @param class-string<object> $source
      * @throws ReflectionException
      */
     public function reflect(string $source): Schema
@@ -88,6 +87,7 @@ class Reflector
     }
 
     /**
+     * @param class-string<object> $source
      * @throws ReflectionException
      */
     private function introspectSource(string $source, Schema $schema, Field $parent, array $path): void
@@ -115,16 +115,17 @@ class Reflector
     }
 
     /**
+     * @param class-string<object> $source
      * @throws ReflectionException
      */
     private function extractParameters(string $source): array
     {
-        $key = sprintf("parameters:%s", $source);
+        $key = sprintf('parameters:%s', $source);
         $parameters = $this->cache->get($key);
         if (is_array($parameters)) {
             return $parameters;
         }
-        $parameters = Target::createFrom($source)
+        $parameters = Target::createFrom((string)$source)
             ->getReflectionParameters();
         return $this->cache->set($key, $parameters);
     }

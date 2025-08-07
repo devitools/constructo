@@ -25,8 +25,17 @@ class DependencyTypeHandler extends NamedTypeHandler
         return NamedTypeResolution::NotResolved;
     }
 
+    /**
+     * @param class-string<object> $source
+     */
     private function resolveDynamicType(Field $field, string $source): void
     {
+        if ($this->types === null) {
+            $field->array();
+            $field->setSource($source);
+            return;
+        }
+
         $type = $this->types->get($source);
         if (is_string($type)) {
             $field->{$type}();
