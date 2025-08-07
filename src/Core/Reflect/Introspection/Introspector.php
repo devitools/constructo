@@ -11,7 +11,7 @@ use ReflectionException;
 class Introspector
 {
     /**
-     * @param class-string $source
+     * @param class-string<object> $source
      */
     public function analyze(string $source): Result
     {
