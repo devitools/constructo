@@ -19,7 +19,7 @@ use function sprintf;
 readonly class DefaultSpecsFactory implements SpecsFactory
 {
     public function __construct(
-        protected Builder $builder,
+        private Builder $builder,
         private array $specs = [],
     ) {
     }
