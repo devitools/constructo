@@ -19,6 +19,7 @@ final class TimestampTest extends TestCase
         $this->assertIsString($result);
         $this->assertStringContainsString('2023-01-15T10:30:45', $result);
         $this->assertStringContainsString('+', $result);
+        $this->assertSame($result, (string) $timestamp);
     }
 
     public function testToStringReturnsAtomFormat(): void
