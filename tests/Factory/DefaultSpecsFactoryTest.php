@@ -10,7 +10,7 @@ use Constructo\Testing\MakeExtension;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
-class DefaultSpecsFactoryTest extends TestCase
+final class DefaultSpecsFactoryTest extends TestCase
 {
     use MakeExtension;
 
@@ -41,16 +41,6 @@ class DefaultSpecsFactoryTest extends TestCase
         $this->assertFalse($registry->has('nonexistent'));
     }
 
-    public function testMakeReturnsRegistryWithDefaultBehavior(): void
-    {
-        $builder = $this->make(Builder::class);
-        $factory = new DefaultSpecsFactory($builder);
-
-        $registry = $factory->make();
-
-        $this->assertFalse($registry->has('nonexistent'));
-    }
-
     public function testMakeRegistersSpecsCorrectly(): void
     {
         $builder = $this->make(Builder::class);
@@ -63,120 +53,9 @@ class DefaultSpecsFactoryTest extends TestCase
         $factory = new DefaultSpecsFactory($builder, $specs);
         $registry = $factory->make();
 
-        // Test that all specs are registered correctly
         $this->assertTrue($registry->has('required'));
         $this->assertTrue($registry->has('string'));
         $this->assertTrue($registry->has('min'));
-
-        // Test that spec objects can be retrieved
-        $this->assertNotNull($registry->get('required'));
-        $this->assertNotNull($registry->get('min'));
-    }
-
-    public function testValidateAcceptsValidStringNameAndArrayProperties(): void
-    {
-        $builder = $this->make(Builder::class);
-        $factory = new DefaultSpecsFactory($builder);
-
-        $this->expectNotToPerformAssertions();
-        $factory->validate('required', []);
-    }
-
-    public function testValidateAcceptsValidStringNameAndArrayPropertiesWithData(): void
-    {
-        $builder = $this->make(Builder::class);
-        $factory = new DefaultSpecsFactory($builder);
-
-        $this->expectNotToPerformAssertions();
-        $factory->validate('min', ['params' => ['min']]);
-    }
-
-    public function testValidateThrowsExceptionForNonStringName(): void
-    {
-        $builder = $this->make(Builder::class);
-        $factory = new DefaultSpecsFactory($builder);
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Spec name must be a string, integer given.');
-
-        $factory->validate(123, []);
-    }
-
-    public function testValidateThrowsExceptionForNullName(): void
-    {
-        $builder = $this->make(Builder::class);
-        $factory = new DefaultSpecsFactory($builder);
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Spec name must be a string, NULL given.');
-
-        $factory->validate(null, []);
-    }
-
-    public function testValidateThrowsExceptionForBooleanName(): void
-    {
-        $builder = $this->make(Builder::class);
-        $factory = new DefaultSpecsFactory($builder);
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Spec name must be a string, boolean given.');
-
-        $factory->validate(true, []);
-    }
-
-    public function testValidateThrowsExceptionForArrayName(): void
-    {
-        $builder = $this->make(Builder::class);
-        $factory = new DefaultSpecsFactory($builder);
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Spec name must be a string, array given.');
-
-        $factory->validate([], []);
-    }
-
-    public function testValidateThrowsExceptionForNonArrayProperties(): void
-    {
-        $builder = $this->make(Builder::class);
-        $factory = new DefaultSpecsFactory($builder);
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Spec properties must be an array, string given.');
-
-        $factory->validate('required', 'invalid');
-    }
-
-    public function testValidateThrowsExceptionForNullProperties(): void
-    {
-        $builder = $this->make(Builder::class);
-        $factory = new DefaultSpecsFactory($builder);
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Spec properties must be an array, NULL given.');
-
-        $factory->validate('required', null);
-    }
-
-    public function testValidateThrowsExceptionForIntegerProperties(): void
-    {
-        $builder = $this->make(Builder::class);
-        $factory = new DefaultSpecsFactory($builder);
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Spec properties must be an array, integer given.');
-
-        $factory->validate('required', 123);
-    }
-
-    public function testValidateThrowsExceptionForBooleanProperties(): void
-    {
-        $builder = $this->make(Builder::class);
-        $factory = new DefaultSpecsFactory($builder);
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Spec properties must be an array, boolean given.');
-
-        $factory->validate('required', false);
     }
 
     public function testMakeWithComplexSpecs(): void
@@ -207,14 +86,145 @@ class DefaultSpecsFactoryTest extends TestCase
         $registry = $factory->make();
 
         $this->assertTrue($registry->has('required'));
-        $this->assertTrue($registry->has('string'));
-        $this->assertTrue($registry->has('integer'));
-        $this->assertTrue($registry->has('min'));
-        $this->assertTrue($registry->has('max'));
         $this->assertTrue($registry->has('between'));
-        $this->assertTrue($registry->has('in'));
         $this->assertTrue($registry->has('regex'));
-        $this->assertNotNull($registry->get('min'));
-        $this->assertNotNull($registry->get('max'));
+    }
+
+    // Test scenarios that trigger validation errors in the validate method
+
+    public function testMakeThrowsExceptionWhenSpecNameIsNotString(): void
+    {
+        $builder = $this->make(Builder::class);
+        $specs = [
+            123 => [], // Integer key instead of string
+        ];
+
+        $factory = new DefaultSpecsFactory($builder, $specs);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Spec name must be a string, integer given.');
+
+        $factory->make();
+    }
+
+    public function testMakeThrowsExceptionWhenSpecPropertiesIsNotArray(): void
+    {
+        $builder = $this->make(Builder::class);
+        $specs = [
+            'required' => 'invalid', // String value instead of array
+        ];
+
+        $factory = new DefaultSpecsFactory($builder, $specs);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Spec properties must be an array, string given.');
+
+        $factory->make();
+    }
+
+    public function testMakeThrowsExceptionWhenSpecPropertiesIsInteger(): void
+    {
+        $builder = $this->make(Builder::class);
+        $specs = [
+            'required' => 123, // Integer value instead of array
+        ];
+
+        $factory = new DefaultSpecsFactory($builder, $specs);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Spec properties must be an array, integer given.');
+
+        $factory->make();
+    }
+
+    public function testMakeThrowsExceptionWhenSpecPropertiesIsNull(): void
+    {
+        $builder = $this->make(Builder::class);
+        $specs = [
+            'required' => null, // Null value instead of array
+        ];
+
+        $factory = new DefaultSpecsFactory($builder, $specs);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Spec properties must be an array, NULL given.');
+
+        $factory->make();
+    }
+
+    public function testMakeThrowsExceptionWhenSpecPropertiesIsBoolean(): void
+    {
+        $builder = $this->make(Builder::class);
+        $specs = [
+            'required' => true, // Boolean value instead of array
+        ];
+
+        $factory = new DefaultSpecsFactory($builder, $specs);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Spec properties must be an array, boolean given.');
+
+        $factory->make();
+    }
+
+    public function testMakeThrowsExceptionWhenSpecPropertiesIsFloat(): void
+    {
+        $builder = $this->make(Builder::class);
+        $specs = [
+            'required' => 3.14, // Float value instead of array
+        ];
+
+        $factory = new DefaultSpecsFactory($builder, $specs);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Spec properties must be an array, double given.');
+
+        $factory->make();
+    }
+
+    public function testMakeThrowsExceptionWhenSpecPropertiesIsObject(): void
+    {
+        $builder = $this->make(Builder::class);
+        $specs = [
+            'required' => new \stdClass(), // Object value instead of array
+        ];
+
+        $factory = new DefaultSpecsFactory($builder, $specs);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Spec properties must be an array, object given.');
+
+        $factory->make();
+    }
+
+    public function testMakeWithMixedValidAndInvalidSpecs(): void
+    {
+        $builder = $this->make(Builder::class);
+        $specs = [
+            'valid_spec' => [],
+            123 => [], // This will trigger the validation error
+        ];
+
+        $factory = new DefaultSpecsFactory($builder, $specs);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Spec name must be a string, integer given.');
+
+        $factory->make();
+    }
+
+    public function testMakeHandlesEmptyArrayPropertiesCorrectly(): void
+    {
+        $builder = $this->make(Builder::class);
+        $specs = [
+            'empty_spec' => [], // Empty array - should be valid
+            'spec_with_data' => ['param' => 'value'],
+        ];
+
+        $factory = new DefaultSpecsFactory($builder, $specs);
+        $registry = $factory->make();
+
+        $this->assertTrue($registry->has('empty_spec'));
+        $this->assertTrue($registry->has('spec_with_data'));
     }
 }

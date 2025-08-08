@@ -34,7 +34,7 @@ readonly class DefaultSpecsFactory implements SpecsFactory
         return $registry;
     }
 
-    public function validate(mixed $name, mixed $properties): void
+    private function validate(mixed $name, mixed $properties): void
     {
         if (! is_string($name)) {
             $given = gettype($name);
