@@ -5,7 +5,7 @@ namespace Examples\Reflector;
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use Constructo\Factory\ReflectorFactory;
-use Constructo\Type\Timestamp;
+use DateTime;
 
 use function array_export;
 
@@ -15,7 +15,7 @@ readonly class User
     public function __construct(
         public int $id,
         public string $name,
-        public Timestamp $birthDate,
+        public DateTime $birthDate,
         public bool $isActive = true,
         public array $tags = [],
     ) {

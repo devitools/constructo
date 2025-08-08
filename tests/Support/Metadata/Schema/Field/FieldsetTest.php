@@ -10,7 +10,7 @@ use Constructo\Support\Metadata\Schema\Field\Rules;
 use Constructo\Support\Metadata\Schema\Registry\Specs;
 use PHPUnit\Framework\TestCase;
 
-final class FieldsetTest extends TestCase
+class FieldsetTest extends TestCase
 {
     private Fieldset $fieldset;
     private Field $field1;
@@ -118,5 +118,6 @@ final class FieldsetTest extends TestCase
         $this->assertCount(2, $filtered);
         $this->assertContains($this->field1, $filtered);
         $this->assertContains($this->field2, $filtered);
+        $this->assertSame($filtered, $this->fieldset->all());
     }
 }

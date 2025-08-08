@@ -90,7 +90,7 @@ use Constructo\Support\Metadata\Schema\Registry\Specs;
  * @method self exists(string $table, string $column = null)
  *
  * # Behaviors
- * @method self in(array|string $items)
+ * @method self in(array $items)
  * @method self notIn(array $items)
  * @method self regex(string $pattern, Closure|array $parameters = null)
  * @method self notRegex(string $pattern)

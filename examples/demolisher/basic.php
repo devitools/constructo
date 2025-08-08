@@ -5,8 +5,7 @@ namespace Examples\Demolisher;
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use Constructo\Core\Deserialize\Demolisher;
-use Constructo\Support\Set;
-use Constructo\Type\Timestamp;
+use DateTime;
 
 // Defina sua entidade informando os valores das propriedades no construtor
 readonly class User
@@ -14,7 +13,7 @@ readonly class User
     public function __construct(
         public int $id,
         public string $name,
-        public Timestamp $birthDate,
+        public DateTime $birthDate,
         public bool $isActive = true,
         public array $tags = [],
     ) {}
@@ -24,7 +23,7 @@ readonly class User
 $user = new User(
     id: 1,
     name: 'João Silva',
-    birthDate: new Timestamp('1981-08-13'),
+    birthDate: new DateTime('1981-08-13'),
     isActive: true,
     tags: ['nice', 'welcome'],
 );
@@ -32,10 +31,9 @@ $user = new User(
 // Crie um novo demolisher e use-o para destruir o objeto
 $object = (new Demolisher())->demolish($user);
 
-$set = Set::createFrom((array) $object);
 echo "# Usuário: \n";
-echo sprintf("#   ID: %s\n", $set->get('id'));
-echo sprintf("#   Nome: %s\n", $set->get('name'));
-echo sprintf("#   Ativo: %s\n", $set->get('is_active') ? 'Sim' : 'Não');
-echo sprintf("#   Tags: %s\n", implode(', ', $set->get('tags')));
-echo sprintf("#   Data de Nascimento: %s\n", $set->get('birth_date'));
+echo sprintf("#   ID: %s\n", $object->id);
+echo sprintf("#   Nome: %s\n", $object->name);
+echo sprintf("#   Ativo: %s\n", $object->is_active ? 'Sim' : 'Não');
+echo sprintf("#   Tags: %s\n", implode(', ', $object->tags));
+echo sprintf("#   Data de Nascimento: %s\n", $object->birth_date);

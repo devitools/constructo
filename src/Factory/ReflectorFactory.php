@@ -12,8 +12,6 @@ use Constructo\Support\Cache;
 use Constructo\Support\Reflective\Notation;
 use Constructo\Testing\MakeExtension;
 
-use function Constructo\Cast\arrayify;
-
 use const CONSTRUCTO_SCHEMATA;
 
 readonly class ReflectorFactory

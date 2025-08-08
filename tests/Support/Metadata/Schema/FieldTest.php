@@ -175,7 +175,7 @@ class FieldTest extends TestCase
     {
         $field = new Field($this->specs, new Rules(), 'test_field');
 
-        // First make it unavailable
+        // First, make it unavailable
         $field->unavailable();
         $this->assertFalse($field->isAvailable());
 

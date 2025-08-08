@@ -1,8 +1,7 @@
 services:
   constructo:
-    platform: linux/amd64
     container_name: constructo-app
-    image: devitools/hyperf:8.3-dev
+    image: devitools/hyperf:8.3-arm-dev
     working_dir: /opt/www
     volumes:
       - ./:/opt/www
