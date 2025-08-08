@@ -20,6 +20,8 @@ use ReflectionException;
 use ReflectionParameter;
 use Throwable;
 
+use function is_array;
+
 class Builder extends Engine
 {
     /**
@@ -30,8 +32,11 @@ class Builder extends Engine
      * @return T
      * @throws AdapterException
      */
-    public function build(string $class, Set $set = new Set([]), array $path = []): mixed
+    public function build(string $class, array|Set $set = [], array $path = []): mixed
     {
+        if (is_array($set)) {
+            $set = Set::createFrom($set);
+        }
         try {
             return $this->make($class, $set, $path);
         } catch (AdapterException $error) {
@@ -56,7 +61,8 @@ class Builder extends Engine
         $parameters = $target->getReflectionParameters();
         if (empty($parameters)) {
             /* @phpstan-ignore return.type */
-            return $target->getReflectionClass()->newInstance();
+            return $target->getReflectionClass()
+                ->newInstance();
         }
 
         $resolution = new Resolution();
@@ -65,7 +71,8 @@ class Builder extends Engine
 
         if (empty($resolution->errors())) {
             /* @phpstan-ignore return.type */
-            return $target->getReflectionClass()->newInstanceArgs($resolution->args());
+            return $target->getReflectionClass()
+                ->newInstanceArgs($resolution->args());
         }
         throw new AdapterException($set, $resolution->errors());
     }
@@ -77,7 +84,10 @@ class Builder extends Engine
     private function resolveParameters(Resolution $resolution, array $parameters, Set $set, array $path): void
     {
         foreach ($parameters as $parameter) {
-            $nestedPath = [...$path, $parameter->getName()];
+            $nestedPath = [
+                ...$path,
+                $parameter->getName(),
+            ];
             $resolved = (new ValidateValue(notation: $this->notation, path: $nestedPath))
                 ->then(new DependencyValue(notation: $this->notation, path: $nestedPath))
                 ->then(new BackedEnumValue(notation: $this->notation, path: $nestedPath))
