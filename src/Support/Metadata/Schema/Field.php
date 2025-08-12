@@ -6,11 +6,13 @@ declare(strict_types=1);
 
 namespace Constructo\Support\Metadata\Schema;
 
+use BackedEnum;
 use BadMethodCallException;
 use Closure;
 use Constructo\Support\Metadata\Schema\Field\Rules;
 use Constructo\Support\Metadata\Schema\Registry\Spec;
 use Constructo\Support\Metadata\Schema\Registry\Specs;
+use UnitEnum;
 
 /**
  * # Global setup
@@ -90,7 +92,7 @@ use Constructo\Support\Metadata\Schema\Registry\Specs;
  * @method self exists(string $table, string $column = null)
  *
  * # Behaviors
- * @method self in(array $items)
+ * @method self in(array|string|BackedEnum|UnitEnum $items)
  * @method self notIn(array $items)
  * @method self regex(string $pattern, Closure|array $parameters = null)
  * @method self notRegex(string $pattern)
