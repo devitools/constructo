@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace Constructo\Test\Core\Fake\Resolver;
 
+use Constructo\Core\Fake\Resolver\FromEnum;
+use Constructo\Support\Reflective\Factory\Target;
 use Constructo\Support\Reflective\Notation;
 use Constructo\Support\Set;
-use PHPUnit\Framework\TestCase;
-use Constructo\Support\Reflective\Factory\Target;
 use Constructo\Test\Stub\DeepDeepDown;
 use Constructo\Test\Stub\EnumVariety;
 use Constructo\Test\Stub\NotNative;
+use Constructo\Test\Stub\Type\Enumeration;
 use Constructo\Test\Stub\Variety;
-use Constructo\Core\Fake\Resolver\FromEnum;
+use PHPUnit\Framework\TestCase;
 
 final class FromEnumTest extends TestCase
 {
@@ -28,7 +29,13 @@ final class FromEnumTest extends TestCase
         $value = $resolver->resolve($backed, $set);
 
         $this->assertNotNull($value);
-        $this->assertContains($value->content, ['foo', 'bar', 'baz']);
+        $this->assertContains($value->content,
+            [
+                'foo',
+                'bar',
+                'baz',
+            ]
+        );
     }
 
     public function testShouldNotResolveNonBackedEnum(): void
@@ -42,7 +49,7 @@ final class FromEnumTest extends TestCase
         $set = Set::createFrom([]);
         $value = $resolver->resolve($enum, $set);
 
-        $this->assertNull($value);
+        $this->assertInstanceOf(Enumeration::class, $value->content);
     }
 
     public function testShouldResolveEnumInUnionType(): void

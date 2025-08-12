@@ -7,17 +7,13 @@ namespace Constructo\Core\Fake\Resolver;
 use Constructo\Core\Fake\Resolver;
 use Constructo\Support\Set;
 use Constructo\Support\Value;
-use ReflectionException;
 use ReflectionParameter;
 
 final class FromDefaultValue extends Resolver
 {
-    /**
-     * @throws ReflectionException
-     */
     public function resolve(ReflectionParameter $parameter, Set $presets): ?Value
     {
-        if ($parameter->isOptional() || $parameter->isDefaultValueAvailable()) {
+        if ($parameter->isDefaultValueAvailable()) {
             return new Value($parameter->getDefaultValue());
         }
         if ($parameter->allowsNull()) {

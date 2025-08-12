@@ -9,6 +9,8 @@ use Constructo\Core\Fake\Resolver;
 use Constructo\Support\Set;
 use Constructo\Support\Value;
 use Random\RandomException;
+use ReflectionEnum;
+use ReflectionEnumUnitCase;
 use ReflectionNamedType;
 use ReflectionParameter;
 
@@ -24,26 +26,28 @@ final class FromEnum extends Resolver
             return parent::resolve($parameter, $presets);
         }
         $enum = $type->getName();
-        return enum_exists($enum)
-            ? $this->resolveEnumValue($enum, $parameter, $presets)
-            : parent::resolve($parameter, $presets);
+        if (! enum_exists($enum)) {
+            return parent::resolve($parameter, $presets);
+        }
+        $reflectionEnum = new ReflectionEnum($enum);
+        return $this->resolveEnumValue($reflectionEnum, $parameter, $presets);
     }
 
     /**
      * @throws RandomException
      */
-    private function resolveEnumValue(string $enum, ReflectionParameter $parameter, Set $presets): ?Value
+    private function resolveEnumValue(ReflectionEnum $reflectionEnum, ReflectionParameter $parameter, Set $presets): ?Value
     {
-        if (! is_subclass_of($enum, BackedEnum::class)) {
+        /** @var ReflectionEnumUnitCase[] $enumCases */
+        $enumCases = $reflectionEnum->getCases();
+        if (empty($enumCases)) {
             return parent::resolve($parameter, $presets);
         }
 
-        $enumValues = $enum::cases();
-        if (empty($enumValues)) {
-            return parent::resolve($parameter, $presets);
+        $case = $enumCases[random_int(0, count($enumCases) - 1)]->getValue();
+        if ($case instanceof BackedEnum) {
+            return new Value($case->value);
         }
-
-        $randomValue = $enumValues[random_int(0, count($enumValues) - 1)]->value;
-        return new Value($randomValue);
+        return new Value($case);
     }
 }

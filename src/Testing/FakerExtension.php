@@ -5,16 +5,28 @@ declare(strict_types=1);
 namespace Constructo\Testing;
 
 use Constructo\Core\Fake\Faker;
+use Constructo\Support\Reflective\Notation;
 use Faker\Generator;
 
 trait FakerExtension
 {
     private ?Faker $faker = null;
 
-    protected function faker(): Faker
+    protected function faker(
+        Notation $case = Notation::SNAKE,
+        array $formatters = [],
+        ?string $locale = null,
+        bool $ignoreFromDefaultValue = false,
+    ): Faker
     {
         if ($this->faker === null) {
-            $this->faker = $this->make(Faker::class);
+            $args = [
+                'case' => $case,
+                'formatters' => $formatters,
+                'locale' => $locale,
+                'ignoreFromDefaultValue' => $ignoreFromDefaultValue,
+            ];
+            $this->faker = $this->make(Faker::class, $args);
         }
         return $this->faker;
     }

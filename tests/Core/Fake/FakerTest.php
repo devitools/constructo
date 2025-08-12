@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Constructo\Test\Core\Fake;
 
 use Constructo\Core\Fake\Faker;
+use Constructo\Core\Fake\Options;
+use Constructo\Core\Serialize\Builder;
 use Constructo\Support\Reflective\Notation;
 use Constructo\Test\Stub\Builtin;
 use Constructo\Test\Stub\EnumVariety;
+use Constructo\Test\Stub\EnumerationAndNullable;
 use PHPUnit\Framework\TestCase;
 
 final class FakerTest extends TestCase
@@ -229,6 +232,19 @@ final class FakerTest extends TestCase
         $this->assertIsFloat($result->get('float'));
         $this->assertIsBool($result->get('bool'));
         $this->assertIsArray($result->get('array'));
+    }
+
+    public function testShouldHandleNullableAndNotBackedEnum(): void
+    {
+        $faker = new Faker(ignoreFromDefaultValue: true);
+        $builder = new Builder();
+
+        $values = $faker->fake(EnumerationAndNullable::class);
+        $instance = $builder->build(EnumerationAndNullable::class, $values);
+
+        $this->assertSame($values->get('unit'), $instance->unit);
+        $this->assertSame($values->get('backed'), $instance->backed->value);
+        $this->assertSame($values->get('builtin')['string'], $instance->builtin->string);
     }
 
     public function testShouldGenerateWithArguments(): void

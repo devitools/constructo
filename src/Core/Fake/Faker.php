@@ -199,6 +199,7 @@ class Faker extends Engine implements Contract
         Notation $case = Notation::SNAKE,
         array $formatters = [],
         ?string $locale = null,
+        private readonly bool $ignoreFromDefaultValue = false,
     ) {
         parent::__construct($case, $formatters);
 
@@ -238,10 +239,14 @@ class Faker extends Engine implements Contract
 
     /**
      * @param array<ReflectionParameter> $parameters
+     * @throws ReflectionException
      */
     private function resolveParameters(array $parameters, Set $presets): Set
     {
         $values = [];
+        $fromDefaultValue = $this->ignoreFromDefaultValue
+            ? null
+            : new FromDefaultValue($this->notation, $this->formatters);
         foreach ($parameters as $parameter) {
             $field = $this->casedField($parameter);
             $generated = (new FromDependency($this->notation, $this->formatters))
@@ -250,7 +255,7 @@ class Faker extends Engine implements Contract
                 ->then(new FromTypeBuiltin($this->notation, $this->formatters))
                 ->then(new FromTypeAttributes($this->notation, $this->formatters))
                 ->then(new FromEnum($this->notation, $this->formatters))
-                ->then(new FromDefaultValue($this->notation, $this->formatters))
+                ->then($fromDefaultValue)
                 ->then(new FromPreset($this->notation, $this->formatters))
                 ->resolve($parameter, $presets);
 

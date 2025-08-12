@@ -17,8 +17,11 @@ abstract class Resolver extends Faker
 {
     protected ?Resolver $previous = null;
 
-    final public function then(Resolver $resolver): Resolver
+    final public function then(?Resolver $resolver): Resolver
     {
+        if ($resolver === null) {
+            return $this;
+        }
         $resolver->previous($this);
         return $resolver;
     }
