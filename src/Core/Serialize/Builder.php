@@ -89,8 +89,8 @@ class Builder extends Engine
                 $parameter->getName(),
             ];
             $resolved = (new ValidateValue(notation: $this->notation, path: $nestedPath))
-                ->then(new TypeMatched(notation: $this->notation, path: $nestedPath))
                 ->then(new DependencyValue(notation: $this->notation, path: $nestedPath))
+                ->then(new TypeMatched(notation: $this->notation, path: $nestedPath))
                 ->then(new BackedEnumValue(notation: $this->notation, path: $nestedPath))
                 ->then(new AttributeValue(notation: $this->notation, path: $nestedPath))
                 ->then(new CollectionValue(notation: $this->notation, path: $nestedPath))
