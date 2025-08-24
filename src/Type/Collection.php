@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Constructo\Type;
 
+use Closure;
 use Constructo\Contract\Collectable;
 use Constructo\Contract\Exportable;
 use Constructo\Support\Datum;
@@ -35,6 +36,20 @@ abstract class Collection extends AbstractCollection implements Exportable, Coll
             return;
         }
         $this->data[] = $this->validate($datum);
+    }
+
+    /**
+     * @return T|null
+     */
+    public function find(Closure $closure): mixed
+    {
+        foreach ($this->data as $datum) {
+            $matches = $closure($datum);
+            if ($matches === true) {
+                return $datum;
+            }
+        }
+        return null;
     }
 
     abstract protected function validate(mixed $datum): mixed;
