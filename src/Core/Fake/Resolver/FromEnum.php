@@ -36,8 +36,11 @@ final class FromEnum extends Resolver
     /**
      * @throws RandomException
      */
-    private function resolveEnumValue(ReflectionEnum $reflectionEnum, ReflectionParameter $parameter, Set $presets): ?Value
-    {
+    private function resolveEnumValue(
+        ReflectionEnum $reflectionEnum,
+        ReflectionParameter $parameter,
+        Set $presets,
+    ): ?Value {
         /** @var ReflectionEnumUnitCase[] $enumCases */
         $enumCases = $reflectionEnum->getCases();
         if (empty($enumCases)) {

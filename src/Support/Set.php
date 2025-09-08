@@ -13,8 +13,9 @@ use function array_map;
 use function array_merge;
 use function count;
 use function is_array;
+use function is_string;
 
-final readonly class Set
+readonly class Set
 {
     /**
      * @var array<string, mixed>
@@ -27,7 +28,7 @@ final readonly class Set
             throw new SchemaException('Values must be an array.');
         }
         $keys = array_keys($data);
-        $filtered = array_filter($keys, 'is_string');
+        $filtered = array_filter($keys, fn (mixed $item) => is_string($item));
         if (count($keys) !== count($filtered)) {
             throw new SchemaException('All keys must be strings.');
         }
@@ -35,7 +36,7 @@ final readonly class Set
         $this->data = $data;
     }
 
-    public static function createFrom(mixed $data): Set
+    public static function createFrom(mixed $data): self
     {
         return new Set($data);
     }
@@ -53,9 +54,14 @@ final readonly class Set
         throw new SchemaException(sprintf("Field '%s' not found.", $field));
     }
 
-    public function with(string $field, mixed $value): Set
+    public function with(string $field, mixed $value): self
     {
-        return new Set(array_merge($this->toArray(), [$field => $value]));
+        return new self(array_merge($this->toArray(), [$field => $value]));
+    }
+
+    public function along(array $values): self
+    {
+        return new self(array_merge($this->toArray(), $values));
     }
 
     /**
@@ -64,12 +70,12 @@ final readonly class Set
     public function toArray(): array
     {
         /* @phpstan-ignore return.type */
-        return array_map(fn (mixed $item) => $item instanceof Set ? $item->toArray() : $item, $this->data);
-    }
-
-    public function along(array $values): Set
-    {
-        return new Set(array_merge($this->toArray(), $values));
+        return array_map(
+            fn (mixed $item) => $item instanceof static
+                ? $item->toArray()
+                : $item,
+            $this->data
+        );
     }
 
     public function has(string $field): bool
