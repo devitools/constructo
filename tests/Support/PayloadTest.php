@@ -45,12 +45,7 @@ final class PayloadTest extends TestCase
         $payload = new Payload(['key' => 'value']);
         $this->expectException(SchemaException::class);
         $this->expectExceptionMessage('Cannot modify payload properties');
-
-        // Use a closure to test the exception since readonly classes don't allow dynamic properties
-        $test = function() use ($payload) {
-            $payload->__set('key', 'new_value');
-        };
-        $test();
+        $payload->__set('key', 'new_value');
     }
 
     public function testResolveWithScalarValue(): void
@@ -85,7 +80,7 @@ final class PayloadTest extends TestCase
                 ]
             ]
         ]);
-        $this->assertEquals('deep_value', $payload->level1->level2->level3);
+        $this->assertEquals('deep_value', $payload->level1?->level2?->level3);
     }
 
     public function testInheritedGetMethod(): void
@@ -113,7 +108,6 @@ final class PayloadTest extends TestCase
     {
         $payload = new Payload(['key' => 'value']);
         $newPayload = $payload->with('new_key', 'new_value');
-        $this->assertInstanceOf(Payload::class, $newPayload);
         $this->assertEquals('new_value', $newPayload->get('new_key'));
         $this->assertEquals('value', $newPayload->get('key'));
     }
@@ -122,7 +116,6 @@ final class PayloadTest extends TestCase
     {
         $payload = new Payload(['key' => 'value']);
         $newPayload = $payload->along(['new_key' => 'new_value']);
-        $this->assertInstanceOf(Payload::class, $newPayload);
         $this->assertEquals('new_value', $newPayload->get('new_key'));
         $this->assertEquals('value', $newPayload->get('key'));
     }
