@@ -24,6 +24,9 @@ abstract class Collection extends AbstractCollection implements Exportable, Coll
         parent::__construct([]);
     }
 
+    /**
+     * @return array<T>
+     */
     public function export(): array
     {
         return $this->data;
