@@ -8,7 +8,7 @@ use Constructo\Support\Managed;
 
 trait ManagedExtension
 {
-    private ?Managed $managed = null;
+    protected ?Managed $managed = null;
 
     protected function managed(): Managed
     {
