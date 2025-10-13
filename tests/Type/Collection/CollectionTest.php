@@ -12,6 +12,8 @@ use Exception;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+use function Constructo\Cast\stringify;
+
 final class CollectionTest extends TestCase
 {
     public function testShouldCreateFromArray(): void
@@ -60,5 +62,76 @@ final class CollectionTest extends TestCase
         // Assert
         $this->assertCount(1, $collection);
         $this->assertInstanceOf(Datum::class, $collection->all()[0]);
+    }
+
+    public function testShouldFindMatchingItem(): void
+    {
+        $collection = new Collection();
+        $stub1 = new Stub('foo');
+        $stub2 = new Stub('bar');
+        $stub3 = new Stub('baz');
+
+        $collection->push($stub1);
+        $collection->push($stub2);
+        $collection->push($stub3);
+
+        $result = $collection->find(fn ($item) => $item->value === 'bar');
+
+        $this->assertSame($stub2, $result);
+    }
+
+    public function testShouldReturnNullWhenNoMatchFound(): void
+    {
+        $collection = new Collection();
+        $stub1 = new Stub('foo');
+        $stub2 = new Stub('bar');
+
+        $collection->push($stub1);
+        $collection->push($stub2);
+
+        $result = $collection->find(fn ($item) => $item->value === 'nonexistent');
+
+        $this->assertNull($result);
+    }
+
+    public function testShouldReturnNullWhenFindingInEmptyCollection(): void
+    {
+        $collection = new Collection();
+
+        $result = $collection->find(fn ($item) => $item->value === 'anything');
+
+        $this->assertNull($result);
+    }
+
+    public function testShouldReturnFirstMatchWhenMultipleMatches(): void
+    {
+        $collection = new Collection();
+        $stub1 = new Stub('same');
+        $stub2 = new Stub('same');
+        $stub3 = new Stub('different');
+
+        $collection->push($stub1);
+        $collection->push($stub2);
+        $collection->push($stub3);
+
+        $result = $collection->find(fn ($item) => $item->value === 'same');
+
+        $this->assertSame($stub1, $result);
+    }
+
+    public function testShouldFindWithComplexClosure(): void
+    {
+        $collection = new Collection();
+        $stub1 = new Stub('short');
+        $stub2 = new Stub('verylongvalue');
+        $stub3 = new Stub('medium');
+
+        $collection->push($stub1);
+        $collection->push($stub2);
+        $collection->push($stub3);
+
+        $result = $collection->find(fn ($item) => strlen(stringify($item->value)) > 8);
+
+        $this->assertSame($stub2, $result);
     }
 }
