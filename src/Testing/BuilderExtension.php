@@ -8,7 +8,7 @@ use Constructo\Core\Serialize\Builder;
 
 trait BuilderExtension
 {
-    private ?Builder $builder = null;
+    protected ?Builder $builder = null;
 
     protected function builder(): Builder
     {

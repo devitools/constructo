@@ -11,7 +11,7 @@ use ReflectionException;
 
 trait FakerExtension
 {
-    private ?Faker $faker = null;
+    protected ?Faker $faker = null;
 
     /**
      * @throws ReflectionException
