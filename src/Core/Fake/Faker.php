@@ -198,7 +198,7 @@ class Faker extends Engine implements Contract
     public function __construct(
         Notation $case = Notation::SNAKE,
         array $formatters = [],
-        ?string $locale = null,
+        private readonly ?string $locale = null,
         private readonly bool $ignoreFromDefaultValue = false,
     ) {
         parent::__construct($case, $formatters);
@@ -246,17 +246,22 @@ class Faker extends Engine implements Contract
         $values = [];
         $fromDefaultValue = $this->ignoreFromDefaultValue
             ? null
-            : new FromDefaultValue($this->notation, $this->formatters);
+            : new FromDefaultValue($this->notation, $this->formatters, $this->locale);
         foreach ($parameters as $parameter) {
             $field = $this->casedField($parameter);
-            $generated = (new FromDependency($this->notation, $this->formatters))
-                ->then(new FromTypeDate($this->notation, $this->formatters))
-                ->then(new FromCollection($this->notation, $this->formatters))
-                ->then(new FromTypeBuiltin($this->notation, $this->formatters))
-                ->then(new FromTypeAttributes($this->notation, $this->formatters))
-                ->then(new FromEnum($this->notation, $this->formatters))
+            $generated = (new FromDependency(
+                $this->notation,
+                $this->formatters,
+                $this->locale,
+                $this->ignoreFromDefaultValue
+            ))
+                ->then(new FromTypeDate($this->notation, $this->formatters, $this->locale))
+                ->then(new FromCollection($this->notation, $this->formatters, $this->locale))
+                ->then(new FromTypeBuiltin($this->notation, $this->formatters, $this->locale))
+                ->then(new FromTypeAttributes($this->notation, $this->formatters, $this->locale))
+                ->then(new FromEnum($this->notation, $this->formatters, $this->locale))
                 ->then($fromDefaultValue)
-                ->then(new FromPreset($this->notation, $this->formatters))
+                ->then(new FromPreset($this->notation, $this->formatters, $this->locale))
                 ->resolve($parameter, $presets);
 
             if ($generated === null) {
