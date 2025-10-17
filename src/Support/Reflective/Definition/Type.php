@@ -19,6 +19,7 @@ enum Type: string
     case CITY = 'city';
     case STREET = 'streetName';
     case ADDRESS = 'address';
+    case ADDRESS_LINE = 'streetAddress';
     case COUNTRY = 'country';
     case POSTCODE = 'postcode';
     case LATITUDE = 'latitude';
@@ -51,4 +52,5 @@ enum Type: string
     case MAC_ADDRESS = 'macAddress';
     case USERAGENT = 'userAgent';
     case UUID = 'uuid';
+    case DATE = 'date';
 }
