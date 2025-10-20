@@ -18,6 +18,7 @@ use Constructo\Support\Reflective\Engine;
 use Constructo\Support\Reflective\Factory\Target;
 use Constructo\Support\Reflective\Notation;
 use Constructo\Support\Set;
+use Constructo\Support\Value;
 use DateTime;
 use Faker\Factory;
 use Faker\Generator;
@@ -247,28 +248,9 @@ class Faker extends Engine implements Contract
         $fromDefaultValue = $this->ignoreFromDefaultValue
             ? null
             : new FromDefaultValue($this->notation, $this->formatters, $this->locale);
-        $fromTypeAttributes = new FromTypeAttributes(
-            $this->notation,
-            $this->formatters,
-            $this->locale,
-            $this->ignoreFromDefaultValue
-        );
         foreach ($parameters as $parameter) {
             $field = $this->casedField($parameter);
-            $generated = (new FromDependency(
-                $this->notation,
-                $this->formatters,
-                $this->locale,
-                $this->ignoreFromDefaultValue
-            ))
-                ->then(new FromTypeDate($this->notation, $this->formatters, $this->locale))
-                ->then(new FromCollection($this->notation, $this->formatters, $this->locale))
-                ->then(new FromTypeBuiltin($this->notation, $this->formatters, $this->locale))
-                ->then($fromTypeAttributes)
-                ->then(new FromEnum($this->notation, $this->formatters, $this->locale))
-                ->then($fromDefaultValue)
-                ->then(new FromPreset($this->notation, $this->formatters, $this->locale))
-                ->resolve($parameter, $presets);
+            $generated = $this->generateValue($parameter, $presets, $fromDefaultValue);
 
             if ($generated === null) {
                 continue;
@@ -287,5 +269,36 @@ class Faker extends Engine implements Contract
                 : $locale;
         };
         return $locale ?? $fallback();
+    }
+
+    /**
+     * @throws ReflectionException
+     */
+    private function generateValue(
+        ReflectionParameter $parameter,
+        Set $presets,
+        ?FromDefaultValue $fromDefaultValue = null,
+    ): ?Value {
+        return (new FromDependency(
+            $this->notation,
+            $this->formatters,
+            $this->locale,
+            $this->ignoreFromDefaultValue
+        ))
+            ->then(new FromTypeDate($this->notation, $this->formatters, $this->locale))
+            ->then(new FromCollection($this->notation, $this->formatters, $this->locale))
+            ->then(new FromTypeBuiltin($this->notation, $this->formatters, $this->locale))
+            ->then(
+                new FromTypeAttributes(
+                    $this->notation,
+                    $this->formatters,
+                    $this->locale,
+                    $this->ignoreFromDefaultValue
+                )
+            )
+            ->then(new FromEnum($this->notation, $this->formatters, $this->locale))
+            ->then($fromDefaultValue)
+            ->then(new FromPreset($this->notation, $this->formatters, $this->locale))
+            ->resolve($parameter, $presets);
     }
 }

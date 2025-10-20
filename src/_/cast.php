@@ -6,6 +6,18 @@ namespace Constructo\Cast;
 
 use Stringable;
 
+use function function_exists;
+use function is_array;
+use function is_bool;
+use function is_float;
+use function is_int;
+use function is_numeric;
+use function is_object;
+use function is_scalar;
+use function is_string;
+use function method_exists;
+use function sprintf;
+
 if (! function_exists(__NAMESPACE__ . '\arrayify')) {
     /**
      * @template T of array-key
@@ -15,7 +27,9 @@ if (! function_exists(__NAMESPACE__ . '\arrayify')) {
      */
     function arrayify(mixed $value, array $default = []): array
     {
-        return is_array($value) ? $value : $default;
+        return is_array($value)
+            ? $value
+            : $default;
     }
 }
 
@@ -33,7 +47,9 @@ if (! function_exists(__NAMESPACE__ . '\mapify')) {
         };
         $mapping = [];
         foreach ($data as $key => $datum) {
-            $key = is_string($key) ? $key : sprintf('key_%s', $key);
+            $key = is_string($key)
+                ? $key
+                : sprintf('key_%s', $key);
             $mapping[$key] = $datum;
         }
         return $mapping;
@@ -56,22 +72,32 @@ if (! function_exists(__NAMESPACE__ . '\stringify')) {
 if (! function_exists(__NAMESPACE__ . '\integerify')) {
     function integerify(mixed $value, int $default = 0): int
     {
-        $value = is_numeric($value) ? (int) $value : $value;
-        return is_int($value) ? $value : $default;
+        return match (true) {
+            is_int($value) => $value,
+            is_numeric($value) => (int) $value,
+            is_bool($value) => (int) $value,
+            default => $default,
+        };
     }
 }
 
 if (! function_exists(__NAMESPACE__ . '\floatify')) {
     function floatify(mixed $value, float $default = 0.0): float
     {
-        $value = is_numeric($value) ? (float) $value : $value;
-        return is_float($value) ? $value : $default;
+        $value = is_numeric($value)
+            ? (float) $value
+            : $value;
+        return is_float($value)
+            ? $value
+            : $default;
     }
 }
 
 if (! function_exists(__NAMESPACE__ . '\boolify')) {
     function boolify(mixed $value, bool $default = false): bool
     {
-        return is_bool($value) ? $value : $default;
+        return is_bool($value)
+            ? $value
+            : $default;
     }
 }
