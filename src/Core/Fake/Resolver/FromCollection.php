@@ -16,7 +16,6 @@ use ReflectionParameter;
 
 final class FromCollection extends Resolver
 {
-    use MakeExtension;
     use ManagedExtension;
 
     /**

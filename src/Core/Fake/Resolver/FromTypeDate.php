@@ -18,7 +18,6 @@ use ReflectionParameter;
 
 final class FromTypeDate extends Resolver
 {
-    use MakeExtension;
     use ManagedExtension;
 
     /**

@@ -7,13 +7,11 @@ namespace Constructo\Core\Fake\Resolver;
 use Constructo\Core\Fake\Resolver;
 use Constructo\Support\Set;
 use Constructo\Support\Value;
-use Constructo\Testing\MakeExtension;
 use Constructo\Testing\ManagedExtension;
 use ReflectionParameter;
 
 final class FromTypeBuiltin extends Resolver
 {
-    use MakeExtension;
     use ManagedExtension;
 
     public function resolve(ReflectionParameter $parameter, Set $presets): ?Value

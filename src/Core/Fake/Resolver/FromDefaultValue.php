@@ -13,6 +13,14 @@ final class FromDefaultValue extends Resolver
 {
     public function resolve(ReflectionParameter $parameter, Set $presets): ?Value
     {
+        if ($this->ignoreFromDefaultValue) {
+            return parent::resolve($parameter, $presets);
+        }
+        return $this->resolveFromDefaultValue($parameter, $presets);
+    }
+
+    private function resolveFromDefaultValue(ReflectionParameter $parameter, Set $presets): ?Value
+    {
         if ($parameter->isDefaultValueAvailable()) {
             return new Value($parameter->getDefaultValue());
         }

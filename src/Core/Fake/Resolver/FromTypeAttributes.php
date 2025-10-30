@@ -13,7 +13,6 @@ use Constructo\Support\Reflective\Definition\Type;
 use Constructo\Support\Reflective\Definition\TypeExtended;
 use Constructo\Support\Set;
 use Constructo\Support\Value;
-use Constructo\Testing\MakeExtension;
 use Constructo\Testing\ManagedExtension;
 use ReflectionNamedType;
 use ReflectionParameter;
@@ -22,7 +21,6 @@ use ReflectionUnionType;
 
 final class FromTypeAttributes extends Resolver
 {
-    use MakeExtension;
     use ManagedExtension;
 
     /**
@@ -69,8 +67,14 @@ final class FromTypeAttributes extends Resolver
     private function resolveManaged(Managed $instance): ?Value
     {
         return match ($instance->management) {
-            'id' => new Value($this->managed()->id()),
-            'timestamp' => new Value($this->managed()->now()),
+            'id' => new Value(
+                $this->managed()
+                    ->id()
+            ),
+            'timestamp' => new Value(
+                $this->managed()
+                    ->now()
+            ),
             default => null,
         };
     }
