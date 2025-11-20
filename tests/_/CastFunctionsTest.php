@@ -64,17 +64,49 @@ final class CastFunctionsTest extends TestCase
 
     public function testToBoolReturnsBoolWhenValueIsBool(): void
     {
-        $value = true;
-        $result = boolify($value);
-        $this->assertEquals($value, $result);
+        $result = boolify(true);
+        $this->assertTrue($result);
     }
 
     public function testToBoolReturnsDefaultWhenValueIsNotBool(): void
     {
         $value = 'not a bool';
-        $default = true;
-        $result = boolify($value, $default);
-        $this->assertEquals(true, $result);
+        $result = boolify($value, true);
+        $this->assertTrue($result);
+    }
+
+    public function testBoolifyParsesStringPositives(): void
+    {
+        $this->assertTrue(boolify('1'));
+        $this->assertTrue(boolify('true'));
+        $this->assertTrue(boolify('TRUE'));
+        $this->assertTrue(boolify('on'));
+        $this->assertTrue(boolify('ON'));
+        $this->assertTrue(boolify('yes'));
+        $this->assertTrue(boolify('Y'));
+        $this->assertTrue(boolify('yEs'));
+    }
+
+    public function testBoolifyParsesStringNegatives(): void
+    {
+        $this->assertFalse(boolify('0'));
+        $this->assertFalse(boolify('false'));
+        $this->assertFalse(boolify('FALSE'));
+        $this->assertFalse(boolify('off'));
+        $this->assertFalse(boolify('OFF'));
+        $this->assertFalse(boolify('no'));
+        $this->assertFalse(boolify('n'));
+        $this->assertFalse(boolify(''));
+    }
+
+    public function testBoolifyHandlesNumericValues(): void
+    {
+        $this->assertTrue(boolify(1));
+        $this->assertFalse(boolify(0));
+        $this->assertTrue(boolify(10));
+        $this->assertTrue(boolify(-3));
+        $this->assertTrue(boolify('2'));
+        $this->assertFalse(boolify('0'));
     }
 
     public function testFloatifyReturnsFloatWhenValueIsFloat(): void
@@ -113,21 +145,38 @@ final class CastFunctionsTest extends TestCase
         $object->name = 'John';
         $object->age = 30;
         $result = mapify($object);
-        $this->assertEquals(['name' => 'John', 'age' => 30], $result);
+        $this->assertEquals(
+            [
+                'name' => 'John',
+                'age' => 30,
+            ],
+            $result
+        );
     }
 
     public function testMapifyReturnsArrayWhenValueIsArray(): void
     {
-        $array = ['key' => 'value', 'number' => 42];
+        $array = [
+            'key' => 'value',
+            'number' => 42,
+        ];
         $result = mapify($array);
         $this->assertEquals($array, $result);
     }
 
     public function testMapifyHandlesNumericKeys(): void
     {
-        $array = [0 => 'first', 1 => 'second', 'name' => 'test'];
+        $array = [
+            0 => 'first',
+            1 => 'second',
+            'name' => 'test',
+        ];
         $result = mapify($array);
-        $expected = ['key_0' => 'first', 'key_1' => 'second', 'name' => 'test'];
+        $expected = [
+            'key_0' => 'first',
+            'key_1' => 'second',
+            'name' => 'test',
+        ];
         $this->assertEquals($expected, $result);
     }
 
