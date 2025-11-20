@@ -12,17 +12,21 @@ Automate the versioning and publishing process by:
 
 ### 1. Get Current Version and Commits
 
-Run these commands in parallel:
-- `git describe --tags --abbrev=0` - Get the latest tag
-- `git log $(git describe --tags --abbrev=0)..HEAD --oneline` - Get commits since last tag
+First, get the latest tag:
+- `git describe --tags --abbrev=0`
+
+Then, get commits since the last tag (replace LAST_TAG with the tag from the previous command):
+- `git log LAST_TAG..HEAD --oneline`
+
+Note: You should execute the first command, get the tag value, then use it in the second command.
 
 ### 2. Analyze Version Bump
 
 Based on conventional commits since the last tag, determine the version bump:
 
 **MAJOR (X.0.0)** - Breaking changes:
-- Commits with `BREAKING CHANGE:` in body
-- Commits with `!` after type (e.g., `feat!:`, `fix!:`)
+- Commits with BREAKING CHANGE: in body
+- Commits with an exclamation mark after type (e.g., feat!:, fix!:)
 - Major refactoring that changes public API
 
 **MINOR (X.Y.0)** - New features:
