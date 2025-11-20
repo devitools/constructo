@@ -43,9 +43,9 @@ Based on conventional commits since the last tag, determine the version bump:
 
 Show:
 - Current version
-- Commits since last tag (grouped by type)
+- Commits since the last tag (grouped by type)
 - Suggested new version with reasoning
-- Ask user to confirm or specify a different version
+- Ask the user to confirm or specify a different version
 
 Example:
 ```
@@ -65,7 +65,7 @@ Options:
 
 ### 4. Create Tag Summary
 
-Ask the user for a concise summary description, or suggest one based on the commits.
+Ask the user for a concise summary description or suggest one based on the commits.
 
 The tag message format follows this pattern:
 ```
@@ -116,20 +116,20 @@ Then show:
 
 - Always get user confirmation before creating and pushing tags
 - NEVER push tags without explicit confirmation
-- If no commits since last tag, inform user and stop
+- If no commits since the last tag, inform the user and stop
 - Validate version format (must be semantic versioning: X.Y.Z)
-- Check if tag already exists before creating
-- If push fails, show error and suggest solutions
+- Check if the tag already exists before creating
+- If the push fails, show error and suggest solutions
 
 ## Error Handling
 
-If tag already exists:
+If the tag already exists:
 - Show error message
-- Ask if user wants to delete and recreate (not recommended)
-- Suggest incrementing version instead
+- Ask if the user wants to delete and recreate (not recommended)
+- Suggest an incrementing version instead
 
-If push fails:
+If the push fails:
 - Check internet connection
 - Verify git remote is configured
-- Show full error message
+- Show the full error message
 - Suggest running `git remote -v` to check remote configuration
