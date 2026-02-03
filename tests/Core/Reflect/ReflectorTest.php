@@ -309,7 +309,7 @@ class ReflectorTest extends TestCase
         );
 
         // Should not have any nested rules for empty_field since EmptyClass has no constructor parameters
-        $nestedKeys = array_filter(array_keys($rules), fn ($key) => str_starts_with($key, 'empty_field.'));
+        $nestedKeys = array_filter(array_keys($rules), fn ($key) => str_starts_with((string) $key, 'empty_field.'));
         $this->assertEmpty($nestedKeys);
     }
 }
