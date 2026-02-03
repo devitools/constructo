@@ -37,6 +37,10 @@ class CollectionValue extends Resolver
      */
     private function resolveCollection(string $collectionName, mixed $value): Value
     {
+        if ($value instanceof $collectionName) {
+            return new Value($value);
+        }
+
         $reflection = new ReflectionClass($collectionName);
         $type = $this->detectCollectionType($reflection);
 
@@ -45,6 +49,15 @@ class CollectionValue extends Resolver
         if ($type === null || ! is_array($value)) {
             return new Value($collection);
         }
+        return $this->populateCollection($collection, $type, $value);
+    }
+
+    /**
+     * @param class-string $type
+     * @param array<mixed> $value
+     */
+    private function populateCollection(Collectable $collection, string $type, array $value): Value
+    {
         foreach ($value as $datum) {
             $datum = arrayify($datum);
             $set = Set::createFrom($datum);
