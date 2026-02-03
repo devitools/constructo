@@ -50,7 +50,7 @@ readonly class Payload extends Set
             return $value;
         }
         $keys = array_keys($value);
-        $filtered = array_filter($keys, fn (mixed $item) => is_string($item));
+        $filtered = array_filter($keys, is_string(...));
         if (count($keys) !== count($filtered)) {
             return $value;
         }

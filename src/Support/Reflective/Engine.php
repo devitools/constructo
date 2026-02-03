@@ -102,7 +102,7 @@ abstract class Engine extends Resolution
      */
     private function joinReflectionTypeNames(array $types, string $separator): string
     {
-        $array = array_map(fn (ReflectionType $type) => $this->formatTypeName($type), $types);
+        $array = array_map($this->formatTypeName(...), $types);
         sort($array);
         return implode($separator, $array);
     }

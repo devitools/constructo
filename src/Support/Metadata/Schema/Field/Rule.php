@@ -37,7 +37,7 @@ readonly class Rule implements Stringable, JsonSerializable
         if (empty($arguments)) {
             return $this->spec->name;
         }
-        $arguments = array_map(fn (mixed $item): string => $this->enforce($item), $arguments);
+        $arguments = array_map($this->enforce(...), $arguments);
         $definition = implode(',', $arguments);
         return sprintf('%s:%s', $this->spec->name, $definition);
     }
@@ -54,7 +54,7 @@ readonly class Rule implements Stringable, JsonSerializable
             is_iterable($item) => implode(
                 ',',
                 array_map(
-                    fn ($element): string => $this->enforce($element),
+                    $this->enforce(...),
                     is_array($item)
                         ? $item
                         : iterator_to_array($item, false)

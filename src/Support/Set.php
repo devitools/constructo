@@ -28,7 +28,7 @@ readonly class Set
             throw new SchemaException('Values must be an array.');
         }
         $keys = array_keys($data);
-        $filtered = array_filter($keys, fn (mixed $item) => is_string($item));
+        $filtered = array_filter($keys, is_string(...));
         if (count($keys) !== count($filtered)) {
             throw new SchemaException('All keys must be strings.');
         }
