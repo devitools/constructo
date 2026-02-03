@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
+use Rector\CodingStyle\Rector\ArrowFunction\ArrowFunctionDelegatingCallToFirstClassCallableRector;
 use Rector\Config\RectorConfig;
 use Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
 use Rector\Php83\Rector\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector;
@@ -20,7 +21,12 @@ return static function (RectorConfig $config): void {
     // register a single rule
     $config->rule(InlineConstructorDefaultToPropertyRector::class);
 
-    $config->skip([AddOverrideAttributeToOverriddenMethodsRector::class]);
+    $config->skip([
+        AddOverrideAttributeToOverriddenMethodsRector::class,
+        ArrowFunctionDelegatingCallToFirstClassCallableRector::class => [
+            __DIR__ . '/tests/Core/Serialize/Resolver/FormatValueTest.php',
+        ],
+    ]);
     $config->skip([
         ClassPropertyAssignToConstructorPromotionRector::class => [
             __DIR__ . '/tests/Stub/Variety.php',
