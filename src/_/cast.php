@@ -99,8 +99,8 @@ if (! function_exists(__NAMESPACE__ . '\boolify')) {
         return match (true) {
             is_bool($value) => $value,
             is_numeric($value) => (bool) $value,
-            is_string($value) && ($value === 'true' || $value === '1') => true,
-            is_string($value) && ($value === 'false' || $value === '1') => false,
+            in_array($value, ['true', '1'], true) => true,
+            in_array($value, ['false', '0'], true) => false,
             default => $default,
         };
     }
