@@ -92,6 +92,8 @@ class Reflector
      */
     private function introspectSource(string $source, Schema $schema, Field $parent, array $path): void
     {
+        $originalSource = $source;
+
         $result = $this->introspector->analyze($source);
         $introspection = $result->introspectable();
         if ($introspection !== null) {
@@ -104,9 +106,25 @@ class Reflector
             return;
         }
 
-        $this->sources[] = $source;
+        $this->pushSources($originalSource, $source);
         $this->introspect($nestedParameters, $schema, $parent, $path);
+        $this->popSources($originalSource, $source);
+    }
+
+    private function pushSources(string $originalSource, string $source): void
+    {
+        $this->sources[] = $originalSource;
+        if ($originalSource !== $source) {
+            $this->sources[] = $source;
+        }
+    }
+
+    private function popSources(string $originalSource, string $source): void
+    {
         array_pop($this->sources);
+        if ($originalSource !== $source) {
+            array_pop($this->sources);
+        }
     }
 
     private function wouldCauseCircularReference(string $source): bool
@@ -125,7 +143,7 @@ class Reflector
         if (is_array($parameters)) {
             return $parameters;
         }
-        $parameters = Target::createFrom((string)$source)
+        $parameters = Target::createFrom((string) $source)
             ->getReflectionParameters();
         return $this->cache->set($key, $parameters);
     }

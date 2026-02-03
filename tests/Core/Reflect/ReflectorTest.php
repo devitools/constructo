@@ -16,6 +16,7 @@ use Constructo\Support\Reflective\Notation;
 use Constructo\Test\Stub\Domain\Entity\Command\GameCommand;
 use Constructo\Test\Stub\Domain\Entity\Command\PersonCommand;
 use Constructo\Test\Stub\Domain\Entity\EmptyClass;
+use Constructo\Test\Stub\Reflector\Node;
 use Constructo\Test\Stub\Reflector\Sample;
 use Constructo\Testing\MakeExtension;
 use PHPUnit\Framework\TestCase;
@@ -311,5 +312,21 @@ class ReflectorTest extends TestCase
         // Should not have any nested rules for empty_field since EmptyClass has no constructor parameters
         $nestedKeys = array_filter(array_keys($rules), fn ($key) => str_starts_with((string) $key, 'empty_field.'));
         $this->assertEmpty($nestedKeys);
+    }
+
+    public function testReflectorHandlesCircularReferenceViaCollection(): void
+    {
+        $schema = $this->reflector->reflect(Node::class);
+        $rules = $schema->rules();
+
+        $json = '{
+          "name": ["required", "string"],
+          "children": ["sometimes", "nullable", "array"],
+          "children.*.name": ["sometimes", "string"],
+          "children.*.children": ["sometimes", "nullable", "array"]
+        }';
+        $expected = json_decode($json, true);
+
+        $this->assertEquals($expected, $rules);
     }
 }
